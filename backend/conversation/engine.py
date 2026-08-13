@@ -25,18 +25,16 @@ new main question comes back in, FollowUpState is already sitting at
 round 0, which is exactly the state build_state_context() needs to
 correctly ask for the mandatory Layer-1 follow-up.
 
-Scoring placeholder
---------------------
-_heuristic_score_answer() is a deliberately crude stand-in for the real
-scoring system (backend/scoring/, not built yet -- see
-models/session_schema.py's own distinction between
-QAItem.realtime_feedback_score and the full post-session ScoreDimensions).
-It only needs to be good enough to drive FollowUpState's round-count
-bookkeeping; swap it out once backend/scoring/ exists.
+Scoring
+-------
+Answer scoring for the follow-up state machine is delegated to
+backend/conversation/scoring_judge.py's judge_answer() (see
+docs/week4_tech_spec.md section 1) -- a Groq small-model judge call with a
+three-tier fallback down to a length/keyword rule, replacing the crude
+heuristic that used to live in this module directly.
 """
 from __future__ import annotations
 
-import re
 import uuid
 from dataclasses import dataclass, field
 from typing import Optional
@@ -47,45 +45,13 @@ from backend.conversation.follow_up import AnswerPattern, classify_answer_patter
 from backend.conversation.follow_up_state import (
     FollowUpState,
     FollowUpStrategy,
-    Score,
     build_state_context,
     decide_next_action,
 )
 from backend.conversation.llm_client import ChatMessage, call_llm
 from backend.conversation.opening_lines import get_opening_line
 from backend.conversation.prompts import Language, Persona, build_full_system_prompt
-
-# ---------------------------------------------------------------------------
-# Placeholder answer scoring -- see module docstring
-# ---------------------------------------------------------------------------
-
-# Below this length (characters), an answer is treated as too short to
-# count as HIGH even if it happens to contain a detail marker.
-_HIGH_SCORE_MIN_LENGTH = 40
-
-# Rough signal that an answer contains reasoning/specifics rather than just
-# a bare assertion -- a stand-in for the real scoring model's judgment.
-_DETAIL_MARKERS = (
-    "因为", "原因", "具体", "比如", "例如", "所以", "结果", "后来", "于是", "当时",
-    "because", "specifically", "for example", "e.g.", "as a result", "which meant",
-)
-
-
-def _heuristic_score_answer(answer_text: str) -> tuple[Score, bool]:
-    """
-    Crude placeholder for FollowUpState's HIGH/LOW scoring: HIGH requires
-    both a minimum length and at least one reasoning/detail marker;
-    otherwise LOW. `is_minimal` reuses the PERFUNCTORY classification from
-    follow_up.py, since "extremely terse" is exactly what that pattern
-    already detects.
-    """
-    normalized = answer_text.strip()
-    lowered = normalized.lower()
-    is_minimal = classify_answer_pattern(normalized) is AnswerPattern.PERFUNCTORY
-    has_detail_marker = any(marker in lowered for marker in _DETAIL_MARKERS) or bool(re.search(r"\d", normalized))
-    score: Score = "high" if len(normalized) >= _HIGH_SCORE_MIN_LENGTH and has_detail_marker else "low"
-    return score, is_minimal
-
+from backend.conversation.scoring_judge import judge_answer
 
 # ---------------------------------------------------------------------------
 # Session state + turn result
@@ -156,6 +122,18 @@ def _build_system_prompt(session: EngineSession, extra_context: list[str]) -> st
     return base + _STATE_CONTEXT_HEADER[session.language] + "\n".join(extra_context)
 
 
+def _last_question_text(session: EngineSession, before_index: int) -> str:
+    """
+    Find the most recent assistant message before session.messages[before_index]
+    -- i.e. the question/follow-up that the answer at that index responds to,
+    for handing to scoring_judge.judge_answer().
+    """
+    for message in reversed(session.messages[:before_index]):
+        if message["role"] == "assistant":
+            return message["content"]
+    return ""
+
+
 def submit_answer(answer: str, session: EngineSession) -> TurnResult:
     """
     Process one candidate answer and produce the interviewer's next reply.
@@ -171,14 +149,17 @@ def submit_answer(answer: str, session: EngineSession) -> TurnResult:
       b. build the round/score state-context sentence;
       c. assemble persona prompt + state context + strategy guidance into
          the system message, and call the LLM with the full history;
-      d. record this round's (heuristically scored) outcome into
-         FollowUpState;
+      d. record this round's judged outcome (scoring_judge.judge_answer(),
+         docs/week4_tech_spec.md section 1) into FollowUpState;
       e. run decide_next_action() on the updated state to determine
          whether the topic continues (FOLLOW_UP) or wraps up
          (NEXT_QUESTION), resetting FollowUpState for the next topic
          when it wraps up.
     """
     session.messages.append({"role": "user", "content": answer})
+    # The question this answer responds to, for step d's judge call --
+    # captured now, before step c appends this turn's reply and shifts it.
+    question_text = _last_question_text(session, before_index=-1)
 
     if session.need_main_question:
         system_prompt = _build_system_prompt(session, [_MAIN_QUESTION_DIRECTIVE[session.language]])
@@ -203,9 +184,12 @@ def submit_answer(answer: str, session: EngineSession) -> TurnResult:
     reply = call_llm(system_prompt, session.messages)
     session.messages.append({"role": "assistant", "content": reply})
 
-    # d. record this round's heuristic score
-    score, is_minimal = _heuristic_score_answer(answer)
-    session.follow_up_state.record_round(score, is_minimal)
+    # d. record this round's judged score. `is_minimal` reuses the
+    # PERFUNCTORY classification from step a rather than re-deriving it --
+    # "extremely terse" is exactly what that pattern already detects.
+    judged = judge_answer(question_text, answer, session.persona)
+    is_minimal = pattern is AnswerPattern.PERFUNCTORY
+    session.follow_up_state.record_round(judged.level, is_minimal)
 
     # e. decide whether to keep probing this topic or move on
     decision = decide_next_action(session.follow_up_state)

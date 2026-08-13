@@ -219,3 +219,7 @@ __marimo__/
 
 # Runtime SQLite data written by backend/storage/db.py (data/.gitkeep keeps the dir tracked)
 data/*.db
+
+# Downloaded Piper voice models (backend/speech/tts.py) -- tens of MB each,
+# fetched on first use rather than committed
+data/piper_voices/
