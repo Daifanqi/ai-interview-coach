@@ -1,0 +1,131 @@
+/* =========================================================
+   AI 面试系统 · "温和亲切的教练风" 主题
+   使用方式：在 app.py 最开头调用一次
+       读取本文件内容，用 st.markdown 并开启 unsafe_allow_html，
+       将读到的 CSS 文本包裹在 style 标签中注入页面
+   ========================================================= */
+
+/* 引入圆润、亲和的西文字体，中文自动回退到系统黑体/苹方 */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
+
+:root {
+    --coach-bg: #FDF8F3;
+    --coach-bg-secondary: #F5EAD9;
+    --coach-primary: #E2794F;
+    --coach-primary-hover: #CE6A42;
+    --coach-text: #4A3B31;
+    --coach-text-muted: #9A8776;
+    --coach-border: #EAD9C4;
+    --coach-sage: #8FAE85;   /* 积极/通过 反馈色 */
+    --coach-amber: #E8B94E;  /* 提示/中性 反馈色 */
+    --coach-rust: #C1573F;   /* 警示 反馈色（暖色系警示，避免冷硬红） */
+    --coach-radius: 16px;
+}
+
+/* ---------- 全局字体与背景 ---------- */
+html, body, [class*="css"] {
+    font-family: 'Nunito', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+}
+
+.stApp {
+    background: linear-gradient(180deg, #FDF8F3 0%, #FBF3E9 100%);
+    color: var(--coach-text);
+}
+
+/* ---------- 侧边栏 ---------- */
+section[data-testid="stSidebar"] {
+    background-color: var(--coach-bg-secondary);
+    border-right: 1px solid var(--coach-border);
+}
+
+/* ---------- 按钮：圆润、温暖、hover 微动效 ---------- */
+.stButton > button {
+    background-color: var(--coach-primary);
+    color: #FFFFFF;
+    border: none;
+    border-radius: 999px;
+    padding: 0.5em 1.6em;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(226, 121, 79, 0.25);
+    transition: all 0.2s ease;
+}
+.stButton > button:hover {
+    background-color: var(--coach-primary-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(226, 121, 79, 0.35);
+}
+
+/* ---------- 通用卡片容器（题干 / 反馈区块） ----------
+   用法：st.markdown('<div class="coach-card">...</div>', unsafe_allow_html=True) */
+.coach-card {
+    background-color: #FFFFFF;
+    border: 1px solid var(--coach-border);
+    border-radius: var(--coach-radius);
+    padding: 1.5em 1.75em;
+    box-shadow: 0 2px 10px rgba(74, 59, 49, 0.06);
+    margin-bottom: 1em;
+}
+
+/* ---------- 难度徽章 1-5（暖色由浅到深，直观体现难度递增） ---------- */
+.difficulty-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 14px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 0.85em;
+}
+.difficulty-1 { background:#FBE3D0; color:#A85A2E; }
+.difficulty-2 { background:#F5C7A8; color:#9C5228; }
+.difficulty-3 { background:#EDA97D; color:#7E3F1C; }
+.difficulty-4 { background:#E2874F; color:#FFFFFF; }
+.difficulty-5 { background:#C15A34; color:#FFFFFF; }
+
+/* ---------- 面试官人设标签 ---------- */
+.persona-tag {
+    display: inline-block;
+    padding: 3px 12px;
+    border-radius: 999px;
+    font-size: 0.8em;
+    font-weight: 600;
+}
+.persona-friendly  { background:#FCE8D8; color:#C1673A; }  /* 亲和型 - HR初筛 */
+.persona-technical { background:#F5E3B3; color:#8A6A1F; }  /* 技术挖掘型 - 技术面①② */
+.persona-strict    { background:#EFC9B8; color:#8C3D24; }  /* 严格型 - 终面 */
+
+/* ---------- 聊天气泡（如使用 st.chat_message 呈现面试对话） ---------- */
+[data-testid="stChatMessage"] {
+    border-radius: var(--coach-radius);
+    padding: 0.75em 1em;
+    margin-bottom: 0.5em;
+    background-color: #FFFFFF;
+    border: 1px solid var(--coach-border);
+}
+
+/* ---------- 进度条：用暖色替代默认冷蓝 ---------- */
+.stProgress > div > div > div > div {
+    background-color: var(--coach-primary);
+}
+
+/* ---------- 输入框 ---------- */
+.stTextInput input, .stTextArea textarea {
+    border-radius: 12px;
+    border: 1px solid var(--coach-border);
+}
+.stTextInput input:focus, .stTextArea textarea:focus {
+    border-color: var(--coach-primary);
+    box-shadow: 0 0 0 2px rgba(226, 121, 79, 0.15);
+}
+
+/* ---------- 标题：弱化冷硬感 ---------- */
+h1, h2, h3 {
+    color: var(--coach-text);
+    font-weight: 700;
+}
+
+/* ---------- 提示信息（st.info / st.success / st.warning）暖色化 ---------- */
+div[data-testid="stAlertContentInfo"] { color: var(--coach-text); }
+div[data-baseweb="notification"] {
+    border-radius: var(--coach-radius) !important;
+}

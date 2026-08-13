@@ -216,3 +216,6 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Runtime SQLite data written by backend/storage/db.py (data/.gitkeep keeps the dir tracked)
+data/*.db

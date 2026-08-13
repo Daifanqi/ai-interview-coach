@@ -1,0 +1,17 @@
+[theme]
+base = "light"
+
+# 主强调色：温润珊瑚橙 —— 用于按钮、进度条、链接、焦点态
+primaryColor = "#E2794F"
+
+# 页面主背景：暖调米白，替代默认纯白的冷硬感
+backgroundColor = "#FDF8F3"
+
+# 卡片/侧边栏等次级背景：柔和杏色
+secondaryBackgroundColor = "#F5EAD9"
+
+# 正文文字：暖棕色，比纯黑更柔和、更有"手写感"
+textColor = "#4A3B31"
+
+# 字体：优先无衬线，圆润友好（中文环境会自动回退到系统黑体/苹方）
+font = "sans serif"

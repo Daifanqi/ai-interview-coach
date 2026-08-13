@@ -25,7 +25,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import Optional
+from typing import Literal, Optional
 import uuid
 
 
@@ -75,6 +75,7 @@ class SessionConfig:
     target_company: Optional[str]  # target company, may be unknown
     difficulty: int  # difficulty level, scale defined by the triage module (e.g. 1-5)
     interviewer_persona: str  # interviewer persona description, drives the dialogue engine's tone/style
+    language: Literal["zh", "en"] = "zh"  # UI + AI interviewer dialogue language (see decision 13 in docs/decision_log.md)
     created_at: datetime = field(default_factory=datetime.utcnow)
 
 
