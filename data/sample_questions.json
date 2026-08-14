@@ -1,0 +1,2242 @@
+[
+  {
+    "question_id": "behavioral_01",
+    "question_text": "请讲一次你在团队中发挥领导力、推动一个项目达成目标的经历。",
+    "question_type": "behavioral",
+    "keyword_clusters": [
+      {
+        "canonical": "领导力",
+        "synonyms": [
+          "带领团队",
+          "组织协调"
+        ]
+      },
+      {
+        "canonical": "目标拆解",
+        "synonyms": [
+          "任务分解",
+          "里程碑规划"
+        ]
+      },
+      {
+        "canonical": "授权",
+        "synonyms": [
+          "分工",
+          "委派任务"
+        ]
+      },
+      {
+        "canonical": "激励团队",
+        "synonyms": [
+          "调动积极性",
+          "打气鼓励"
+        ]
+      },
+      {
+        "canonical": "跨部门协作",
+        "synonyms": [
+          "跨团队沟通",
+          "协同配合"
+        ]
+      },
+      {
+        "canonical": "决策",
+        "synonyms": [
+          "拍板",
+          "做决定"
+        ]
+      },
+      {
+        "canonical": "复盘总结",
+        "synonyms": [
+          "事后回顾",
+          "经验沉淀"
+        ]
+      },
+      {
+        "canonical": "结果达成",
+        "synonyms": [
+          "按期交付",
+          "目标达成"
+        ]
+      }
+    ],
+    "reference_points": [
+      "说明项目/团队背景及本人担任的角色",
+      "目标如何拆解、任务如何分配给团队成员",
+      "遇到的具体阻碍及如何协调资源/激励团队解决",
+      "可验证的结果（按期交付/量化指标）",
+      "简要复盘领导力方面的收获"
+    ]
+  },
+  {
+    "question_id": "behavioral_02",
+    "question_text": "说说一次你在高压力/紧迫deadline下完成工作的经历。",
+    "question_type": "behavioral",
+    "keyword_clusters": [
+      {
+        "canonical": "抗压",
+        "synonyms": [
+          "扛住压力",
+          "压力管理"
+        ]
+      },
+      {
+        "canonical": "deadline",
+        "synonyms": [
+          "截止日期",
+          "时间紧迫"
+        ]
+      },
+      {
+        "canonical": "优先级排序",
+        "synonyms": [
+          "分清主次",
+          "任务取舍"
+        ]
+      },
+      {
+        "canonical": "加班",
+        "synonyms": [
+          "额外投入",
+          "超时工作"
+        ]
+      },
+      {
+        "canonical": "情绪管理",
+        "synonyms": [
+          "保持冷静",
+          "不慌乱"
+        ]
+      },
+      {
+        "canonical": "资源协调",
+        "synonyms": [
+          "申请支持",
+          "寻求帮助"
+        ]
+      },
+      {
+        "canonical": "按时交付",
+        "synonyms": [
+          "如期完成",
+          "按期上线"
+        ]
+      },
+      {
+        "canonical": "复盘改进",
+        "synonyms": [
+          "事后总结",
+          "流程优化"
+        ]
+      }
+    ],
+    "reference_points": [
+      "说明任务背景及紧迫的deadline",
+      "具体的时间/资源压力描述",
+      "如何排优先级、寻求支持、管理情绪",
+      "是否按时交付及交付质量",
+      "复盘：这次经历带来的抗压方法论"
+    ]
+  },
+  {
+    "question_id": "behavioral_03",
+    "question_text": "描述一次你和同事/上级意见不一致的经历，你是如何处理的。",
+    "question_type": "behavioral",
+    "keyword_clusters": [
+      {
+        "canonical": "冲突解决",
+        "synonyms": [
+          "化解分歧",
+          "处理矛盾"
+        ]
+      },
+      {
+        "canonical": "有效沟通",
+        "synonyms": [
+          "坦诚沟通",
+          "主动沟通"
+        ]
+      },
+      {
+        "canonical": "换位思考",
+        "synonyms": [
+          "同理心",
+          "理解对方立场"
+        ]
+      },
+      {
+        "canonical": "数据支撑",
+        "synonyms": [
+          "用事实说话",
+          "客观依据"
+        ]
+      },
+      {
+        "canonical": "折中方案",
+        "synonyms": [
+          "妥协",
+          "达成共识"
+        ]
+      },
+      {
+        "canonical": "保持专业",
+        "synonyms": [
+          "尊重对方",
+          "不情绪化"
+        ]
+      },
+      {
+        "canonical": "向上管理",
+        "synonyms": [
+          "说服上级",
+          "争取认同"
+        ]
+      },
+      {
+        "canonical": "关系维护",
+        "synonyms": [
+          "后续合作",
+          "结果验证"
+        ]
+      }
+    ],
+    "reference_points": [
+      "说明分歧的具体内容和双方立场",
+      "采取的沟通方式（数据/换位思考等）",
+      "是否达成共识及最终方案",
+      "对后续合作关系的影响",
+      "复盘：从中学到的沟通/协作方法"
+    ]
+  },
+  {
+    "question_id": "behavioral_04",
+    "question_text": "讲一次你犯错或项目失败的经历，你是怎么应对和从中学习的。",
+    "question_type": "behavioral",
+    "keyword_clusters": [
+      {
+        "canonical": "承担责任",
+        "synonyms": [
+          "主动担责",
+          "不推诿"
+        ]
+      },
+      {
+        "canonical": "复盘反思",
+        "synonyms": [
+          "事后总结",
+          "归因分析"
+        ]
+      },
+      {
+        "canonical": "快速补救",
+        "synonyms": [
+          "止损",
+          "应急处理"
+        ]
+      },
+      {
+        "canonical": "透明沟通",
+        "synonyms": [
+          "主动汇报",
+          "如实告知"
+        ]
+      },
+      {
+        "canonical": "学习成长",
+        "synonyms": [
+          "吸取教训",
+          "能力提升"
+        ]
+      },
+      {
+        "canonical": "流程改进",
+        "synonyms": [
+          "建立机制",
+          "预防再犯"
+        ]
+      },
+      {
+        "canonical": "坦诚",
+        "synonyms": [
+          "不掩饰",
+          "诚实面对"
+        ]
+      },
+      {
+        "canonical": "后续验证",
+        "synonyms": [
+          "跟踪效果",
+          "持续改进"
+        ]
+      }
+    ],
+    "reference_points": [
+      "说明错误/失败的具体情况",
+      "是否第一时间承担责任、如何补救",
+      "事后复盘归因及改进机制",
+      "是否有后续验证效果",
+      "从中学到的教训"
+    ]
+  },
+  {
+    "question_id": "behavioral_05",
+    "question_text": "说说一次你主动发现问题并推动解决的经历（无人要求你做）。",
+    "question_type": "behavioral",
+    "keyword_clusters": [
+      {
+        "canonical": "主动性",
+        "synonyms": [
+          "自驱力",
+          "不等指派"
+        ]
+      },
+      {
+        "canonical": "发现问题",
+        "synonyms": [
+          "识别风险",
+          "洞察隐患"
+        ]
+      },
+      {
+        "canonical": "推动落地",
+        "synonyms": [
+          "跟进执行",
+          "闭环解决"
+        ]
+      },
+      {
+        "canonical": "协调资源",
+        "synonyms": [
+          "说服他人",
+          "争取支持"
+        ]
+      },
+      {
+        "canonical": "超出职责",
+        "synonyms": [
+          "分外之事",
+          "额外付出"
+        ]
+      },
+      {
+        "canonical": "量化影响",
+        "synonyms": [
+          "数据佐证",
+          "证据支撑"
+        ]
+      },
+      {
+        "canonical": "主人翁意识",
+        "synonyms": [
+          "当自己是owner",
+          "责任感"
+        ]
+      },
+      {
+        "canonical": "效果验证",
+        "synonyms": [
+          "成果衡量",
+          "后续跟踪"
+        ]
+      }
+    ],
+    "reference_points": [
+      "说明是谁都没要求你做的问题",
+      "你如何发现问题、评估影响",
+      "如何说服他人/协调资源推动解决",
+      "最终结果及量化影响",
+      "复盘：主动性带来的价值"
+    ]
+  },
+  {
+    "question_id": "behavioral_06",
+    "question_text": "讲一次你需要同时处理多个优先级冲突任务的经历，你是如何排序和取舍的。",
+    "question_type": "behavioral",
+    "keyword_clusters": [
+      {
+        "canonical": "优先级排序",
+        "synonyms": [
+          "分清轻重缓急",
+          "任务排序"
+        ]
+      },
+      {
+        "canonical": "时间管理",
+        "synonyms": [
+          "日程安排",
+          "精力分配"
+        ]
+      },
+      {
+        "canonical": "预期管理",
+        "synonyms": [
+          "利益相关方沟通",
+          "协调多方"
+        ]
+      },
+      {
+        "canonical": "权衡取舍",
+        "synonyms": [
+          "trade-off",
+          "有舍有得"
+        ]
+      },
+      {
+        "canonical": "紧急重要矩阵",
+        "synonyms": [
+          "四象限",
+          "轻重缓急模型"
+        ]
+      },
+      {
+        "canonical": "协商延期",
+        "synonyms": [
+          "延期沟通",
+          "调整排期"
+        ]
+      },
+      {
+        "canonical": "结果交付",
+        "synonyms": [
+          "任务完成度",
+          "产出质量"
+        ]
+      },
+      {
+        "canonical": "复盘总结",
+        "synonyms": [
+          "经验沉淀",
+          "流程优化"
+        ]
+      }
+    ],
+    "reference_points": [
+      "说明同时面临的多个任务及冲突点",
+      "排序依据（紧急重要/影响范围等）",
+      "如何与相关方沟通预期",
+      "最终完成情况",
+      "复盘：优先级方法论沉淀"
+    ]
+  },
+  {
+    "question_id": "behavioral_07",
+    "question_text": "说说一次你收到负面反馈或批评的经历，你是如何应对的。",
+    "question_type": "behavioral",
+    "keyword_clusters": [
+      {
+        "canonical": "接受反馈",
+        "synonyms": [
+          "虚心接受",
+          "不抵触"
+        ]
+      },
+      {
+        "canonical": "自我反思",
+        "synonyms": [
+          "内省",
+          "客观看待自己"
+        ]
+      },
+      {
+        "canonical": "情绪管理",
+        "synonyms": [
+          "不辩解",
+          "保持开放"
+        ]
+      },
+      {
+        "canonical": "主动澄清",
+        "synonyms": [
+          "理解反馈意图",
+          "确认具体点"
+        ]
+      },
+      {
+        "canonical": "行动改进",
+        "synonyms": [
+          "制定改进计划",
+          "付诸行动"
+        ]
+      },
+      {
+        "canonical": "跟进验证",
+        "synonyms": [
+          "后续检查",
+          "效果确认"
+        ]
+      },
+      {
+        "canonical": "建设性态度",
+        "synonyms": [
+          "感谢反馈",
+          "正向回应"
+        ]
+      },
+      {
+        "canonical": "成长心态",
+        "synonyms": [
+          "growth mindset",
+          "持续进步"
+        ]
+      }
+    ],
+    "reference_points": [
+      "说明收到的具体反馈内容",
+      "当下的情绪反应及应对方式",
+      "如何澄清、制定改进计划",
+      "后续是否有改进验证",
+      "复盘：对反馈心态的转变"
+    ]
+  },
+  {
+    "question_id": "behavioral_08",
+    "question_text": "讲一次你在信息不完整/高度不确定的情况下做出决策的经历。",
+    "question_type": "behavioral",
+    "keyword_clusters": [
+      {
+        "canonical": "信息不完整",
+        "synonyms": [
+          "模糊性",
+          "不确定性"
+        ]
+      },
+      {
+        "canonical": "快速决策",
+        "synonyms": [
+          "果断行动",
+          "不过度分析"
+        ]
+      },
+      {
+        "canonical": "假设验证",
+        "synonyms": [
+          "小范围试错",
+          "MVP验证"
+        ]
+      },
+      {
+        "canonical": "风险评估",
+        "synonyms": [
+          "识别风险点",
+          "权衡利弊"
+        ]
+      },
+      {
+        "canonical": "补充信息",
+        "synonyms": [
+          "数据收集",
+          "调研求证"
+        ]
+      },
+      {
+        "canonical": "灵活调整",
+        "synonyms": [
+          "根据反馈迭代",
+          "动态修正"
+        ]
+      },
+      {
+        "canonical": "承担后果",
+        "synonyms": [
+          "为决策负责",
+          "不推卸"
+        ]
+      },
+      {
+        "canonical": "结果复盘",
+        "synonyms": [
+          "验证决策效果",
+          "经验总结"
+        ]
+      }
+    ],
+    "reference_points": [
+      "说明信息不完整的具体情境",
+      "如何评估风险、快速验证假设",
+      "决策依据是什么",
+      "结果如何、是否需要调整",
+      "复盘：模糊环境下的决策方法论"
+    ]
+  },
+  {
+    "question_id": "behavioral_09",
+    "question_text": "说说一次你说服他人（同事/客户/上级）接受你的观点或方案的经历。",
+    "question_type": "behavioral",
+    "keyword_clusters": [
+      {
+        "canonical": "说服力",
+        "synonyms": [
+          "影响力",
+          "争取认同"
+        ]
+      },
+      {
+        "canonical": "逻辑论证",
+        "synonyms": [
+          "结构化表达",
+          "有理有据"
+        ]
+      },
+      {
+        "canonical": "数据支撑",
+        "synonyms": [
+          "用事实说话",
+          "量化证明"
+        ]
+      },
+      {
+        "canonical": "理解诉求",
+        "synonyms": [
+          "换位思考",
+          "洞察利益点"
+        ]
+      },
+      {
+        "canonical": "方案对比",
+        "synonyms": [
+          "备选方案",
+          "权衡展示"
+        ]
+      },
+      {
+        "canonical": "耐心沟通",
+        "synonyms": [
+          "多轮沟通",
+          "持续跟进"
+        ]
+      },
+      {
+        "canonical": "达成一致",
+        "synonyms": [
+          "获得认可",
+          "最终采纳"
+        ]
+      },
+      {
+        "canonical": "结果验证",
+        "synonyms": [
+          "效果反馈",
+          "后续跟踪"
+        ]
+      }
+    ],
+    "reference_points": [
+      "说明想要说服的对象及分歧点",
+      "采用的论证方式（数据/方案对比等）",
+      "沟通过程中的阻力及应对",
+      "是否最终达成一致",
+      "复盘：说服过程中的关键经验"
+    ]
+  },
+  {
+    "question_id": "behavioral_10",
+    "question_text": "讲一次你跨团队/跨部门协作完成一个项目的经历。",
+    "question_type": "behavioral",
+    "keyword_clusters": [
+      {
+        "canonical": "跨团队协作",
+        "synonyms": [
+          "跨部门配合",
+          "协同工作"
+        ]
+      },
+      {
+        "canonical": "目标对齐",
+        "synonyms": [
+          "利益对齐",
+          "消除分歧"
+        ]
+      },
+      {
+        "canonical": "沟通机制",
+        "synonyms": [
+          "定期同步",
+          "信息透明"
+        ]
+      },
+      {
+        "canonical": "角色分工",
+        "synonyms": [
+          "职责边界",
+          "明确接口"
+        ]
+      },
+      {
+        "canonical": "冲突处理",
+        "synonyms": [
+          "协调资源",
+          "化解摩擦"
+        ]
+      },
+      {
+        "canonical": "项目管理",
+        "synonyms": [
+          "进度跟踪",
+          "风险控制"
+        ]
+      },
+      {
+        "canonical": "共同目标",
+        "synonyms": [
+          "对齐KPI",
+          "一致目标"
+        ]
+      },
+      {
+        "canonical": "最终交付",
+        "synonyms": [
+          "项目成功",
+          "协作成果"
+        ]
+      }
+    ],
+    "reference_points": [
+      "说明涉及的团队及各自诉求",
+      "如何对齐目标、建立协作机制",
+      "遇到的冲突及协调方式",
+      "最终交付结果",
+      "复盘：跨团队协作的方法论"
+    ]
+  },
+  {
+    "question_id": "technical_01",
+    "question_text": "请设计一个短链接生成服务，说明你的整体方案。",
+    "question_type": "technical",
+    "keyword_clusters": [
+      {
+        "canonical": "哈希算法",
+        "synonyms": [
+          "hash函数",
+          "摘要算法"
+        ]
+      },
+      {
+        "canonical": "Base62编码",
+        "synonyms": [
+          "进制转换编码",
+          "短码生成"
+        ]
+      },
+      {
+        "canonical": "唯一性冲突",
+        "synonyms": [
+          "碰撞处理",
+          "去重机制"
+        ]
+      },
+      {
+        "canonical": "存储方案",
+        "synonyms": [
+          "数据库设计",
+          "索引设计"
+        ]
+      },
+      {
+        "canonical": "缓存",
+        "synonyms": [
+          "cache",
+          "Redis缓存"
+        ]
+      },
+      {
+        "canonical": "并发量",
+        "synonyms": [
+          "QPS",
+          "吞吐量"
+        ]
+      },
+      {
+        "canonical": "水平扩展",
+        "synonyms": [
+          "分布式部署",
+          "负载均衡"
+        ]
+      },
+      {
+        "canonical": "过期策略",
+        "synonyms": [
+          "TTL",
+          "过期清理"
+        ]
+      },
+      {
+        "canonical": "限流",
+        "synonyms": [
+          "防刷",
+          "rate limiting"
+        ]
+      }
+    ],
+    "reference_points": [
+      "生成算法选型（自增ID+Base62 / hash+去重）及冲突处理",
+      "存储与索引设计（短码到长链接的映射）",
+      "高频读取的缓存策略",
+      "高并发下的扩展方案（分库分表/发号器）",
+      "过期策略与防刷限流"
+    ]
+  },
+  {
+    "question_id": "technical_02",
+    "question_text": "谈谈你对缓存穿透、缓存击穿、缓存雪崩的理解及解决方案。",
+    "question_type": "technical",
+    "keyword_clusters": [
+      {
+        "canonical": "缓存穿透",
+        "synonyms": [
+          "cache penetration",
+          "无效key攻击"
+        ]
+      },
+      {
+        "canonical": "缓存击穿",
+        "synonyms": [
+          "cache breakdown",
+          "热点key失效"
+        ]
+      },
+      {
+        "canonical": "缓存雪崩",
+        "synonyms": [
+          "cache avalanche",
+          "大规模同时失效"
+        ]
+      },
+      {
+        "canonical": "布隆过滤器",
+        "synonyms": [
+          "bloom filter",
+          "过滤无效请求"
+        ]
+      },
+      {
+        "canonical": "空值缓存",
+        "synonyms": [
+          "缓存空对象",
+          "null caching"
+        ]
+      },
+      {
+        "canonical": "互斥锁",
+        "synonyms": [
+          "mutex lock",
+          "分布式锁"
+        ]
+      },
+      {
+        "canonical": "过期时间打散",
+        "synonyms": [
+          "随机TTL",
+          "错峰过期"
+        ]
+      },
+      {
+        "canonical": "多级缓存",
+        "synonyms": [
+          "本地缓存+分布式缓存",
+          "二级缓存"
+        ]
+      },
+      {
+        "canonical": "降级熔断",
+        "synonyms": [
+          "服务降级",
+          "熔断机制"
+        ]
+      }
+    ],
+    "reference_points": [
+      "三种问题的定义区分",
+      "穿透的解决方案（布隆过滤器/空值缓存）",
+      "击穿的解决方案（互斥锁/逻辑过期）",
+      "雪崩的解决方案（过期时间打散/多级缓存/降级熔断）",
+      "结合具体场景说明为什么选择该方案"
+    ]
+  },
+  {
+    "question_id": "technical_03",
+    "question_text": "请解释CAP定理，并说明在设计分布式系统时如何取舍。",
+    "question_type": "technical",
+    "keyword_clusters": [
+      {
+        "canonical": "CAP定理",
+        "synonyms": [
+          "CAP theorem",
+          "一致性可用性分区容错"
+        ]
+      },
+      {
+        "canonical": "一致性",
+        "synonyms": [
+          "consistency",
+          "数据一致"
+        ]
+      },
+      {
+        "canonical": "可用性",
+        "synonyms": [
+          "availability",
+          "服务可用"
+        ]
+      },
+      {
+        "canonical": "分区容错",
+        "synonyms": [
+          "partition tolerance",
+          "网络分区"
+        ]
+      },
+      {
+        "canonical": "最终一致性",
+        "synonyms": [
+          "eventual consistency",
+          "异步同步"
+        ]
+      },
+      {
+        "canonical": "强一致性",
+        "synonyms": [
+          "strong consistency",
+          "线性一致性"
+        ]
+      },
+      {
+        "canonical": "CP/AP权衡",
+        "synonyms": [
+          "CP系统",
+          "AP系统"
+        ]
+      },
+      {
+        "canonical": "幂等性",
+        "synonyms": [
+          "idempotency",
+          "重复请求处理"
+        ]
+      },
+      {
+        "canonical": "BASE理论",
+        "synonyms": [
+          "软状态",
+          "基本可用"
+        ]
+      }
+    ],
+    "reference_points": [
+      "CAP三要素的准确定义",
+      "分区容错在分布式系统中不可放弃的原因",
+      "CP vs AP的权衡实例",
+      "最终一致性与强一致性的区别",
+      "结合具体系统（如注册中心/数据库）说明取舍"
+    ]
+  },
+  {
+    "question_id": "technical_04",
+    "question_text": "讲讲数据库慢查询如何排查和优化，重点谈谈索引设计。",
+    "question_type": "technical",
+    "keyword_clusters": [
+      {
+        "canonical": "索引",
+        "synonyms": [
+          "index",
+          "B+树索引"
+        ]
+      },
+      {
+        "canonical": "执行计划",
+        "synonyms": [
+          "explain",
+          "查询计划分析"
+        ]
+      },
+      {
+        "canonical": "联合索引",
+        "synonyms": [
+          "复合索引",
+          "组合索引"
+        ]
+      },
+      {
+        "canonical": "最左前缀",
+        "synonyms": [
+          "leftmost prefix",
+          "索引匹配原则"
+        ]
+      },
+      {
+        "canonical": "覆盖索引",
+        "synonyms": [
+          "covering index",
+          "索引覆盖"
+        ]
+      },
+      {
+        "canonical": "全表扫描",
+        "synonyms": [
+          "table scan",
+          "全表遍历"
+        ]
+      },
+      {
+        "canonical": "慢查询日志",
+        "synonyms": [
+          "slow query log",
+          "慢日志分析"
+        ]
+      },
+      {
+        "canonical": "索引选择性",
+        "synonyms": [
+          "cardinality",
+          "区分度"
+        ]
+      },
+      {
+        "canonical": "回表",
+        "synonyms": [
+          "index lookup",
+          "二次查询"
+        ]
+      }
+    ],
+    "reference_points": [
+      "排查思路（慢查询日志+执行计划）",
+      "索引类型及适用场景（联合索引/覆盖索引）",
+      "最左前缀原则",
+      "索引选择性与区分度",
+      "回表问题及优化方式"
+    ]
+  },
+  {
+    "question_id": "technical_05",
+    "question_text": "说说消息队列的作用及如何设计一个削峰填谷的方案。",
+    "question_type": "technical",
+    "keyword_clusters": [
+      {
+        "canonical": "消息队列",
+        "synonyms": [
+          "MQ",
+          "message queue"
+        ]
+      },
+      {
+        "canonical": "削峰填谷",
+        "synonyms": [
+          "流量削峰",
+          "peak shaving"
+        ]
+      },
+      {
+        "canonical": "异步解耦",
+        "synonyms": [
+          "asynchronous decoupling",
+          "服务解耦"
+        ]
+      },
+      {
+        "canonical": "生产者消费者",
+        "synonyms": [
+          "producer consumer",
+          "发布订阅"
+        ]
+      },
+      {
+        "canonical": "消息堆积",
+        "synonyms": [
+          "backlog",
+          "积压处理"
+        ]
+      },
+      {
+        "canonical": "消息可靠性",
+        "synonyms": [
+          "消息丢失",
+          "持久化"
+        ]
+      },
+      {
+        "canonical": "消息幂等",
+        "synonyms": [
+          "去重消费",
+          "exactly-once"
+        ]
+      },
+      {
+        "canonical": "死信队列",
+        "synonyms": [
+          "dead letter queue",
+          "异常消息处理"
+        ]
+      },
+      {
+        "canonical": "限流",
+        "synonyms": [
+          "流量控制",
+          "rate limiting"
+        ]
+      }
+    ],
+    "reference_points": [
+      "消息队列的解耦/异步/削峰作用",
+      "具体的削峰方案设计（生产者限流+队列缓冲+消费者匀速消费）",
+      "消息堆积的应对",
+      "消息可靠性保证（持久化/确认机制）",
+      "消息幂等/去重处理"
+    ]
+  },
+  {
+    "question_id": "technical_06",
+    "question_text": "请说明什么是灰度发布，以及你会如何设计灰度发布方案。",
+    "question_type": "technical",
+    "keyword_clusters": [
+      {
+        "canonical": "灰度发布",
+        "synonyms": [
+          "canary release",
+          "金丝雀发布"
+        ]
+      },
+      {
+        "canonical": "蓝绿部署",
+        "synonyms": [
+          "blue-green deployment",
+          "蓝绿切换"
+        ]
+      },
+      {
+        "canonical": "流量分层",
+        "synonyms": [
+          "流量切分",
+          "分流策略"
+        ]
+      },
+      {
+        "canonical": "回滚机制",
+        "synonyms": [
+          "rollback",
+          "快速回退"
+        ]
+      },
+      {
+        "canonical": "监控告警",
+        "synonyms": [
+          "monitoring alerting",
+          "指标监控"
+        ]
+      },
+      {
+        "canonical": "特征开关",
+        "synonyms": [
+          "feature flag",
+          "功能开关"
+        ]
+      },
+      {
+        "canonical": "用户分群",
+        "synonyms": [
+          "分桶",
+          "灰度人群圈定"
+        ]
+      },
+      {
+        "canonical": "版本兼容",
+        "synonyms": [
+          "向后兼容",
+          "接口兼容性"
+        ]
+      },
+      {
+        "canonical": "健康检查",
+        "synonyms": [
+          "自动化验证",
+          "health check"
+        ]
+      }
+    ],
+    "reference_points": [
+      "灰度发布的定义及与蓝绿部署的区别",
+      "流量分层/分桶策略",
+      "监控指标及自动/手动回滚机制",
+      "特征开关的使用",
+      "用户分群圈定方式"
+    ]
+  },
+  {
+    "question_id": "technical_07",
+    "question_text": "谈谈你会如何设计一个API限流方案。",
+    "question_type": "technical",
+    "keyword_clusters": [
+      {
+        "canonical": "限流",
+        "synonyms": [
+          "rate limiting",
+          "流量控制"
+        ]
+      },
+      {
+        "canonical": "令牌桶",
+        "synonyms": [
+          "token bucket",
+          "令牌桶算法"
+        ]
+      },
+      {
+        "canonical": "漏桶算法",
+        "synonyms": [
+          "leaky bucket",
+          "漏桶限流"
+        ]
+      },
+      {
+        "canonical": "滑动窗口",
+        "synonyms": [
+          "sliding window",
+          "计数窗口"
+        ]
+      },
+      {
+        "canonical": "分布式限流",
+        "synonyms": [
+          "集群限流",
+          "全局限流"
+        ]
+      },
+      {
+        "canonical": "熔断降级",
+        "synonyms": [
+          "circuit breaker",
+          "服务熔断"
+        ]
+      },
+      {
+        "canonical": "黑白名单",
+        "synonyms": [
+          "IP限制",
+          "访问控制"
+        ]
+      },
+      {
+        "canonical": "QPS阈值",
+        "synonyms": [
+          "并发阈值",
+          "流量阈值"
+        ]
+      },
+      {
+        "canonical": "限流反馈",
+        "synonyms": [
+          "429响应",
+          "限流提示"
+        ]
+      }
+    ],
+    "reference_points": [
+      "限流算法对比（令牌桶/漏桶/滑动窗口）",
+      "单机限流 vs 分布式限流",
+      "限流粒度（用户/IP/接口）",
+      "超限后的处理方式（排队/拒绝/降级）",
+      "与熔断降级的配合"
+    ]
+  },
+  {
+    "question_id": "technical_08",
+    "question_text": "请设计一个高并发秒杀系统，说明关键难点和解决方案。",
+    "question_type": "technical",
+    "keyword_clusters": [
+      {
+        "canonical": "秒杀系统",
+        "synonyms": [
+          "seckill system",
+          "高并发抢购"
+        ]
+      },
+      {
+        "canonical": "库存超卖",
+        "synonyms": [
+          "超卖问题",
+          "库存扣减"
+        ]
+      },
+      {
+        "canonical": "分布式锁",
+        "synonyms": [
+          "distributed lock",
+          "锁竞争"
+        ]
+      },
+      {
+        "canonical": "限流削峰",
+        "synonyms": [
+          "流量削峰",
+          "请求过滤"
+        ]
+      },
+      {
+        "canonical": "缓存预热",
+        "synonyms": [
+          "cache warm up",
+          "预加载库存"
+        ]
+      },
+      {
+        "canonical": "异步下单",
+        "synonyms": [
+          "消息队列异步",
+          "削峰异步化"
+        ]
+      },
+      {
+        "canonical": "页面静态化",
+        "synonyms": [
+          "静态化",
+          "CDN加速"
+        ]
+      },
+      {
+        "canonical": "防刷风控",
+        "synonyms": [
+          "验证码风控",
+          "反作弊"
+        ]
+      },
+      {
+        "canonical": "原子操作",
+        "synonyms": [
+          "乐观锁",
+          "CAS操作"
+        ]
+      }
+    ],
+    "reference_points": [
+      "核心难点（超卖/高并发/瞬时流量）",
+      "库存扣减方案（数据库乐观锁/Redis原子操作）",
+      "限流+异步削峰设计",
+      "缓存预热与页面静态化",
+      "防刷风控机制"
+    ]
+  },
+  {
+    "question_id": "technical_09",
+    "question_text": "说说什么是分布式锁，以及常见的实现方式和陷阱。",
+    "question_type": "technical",
+    "keyword_clusters": [
+      {
+        "canonical": "分布式锁",
+        "synonyms": [
+          "distributed lock",
+          "跨进程加锁"
+        ]
+      },
+      {
+        "canonical": "Redis锁",
+        "synonyms": [
+          "Redisson",
+          "SET NX实现"
+        ]
+      },
+      {
+        "canonical": "ZooKeeper锁",
+        "synonyms": [
+          "临时节点",
+          "Zab协议"
+        ]
+      },
+      {
+        "canonical": "锁续期",
+        "synonyms": [
+          "看门狗",
+          "续期机制"
+        ]
+      },
+      {
+        "canonical": "死锁",
+        "synonyms": [
+          "deadlock",
+          "锁未释放"
+        ]
+      },
+      {
+        "canonical": "脑裂",
+        "synonyms": [
+          "split brain",
+          "网络分区一致性问题"
+        ]
+      },
+      {
+        "canonical": "可重入锁",
+        "synonyms": [
+          "reentrant lock",
+          "重入机制"
+        ]
+      },
+      {
+        "canonical": "锁超时",
+        "synonyms": [
+          "过期时间",
+          "TTL设置"
+        ]
+      },
+      {
+        "canonical": "原子性保证",
+        "synonyms": [
+          "CAS",
+          "原子操作"
+        ]
+      }
+    ],
+    "reference_points": [
+      "常见实现方式（Redis/ZooKeeper）对比",
+      "锁超时与续期机制（看门狗）",
+      "可重入性设计",
+      "脑裂/网络分区场景下的风险",
+      "释放锁的原子性保证"
+    ]
+  },
+  {
+    "question_id": "technical_10",
+    "question_text": "谈谈微服务架构下如何做可观测性建设（日志/监控/链路追踪）。",
+    "question_type": "technical",
+    "keyword_clusters": [
+      {
+        "canonical": "可观测性",
+        "synonyms": [
+          "observability",
+          "监控体系"
+        ]
+      },
+      {
+        "canonical": "日志采集",
+        "synonyms": [
+          "log collection",
+          "集中式日志"
+        ]
+      },
+      {
+        "canonical": "链路追踪",
+        "synonyms": [
+          "distributed tracing",
+          "调用链追踪"
+        ]
+      },
+      {
+        "canonical": "指标监控",
+        "synonyms": [
+          "metrics",
+          "监控指标"
+        ]
+      },
+      {
+        "canonical": "告警机制",
+        "synonyms": [
+          "alerting",
+          "告警规则"
+        ]
+      },
+      {
+        "canonical": "APM",
+        "synonyms": [
+          "应用性能监控",
+          "性能剖析"
+        ]
+      },
+      {
+        "canonical": "Trace ID",
+        "synonyms": [
+          "请求追踪ID",
+          "上下文透传"
+        ]
+      },
+      {
+        "canonical": "监控大盘",
+        "synonyms": [
+          "Prometheus/Grafana",
+          "可视化面板"
+        ]
+      },
+      {
+        "canonical": "SLA/SLO",
+        "synonyms": [
+          "服务水平目标",
+          "可用性指标"
+        ]
+      }
+    ],
+    "reference_points": [
+      "日志/监控/链路追踪三大支柱定义",
+      "链路追踪的实现方式（Trace ID透传）",
+      "监控指标体系设计（黄金指标/SLA）",
+      "告警规则设计",
+      "常用工具栈举例"
+    ]
+  },
+  {
+    "question_id": "case_analysis_01",
+    "question_text": "某电商App的日活用户（DAU）近两周下滑了15%，请分析可能原因并给出解决方案。",
+    "question_type": "case_analysis",
+    "keyword_clusters": [
+      {
+        "canonical": "MECE",
+        "synonyms": [
+          "相互独立完全穷尽",
+          "结构化拆解"
+        ]
+      },
+      {
+        "canonical": "漏斗分析",
+        "synonyms": [
+          "转化漏斗",
+          "funnel analysis"
+        ]
+      },
+      {
+        "canonical": "归因分析",
+        "synonyms": [
+          "根因分析",
+          "root cause"
+        ]
+      },
+      {
+        "canonical": "同比环比",
+        "synonyms": [
+          "yoy mom",
+          "基准对比"
+        ]
+      },
+      {
+        "canonical": "用户分群",
+        "synonyms": [
+          "分层分析",
+          "cohort分析"
+        ]
+      },
+      {
+        "canonical": "A/B测试",
+        "synonyms": [
+          "AB test",
+          "实验验证"
+        ]
+      },
+      {
+        "canonical": "北极星指标",
+        "synonyms": [
+          "North Star Metric",
+          "核心指标"
+        ]
+      },
+      {
+        "canonical": "优先级排序",
+        "synonyms": [
+          "ICE/RICE模型",
+          "impact effort"
+        ]
+      },
+      {
+        "canonical": "短期长期区分",
+        "synonyms": [
+          "止血vs优化",
+          "治标治本"
+        ]
+      }
+    ],
+    "reference_points": [
+      "界定：确认下滑口径（同比/环比、全量/细分人群）及是否持续性趋势",
+      "拆解：按获客-激活-留存-转化漏斗+渠道/新老用户交叉MECE拆解",
+      "验证：版本更新前后对比、分渠道cohort对比、排查外部竞品因素",
+      "方案：区分技术故障类止血与渠道/内容类长期优化，按影响排优先级",
+      "结论：设定观察周期持续监控DAU及分渠道留存指标"
+    ]
+  },
+  {
+    "question_id": "case_analysis_02",
+    "question_text": "某内容平台的新用户次日留存率从40%下降到30%，请分析原因并提出方案。",
+    "question_type": "case_analysis",
+    "keyword_clusters": [
+      {
+        "canonical": "留存分析",
+        "synonyms": [
+          "retention analysis",
+          "留存曲线"
+        ]
+      },
+      {
+        "canonical": "漏斗分析",
+        "synonyms": [
+          "转化路径",
+          "funnel"
+        ]
+      },
+      {
+        "canonical": "MECE",
+        "synonyms": [
+          "结构化拆解",
+          "穷尽分类"
+        ]
+      },
+      {
+        "canonical": "cohort对比",
+        "synonyms": [
+          "新老用户对比",
+          "分群对比"
+        ]
+      },
+      {
+        "canonical": "渠道质量",
+        "synonyms": [
+          "获客渠道",
+          "渠道归因"
+        ]
+      },
+      {
+        "canonical": "产品体验",
+        "synonyms": [
+          "onboarding",
+          "新手引导"
+        ]
+      },
+      {
+        "canonical": "A/B测试",
+        "synonyms": [
+          "实验对照",
+          "灰度验证"
+        ]
+      },
+      {
+        "canonical": "北极星指标",
+        "synonyms": [
+          "核心指标",
+          "关键指标"
+        ]
+      },
+      {
+        "canonical": "优先级排序",
+        "synonyms": [
+          "短期止血长期优化",
+          "impact effort"
+        ]
+      }
+    ],
+    "reference_points": [
+      "界定：确认次留统计口径及下滑是否分渠道分人群一致",
+      "拆解：按onboarding-核心行为-召回路径拆漏斗，按渠道/新老用户分群",
+      "验证：对比版本迭代前后曲线、渠道质量交叉分析、用户访谈",
+      "方案：短期修复明显bug/体验问题，长期优化新手引导",
+      "结论：持续监控次留曲线，设定观察周期"
+    ]
+  },
+  {
+    "question_id": "case_analysis_03",
+    "question_text": "某在线教育产品的付费转化率连续一个月下降，请分析原因并给出解决思路。",
+    "question_type": "case_analysis",
+    "keyword_clusters": [
+      {
+        "canonical": "转化漏斗",
+        "synonyms": [
+          "付费转化路径",
+          "funnel analysis"
+        ]
+      },
+      {
+        "canonical": "MECE拆解",
+        "synonyms": [
+          "结构化分析",
+          "穷尽拆解"
+        ]
+      },
+      {
+        "canonical": "定价策略",
+        "synonyms": [
+          "pricing",
+          "价格敏感度"
+        ]
+      },
+      {
+        "canonical": "竞品分析",
+        "synonyms": [
+          "竞争环境",
+          "外部因素"
+        ]
+      },
+      {
+        "canonical": "用户分群",
+        "synonyms": [
+          "渠道/新老用户拆分",
+          "cohort"
+        ]
+      },
+      {
+        "canonical": "A/B测试",
+        "synonyms": [
+          "实验验证",
+          "灰度测试"
+        ]
+      },
+      {
+        "canonical": "归因分析",
+        "synonyms": [
+          "根因定位",
+          "root cause"
+        ]
+      },
+      {
+        "canonical": "北极星指标",
+        "synonyms": [
+          "核心业务指标",
+          "付费GMV"
+        ]
+      },
+      {
+        "canonical": "优先级排序",
+        "synonyms": [
+          "止血vs优化",
+          "短期长期区分"
+        ]
+      }
+    ],
+    "reference_points": [
+      "界定：确认转化率口径（哪一步到哪一步）、下滑是否所有课程/渠道一致",
+      "拆解：按转化漏斗（浏览-试听-加购-支付）拆解，按渠道/课程品类/价格带分群",
+      "验证：对比竞品定价、检查支付链路是否有技术故障、用户调研购买顾虑",
+      "方案：短期修复技术问题/优化支付流程，长期调整定价或课程内容策略",
+      "结论：跟踪转化率恢复情况，设定复盘周期"
+    ]
+  },
+  {
+    "question_id": "case_analysis_04",
+    "question_text": "公司新上线的一个功能，上线一个月后核心指标远低于预期，请分析原因。",
+    "question_type": "case_analysis",
+    "keyword_clusters": [
+      {
+        "canonical": "MECE",
+        "synonyms": [
+          "结构化拆解",
+          "相互独立完全穷尽"
+        ]
+      },
+      {
+        "canonical": "功能渗透率",
+        "synonyms": [
+          "feature adoption",
+          "使用率"
+        ]
+      },
+      {
+        "canonical": "用户分群",
+        "synonyms": [
+          "新老用户对比",
+          "分层分析"
+        ]
+      },
+      {
+        "canonical": "埋点数据",
+        "synonyms": [
+          "数据验证",
+          "tracking核查"
+        ]
+      },
+      {
+        "canonical": "用户访谈",
+        "synonyms": [
+          "定性调研",
+          "user interview"
+        ]
+      },
+      {
+        "canonical": "A/B测试",
+        "synonyms": [
+          "实验对照",
+          "灰度验证"
+        ]
+      },
+      {
+        "canonical": "归因分析",
+        "synonyms": [
+          "根因分析",
+          "root cause"
+        ]
+      },
+      {
+        "canonical": "优先级排序",
+        "synonyms": [
+          "ICE/RICE模型",
+          "impact effort"
+        ]
+      },
+      {
+        "canonical": "止损方案",
+        "synonyms": [
+          "短期止血长期优化",
+          "迭代优化"
+        ]
+      }
+    ],
+    "reference_points": [
+      "界定：确认预期指标口径、功能渗透率现状、上线时间与观察窗口",
+      "拆解：按功能渗透率-使用深度-留存影响拆解，按用户分群看谁在用谁没用",
+      "验证：核查埋点数据是否准确、用户访谈了解为何不用、A/B测试对照组差异",
+      "方案：短期修复明显的可用性问题，长期迭代功能设计或调整目标用户定位",
+      "结论：设定新的观察周期重新评估指标"
+    ]
+  },
+  {
+    "question_id": "case_analysis_05",
+    "question_text": "某电商平台GMV（成交总额）同比下滑，请分析可能原因并给出应对方案。",
+    "question_type": "case_analysis",
+    "keyword_clusters": [
+      {
+        "canonical": "GMV拆解",
+        "synonyms": [
+          "客单价×订单数",
+          "公式化拆解"
+        ]
+      },
+      {
+        "canonical": "MECE",
+        "synonyms": [
+          "结构化拆解",
+          "穷尽分类"
+        ]
+      },
+      {
+        "canonical": "漏斗分析",
+        "synonyms": [
+          "转化路径分析",
+          "funnel"
+        ]
+      },
+      {
+        "canonical": "渠道归因",
+        "synonyms": [
+          "获客渠道分析",
+          "流量来源"
+        ]
+      },
+      {
+        "canonical": "季节性因素",
+        "synonyms": [
+          "外部环境",
+          "大盘趋势"
+        ]
+      },
+      {
+        "canonical": "竞品分析",
+        "synonyms": [
+          "市场竞争",
+          "外部因素排查"
+        ]
+      },
+      {
+        "canonical": "A/B测试",
+        "synonyms": [
+          "实验验证",
+          "灰度测试"
+        ]
+      },
+      {
+        "canonical": "北极星指标",
+        "synonyms": [
+          "核心业务指标",
+          "关键指标"
+        ]
+      },
+      {
+        "canonical": "优先级排序",
+        "synonyms": [
+          "短期长期区分",
+          "impact effort"
+        ]
+      }
+    ],
+    "reference_points": [
+      "界定：GMV=客单价×订单数×转化率，先确认是哪个因子下滑",
+      "拆解：按品类/渠道/地域/新老用户MECE拆解，排查外部季节性和竞品因素",
+      "验证：交叉分析各细分维度数据，核实是否有促销活动缺失或竞品大促分流",
+      "方案：短期针对性促销拉回，长期优化商品结构或渠道投放",
+      "结论：跟踪GMV和各拆解因子的恢复情况"
+    ]
+  },
+  {
+    "question_id": "case_analysis_06",
+    "question_text": "客服满意度评分近期明显下降，请分析原因并提出改进方案。",
+    "question_type": "case_analysis",
+    "keyword_clusters": [
+      {
+        "canonical": "MECE拆解",
+        "synonyms": [
+          "结构化分析",
+          "穷尽分类"
+        ]
+      },
+      {
+        "canonical": "用户分群",
+        "synonyms": [
+          "按问题类型分层",
+          "渠道分层"
+        ]
+      },
+      {
+        "canonical": "根因分析",
+        "synonyms": [
+          "归因分析",
+          "root cause"
+        ]
+      },
+      {
+        "canonical": "数据交叉分析",
+        "synonyms": [
+          "多维交叉",
+          "cross analysis"
+        ]
+      },
+      {
+        "canonical": "用户访谈",
+        "synonyms": [
+          "定性调研",
+          "满意度回访"
+        ]
+      },
+      {
+        "canonical": "A/B测试",
+        "synonyms": [
+          "流程实验",
+          "灰度验证"
+        ]
+      },
+      {
+        "canonical": "SLA",
+        "synonyms": [
+          "响应时长",
+          "服务水平"
+        ]
+      },
+      {
+        "canonical": "优先级排序",
+        "synonyms": [
+          "ICE/RICE模型",
+          "impact effort"
+        ]
+      },
+      {
+        "canonical": "短期长期区分",
+        "synonyms": [
+          "止血vs优化",
+          "治标治本"
+        ]
+      }
+    ],
+    "reference_points": [
+      "界定：确认满意度下降是全渠道全品类还是集中在某问题类型/渠道",
+      "拆解：按问题类型、客服渠道、响应时长几个维度MECE拆解",
+      "验证：交叉分析低分评价的具体反馈内容，回访典型低分用户",
+      "方案：短期针对高频差评问题类型专项优化，长期改进培训/流程/工具",
+      "结论：跟踪满意度分和SLA指标变化"
+    ]
+  },
+  {
+    "question_id": "case_analysis_07",
+    "question_text": "某App的广告投放ROI（投入产出比）持续走低，请分析原因并给出优化建议。",
+    "question_type": "case_analysis",
+    "keyword_clusters": [
+      {
+        "canonical": "ROI拆解",
+        "synonyms": [
+          "公式化拆解",
+          "投入产出分解"
+        ]
+      },
+      {
+        "canonical": "MECE",
+        "synonyms": [
+          "结构化拆解",
+          "穷尽分类"
+        ]
+      },
+      {
+        "canonical": "渠道归因",
+        "synonyms": [
+          "投放渠道分析",
+          "channel attribution"
+        ]
+      },
+      {
+        "canonical": "用户质量",
+        "synonyms": [
+          "LTV",
+          "用户生命周期价值"
+        ]
+      },
+      {
+        "canonical": "竞品分析",
+        "synonyms": [
+          "外部环境",
+          "市场竞争"
+        ]
+      },
+      {
+        "canonical": "A/B测试",
+        "synonyms": [
+          "素材实验",
+          "灰度测试"
+        ]
+      },
+      {
+        "canonical": "归因分析",
+        "synonyms": [
+          "根因定位",
+          "root cause"
+        ]
+      },
+      {
+        "canonical": "北极星指标",
+        "synonyms": [
+          "核心指标",
+          "关键业务指标"
+        ]
+      },
+      {
+        "canonical": "优先级排序",
+        "synonyms": [
+          "短期长期区分",
+          "impact effort"
+        ]
+      }
+    ],
+    "reference_points": [
+      "界定：ROI=收入/投放成本，确认是收入端还是成本端出问题",
+      "拆解：按投放渠道/素材/人群包MECE拆解，排查竞价环境变化等外部因素",
+      "验证：分渠道分素材做归因分析，评估用户LTV是否同步下降",
+      "方案：短期暂停低效渠道/素材，长期优化投放策略和用户质量筛选",
+      "结论：跟踪分渠道ROI恢复情况"
+    ]
+  },
+  {
+    "question_id": "case_analysis_08",
+    "question_text": "某App的崩溃率（Crash Rate）近期明显上升，请分析原因并给出解决方案。",
+    "question_type": "case_analysis",
+    "keyword_clusters": [
+      {
+        "canonical": "MECE拆解",
+        "synonyms": [
+          "结构化分析",
+          "穷尽分类"
+        ]
+      },
+      {
+        "canonical": "版本对比",
+        "synonyms": [
+          "版本归因",
+          "release对比"
+        ]
+      },
+      {
+        "canonical": "设备/机型分布",
+        "synonyms": [
+          "环境分层",
+          "segment分析"
+        ]
+      },
+      {
+        "canonical": "日志分析",
+        "synonyms": [
+          "crash log",
+          "堆栈分析"
+        ]
+      },
+      {
+        "canonical": "灰度发布",
+        "synonyms": [
+          "canary release",
+          "分批验证"
+        ]
+      },
+      {
+        "canonical": "A/B测试",
+        "synonyms": [
+          "实验对照",
+          "灰度回滚"
+        ]
+      },
+      {
+        "canonical": "根因分析",
+        "synonyms": [
+          "归因分析",
+          "root cause"
+        ]
+      },
+      {
+        "canonical": "优先级排序",
+        "synonyms": [
+          "ICE/RICE模型",
+          "impact effort"
+        ]
+      },
+      {
+        "canonical": "止血方案",
+        "synonyms": [
+          "hotfix vs 长期修复",
+          "短期长期区分"
+        ]
+      }
+    ],
+    "reference_points": [
+      "界定：确认崩溃率统计口径、上升时间点是否对应某次版本发布",
+      "拆解：按版本/机型/系统版本/地域MECE拆解崩溃分布",
+      "验证：分析崩溃日志堆栈定位具体代码问题，灰度对比新旧版本崩溃率",
+      "方案：短期紧急发布hotfix或灰度回滚，长期加强发布前测试覆盖",
+      "结论：跟踪崩溃率恢复至正常水平，复盘发布流程"
+    ]
+  },
+  {
+    "question_id": "case_analysis_09",
+    "question_text": "公司整体收入下滑，但用户数量仍在正常增长，请分析可能原因。",
+    "question_type": "case_analysis",
+    "keyword_clusters": [
+      {
+        "canonical": "MECE拆解",
+        "synonyms": [
+          "结构化分析",
+          "穷尽分类"
+        ]
+      },
+      {
+        "canonical": "收入公式拆解",
+        "synonyms": [
+          "客单价×付费率×用户数",
+          "公式化拆解"
+        ]
+      },
+      {
+        "canonical": "用户分群",
+        "synonyms": [
+          "付费用户vs免费用户",
+          "cohort分析"
+        ]
+      },
+      {
+        "canonical": "渠道归因",
+        "synonyms": [
+          "获客渠道质量",
+          "流量结构变化"
+        ]
+      },
+      {
+        "canonical": "竞品分析",
+        "synonyms": [
+          "市场竞争",
+          "外部环境"
+        ]
+      },
+      {
+        "canonical": "A/B测试",
+        "synonyms": [
+          "实验验证",
+          "灰度测试"
+        ]
+      },
+      {
+        "canonical": "归因分析",
+        "synonyms": [
+          "根因分析",
+          "root cause"
+        ]
+      },
+      {
+        "canonical": "北极星指标",
+        "synonyms": [
+          "核心业务指标",
+          "关键指标"
+        ]
+      },
+      {
+        "canonical": "优先级排序",
+        "synonyms": [
+          "短期长期区分",
+          "impact effort"
+        ]
+      }
+    ],
+    "reference_points": [
+      "界定：收入=用户数×付费率×客单价，确认是付费率还是客单价下滑",
+      "拆解：按新老用户/渠道/付费档位MECE拆解，排查获客渠道结构变化",
+      "验证：交叉分析新增用户的付费转化质量，对比历史同期基准",
+      "方案：短期优化付费转化路径，长期调整获客渠道结构和定价策略",
+      "结论：跟踪付费率和客单价的恢复情况"
+    ]
+  },
+  {
+    "question_id": "case_analysis_10",
+    "question_text": "产品核心指标增长明显放缓，请分析可能的突破方向。",
+    "question_type": "case_analysis",
+    "keyword_clusters": [
+      {
+        "canonical": "MECE拆解",
+        "synonyms": [
+          "结构化分析",
+          "穷尽分类"
+        ]
+      },
+      {
+        "canonical": "增长模型",
+        "synonyms": [
+          "AARRR模型",
+          "海盗指标模型"
+        ]
+      },
+      {
+        "canonical": "用户分群",
+        "synonyms": [
+          "分层分析",
+          "cohort分析"
+        ]
+      },
+      {
+        "canonical": "天花板分析",
+        "synonyms": [
+          "市场饱和度",
+          "渗透率分析"
+        ]
+      },
+      {
+        "canonical": "竞品分析",
+        "synonyms": [
+          "外部环境",
+          "市场对比"
+        ]
+      },
+      {
+        "canonical": "A/B测试",
+        "synonyms": [
+          "实验验证",
+          "灰度测试"
+        ]
+      },
+      {
+        "canonical": "归因分析",
+        "synonyms": [
+          "根因定位",
+          "root cause"
+        ]
+      },
+      {
+        "canonical": "北极星指标",
+        "synonyms": [
+          "核心业务指标",
+          "关键指标"
+        ]
+      },
+      {
+        "canonical": "优先级排序",
+        "synonyms": [
+          "ICE/RICE模型",
+          "impact effort"
+        ]
+      }
+    ],
+    "reference_points": [
+      "界定：确认放缓的具体指标和时间节点、是否已接近渗透天花板",
+      "拆解：用AARRR模型拆解各环节增长贡献，分市场/人群看是否结构性放缓",
+      "验证：对比竞品增长曲线判断是否行业性放缓，评估存量市场饱和度",
+      "方案：短期优化现有环节转化效率，长期探索新市场/新用户群/新场景",
+      "结论：设定新的增长目标和监控指标观察突破效果"
+    ]
+  }
+]

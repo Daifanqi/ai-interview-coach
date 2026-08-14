@@ -223,3 +223,7 @@ data/*.db
 # Downloaded Piper voice models (backend/speech/tts.py) -- tens of MB each,
 # fetched on first use rather than committed
 data/piper_voices/
+
+# Persisted Chroma vector index (backend/rag/vector_store.py) -- rebuilt
+# from data/question_bank.json on demand, not committed
+data/chroma_question_bank/

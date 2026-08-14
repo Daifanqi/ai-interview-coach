@@ -6,3 +6,12 @@ soundfile>=0.12
 numpy>=1.26
 piper-tts>=1.2
 sounddevice>=0.5
+
+# Baseline scoring (backend/scoring) + RAG question-bank retrieval (backend/rag):
+# both share the same multilingual sentence embedding model, see
+# backend/scoring/embedding.py
+sentence-transformers>=3.0
+chromadb>=0.5
+
+# Test runner for tests/
+pytest>=8.0
