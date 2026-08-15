@@ -113,6 +113,12 @@ def _load_marian(target_lang: str) -> Optional[tuple]:
         tokenizer = MarianTokenizer.from_pretrained(model_name)
         model = MarianMTModel.from_pretrained(model_name).to(_get_device())
         model.eval()
+        # The pretrained checkpoint's own generation_config ships a default
+        # max_length; _translate_chunk() below always passes max_new_tokens
+        # explicitly instead, so clear this to stop transformers warning
+        # "Both max_new_tokens and max_length seem to have been set" on
+        # every single generate() call.
+        model.generation_config.max_length = None
     except Exception as exc:  # noqa: BLE001 -- any load failure must degrade, not crash the fold
         print(f"WARNING: failed to load local translation model {model_name!r}: {exc!r} "
               f"-- every sample needing this direction will be skipped.")
