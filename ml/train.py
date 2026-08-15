@@ -20,6 +20,13 @@ task spec):
   character length from ml/data_summary.md, rounded up to a standard
   bucket — currently 512)
 
+Default mode is 5-fold CV (evaluates against each fold's val_ids). Once CV
+has picked a model/recipe, --final trains once on the full train+val pool
+(all non-test ids) and evaluates once on the held-out ml/splits/test.json
+set — see train_final_model()'s docstring for the test-isolation guarantee
+and DEFAULT_FINAL_EPOCHS for why a fixed epoch count replaces early stopping
+in that mode.
+
 Only imports torch/transformers *inside* functions (never at module level)
 so this module stays importable — and its pure-Python pieces (arch
 metadata, CLI, hyperparameter defaults, overfit-gap check) stay testable —
@@ -63,6 +70,16 @@ MODEL_ARCH_INFO = {
 
 NUM_LABELS = 5
 OVERFIT_GAP_THRESHOLD = 0.15  # train_macro_f1 - val_macro_f1 above this -> suggest switching model
+
+# --final mode (train_final_model) has no validation split left to early-stop
+# against — it trains on the full train+val pool. It needs a pre-committed
+# fixed epoch count instead (see train_final_model's docstring). This default
+# is the middle of the ~10-18 epoch range distilbert-base-multilingual-cased
+# (no augmentation) converged at (best eval_{monitor} epoch, from 5-fold CV)
+# in the Week 7 model-selection run — see docs/decision_log.md. Override with
+# --final-epochs if you have the exact per-fold numbers from that run, or are
+# running --final for a different model/recipe.
+DEFAULT_FINAL_EPOCHS = 14
 
 
 # ---------------------------------------------------------------------------
@@ -311,6 +328,14 @@ def train_one_fold(
     )
     trainer.train()
 
+    # Epoch at which the monitored metric peaked (what load_best_model_at_end
+    # actually restored). Recorded so a future --final run can set
+    # --final-epochs from the real per-fold numbers instead of
+    # DEFAULT_FINAL_EPOCHS' hardcoded approximation.
+    eval_key = f"eval_{monitor}"
+    eval_logs = [entry for entry in trainer.state.log_history if eval_key in entry]
+    best_epoch = max(eval_logs, key=lambda e: e[eval_key])["epoch"] if eval_logs else None
+
     import numpy as np
 
     val_pred_logits = trainer.predict(val_dataset).predictions
@@ -332,7 +357,140 @@ def train_one_fold(
         "used_augmented": use_augmented,
         "val_metrics": val_metrics,
         "train_metrics": train_metrics,
+        "best_epoch": best_epoch,
         "per_sample_val": per_sample_val,
+    }
+
+
+def train_final_model(
+    model_name: str,
+    samples_by_id: dict,
+    max_length: int,
+    encoder_lr: float,
+    head_lr: float,
+    dropout: float,
+    freeze_layers_n: int,
+    final_epochs: int,
+    batch_size: int,
+    label_smoothing: float,
+    seed: int,
+    use_augmented: bool = False,
+    from_pretrained: bool = True,
+    output_root: Path | None = None,
+    run_name: str | None = None,
+    use_cpu: bool = False,
+    trainval_ids: list[str] | None = None,
+    test_ids: list[str] | None = None,
+) -> dict:
+    """Train once on the full train+val pool (all non-test ids, ~128 of the
+    150 samples) and evaluate once on the held-out test set (~22 samples) —
+    the final, report-facing fit, run after 5-fold CV has already picked the
+    model/recipe. This is NOT another CV fold: there is no validation split
+    held back here, so early stopping is not possible — `final_epochs` is a
+    fixed, pre-committed budget (see DEFAULT_FINAL_EPOCHS) decided from the
+    CV run's convergence behavior, not tuned against this run's own results.
+
+    Test-set isolation: `test_ids` (defaults to ml/splits/test.json, the same
+    held-out set every CV fold already excludes) is used for exactly one
+    thing — a single trainer.predict() call after trainer.train() has fully
+    finished. It is never passed to Trainer as eval_dataset, never seen
+    during training, and never used for any epoch/hyperparameter/model
+    decision. A ValueError is raised up front if trainval_ids/test_ids
+    overlap at all, rather than silently training on test data.
+    """
+    if use_augmented:
+        raise NotImplementedError(
+            "--final --augment isn't supported: ml/augment.py's back-translation runs per "
+            "CV fold train split (ml/data/augmented/fold_{i}_train_augmented.json) — there "
+            "is no augmented set for the full 128-sample train+val pool. The Week 7 model "
+            "decision is no-augmentation anyway (see docs/decision_log.md), so this is out "
+            "of scope for now; generate a matching augmented file first if a future "
+            "model/recipe choice needs it."
+        )
+
+    from transformers import Trainer, TrainingArguments, set_seed
+
+    set_seed(seed)
+
+    if test_ids is None:
+        test_ids = list(common.load_test()["test_ids"])
+    if trainval_ids is None:
+        trainval_ids = common.load_trainval_ids(samples_by_id, test_ids=test_ids)
+
+    overlap = set(trainval_ids) & set(test_ids)
+    if overlap:
+        raise ValueError(
+            f"train_final_model: {len(overlap)} id(s) appear in both trainval_ids and "
+            f"test_ids — refusing to train on held-out test data: {sorted(overlap)[:5]}"
+        )
+
+    train_samples = [dict(samples_by_id[i], id=i) for i in trainval_ids]
+    train_texts = [s["answer_text"] for s in train_samples]
+    train_labels = [s["band_label"] for s in train_samples]
+
+    model, tokenizer = build_model_and_tokenizer(model_name, dropout, from_pretrained=from_pretrained)
+    frozen_n = freeze_layers(model, model_name, freeze_layers_n)
+    optimizer = build_discriminative_optimizer(model, encoder_lr, head_lr)
+
+    train_dataset = _build_dataset(train_texts, train_labels, tokenizer, max_length)
+
+    run_name = run_name or model_name
+    output_dir = (output_root or RESULTS_DIR) / run_name / "final_model" / "checkpoints"
+    args = TrainingArguments(
+        output_dir=str(output_dir),
+        num_train_epochs=final_epochs,
+        per_device_train_batch_size=batch_size,
+        per_device_eval_batch_size=max(batch_size * 2, batch_size),
+        eval_strategy="no",  # no val split to evaluate against during training
+        save_strategy="no",  # final weights saved explicitly below instead
+        label_smoothing_factor=label_smoothing,
+        logging_strategy="epoch",
+        report_to=[],
+        seed=seed,
+        disable_tqdm=True,
+        use_cpu=use_cpu,
+    )
+
+    trainer = Trainer(
+        model=model,
+        args=args,
+        train_dataset=train_dataset,
+        optimizers=(optimizer, None),
+    )
+    trainer.train()
+
+    import numpy as np
+
+    train_pred_logits = trainer.predict(train_dataset).predictions
+    train_preds = np.argmax(train_pred_logits, axis=-1).tolist()
+    train_metrics = metrics.compute_metrics(train_labels, train_preds)
+
+    # The one and only place test_ids get used: a single post-training predict().
+    test_texts = common.ids_to_texts(test_ids, samples_by_id)
+    test_labels = common.ids_to_labels(test_ids, samples_by_id)
+    test_dataset = _build_dataset(test_texts, test_labels, tokenizer, max_length)
+    test_pred_logits = trainer.predict(test_dataset).predictions
+    test_preds = np.argmax(test_pred_logits, axis=-1).tolist()
+    test_metrics = metrics.compute_metrics(test_labels, test_preds)
+
+    model_dir = (output_root or RESULTS_DIR) / run_name / "final_model" / "model"
+    trainer.save_model(str(model_dir))
+    tokenizer.save_pretrained(str(model_dir))
+
+    per_sample_test = [{"id": i, "true": t, "pred": p} for i, t, p in zip(test_ids, test_labels, test_preds)]
+
+    return {
+        "model_name": model_name,
+        "run_name": run_name,
+        "frozen_encoder_layers": frozen_n,
+        "final_epochs": final_epochs,
+        "n_train": len(train_samples),
+        "n_test": len(test_ids),
+        "used_augmented": use_augmented,
+        "train_metrics": train_metrics,
+        "test_metrics": test_metrics,
+        "per_sample_test": per_sample_test,
+        "model_dir": str(model_dir),
     }
 
 
@@ -357,6 +515,23 @@ def build_arg_parser() -> argparse.ArgumentParser:
     parser.add_argument("--label-smoothing", type=float, default=0.1)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--max-length", type=int, default=None, help="Default: ml.common.default_max_length().")
+    parser.add_argument(
+        "--final",
+        action="store_true",
+        help=(
+            "Train once on the full train+val pool (all non-test ids, ~128 samples) and "
+            "evaluate once on the held-out test set (~22 samples) instead of 5-fold CV. "
+            "Run this after CV has already picked the model/recipe. No validation split is "
+            "held back in this mode, so --max-epochs/--patience/--monitor/--folds are "
+            "ignored — use --final-epochs instead (fixed budget, no early stopping)."
+        ),
+    )
+    parser.add_argument(
+        "--final-epochs",
+        type=int,
+        default=None,
+        help=f"Fixed epoch count for --final mode (no val split -> no early stopping). Default {DEFAULT_FINAL_EPOCHS} if not given — see DEFAULT_FINAL_EPOCHS's comment in this file.",
+    )
     return parser
 
 
@@ -374,6 +549,10 @@ def main() -> None:
 
     samples_by_id = common.load_prepared_samples()
     max_length = args.max_length or common.default_max_length(samples_by_id)
+
+    if args.final:
+        _run_final(args, run_name, samples_by_id, max_length)
+        return
 
     fold_results = []
     for fold_i in args.folds:
@@ -408,6 +587,52 @@ def main() -> None:
         _write_summary(args.model, run_name, fold_results, args)
 
 
+def _run_final(args: argparse.Namespace, run_name: str, samples_by_id: dict, max_length: int) -> None:
+    final_epochs = args.final_epochs if args.final_epochs is not None else DEFAULT_FINAL_EPOCHS
+    print(f"\n=== final model ({run_name}): fixed {final_epochs} epochs, no early stopping ===")
+
+    result = train_final_model(
+        model_name=args.model,
+        samples_by_id=samples_by_id,
+        max_length=max_length,
+        encoder_lr=args.encoder_lr,
+        head_lr=args.head_lr,
+        dropout=args.dropout,
+        freeze_layers_n=args.freeze_layers,
+        final_epochs=final_epochs,
+        batch_size=args.batch_size,
+        label_smoothing=args.label_smoothing,
+        seed=args.seed,
+        use_augmented=args.augment,
+        run_name=run_name,
+    )
+
+    print(metrics.format_metrics(result["train_metrics"], f"{run_name} train (final fit, reference only — not a generalization estimate)"))
+    print(metrics.format_metrics(result["test_metrics"], f"{run_name} HELD-OUT TEST (final, {final_epochs} epochs) — the report-facing numbers"))
+
+    out_dir = RESULTS_DIR / run_name / "final_model"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    summary = {
+        "model_name": result["model_name"],
+        "run_name": result["run_name"],
+        "final_epochs": result["final_epochs"],
+        "frozen_encoder_layers": result["frozen_encoder_layers"],
+        "n_train": result["n_train"],
+        "n_test": result["n_test"],
+        "used_augmented": result["used_augmented"],
+        "hyperparams": vars(args),
+        "train_metrics": result["train_metrics"],
+        "test_metrics": result["test_metrics"],
+        "model_dir": result["model_dir"],
+    }
+    with (out_dir / "final_metrics.json").open("w", encoding="utf-8") as f:
+        json.dump(summary, f, ensure_ascii=False, indent=2)
+    with (out_dir / "per_sample_test.json").open("w", encoding="utf-8") as f:
+        json.dump(result["per_sample_test"], f, ensure_ascii=False, indent=2)
+
+    print(f"Wrote {out_dir.relative_to(ROOT)}/final_metrics.json and per_sample_test.json")
+
+
 def _write_summary(model_name: str, run_name: str, fold_results: list[dict], args: argparse.Namespace) -> None:
     import numpy as np
 
@@ -425,6 +650,7 @@ def _write_summary(model_name: str, run_name: str, fold_results: list[dict], arg
                 "val_qwk": r["val_metrics"]["qwk"],
                 "val_within1_accuracy": r["val_metrics"]["within1_accuracy"],
                 "train_macro_f1": r["train_metrics"]["macro_f1"],
+                "best_epoch": r.get("best_epoch"),
             }
             for r in fold_results
         ],
@@ -434,6 +660,9 @@ def _write_summary(model_name: str, run_name: str, fold_results: list[dict], arg
         "mean_val_within1_accuracy": float(np.mean([r["val_metrics"]["within1_accuracy"] for r in fold_results])),
         "mean_train_macro_f1": float(np.mean(train_macro_f1s)),
     }
+    best_epochs = [r["best_epoch"] for r in fold_results if r.get("best_epoch") is not None]
+    # Useful directly as --final-epochs for this model/augment combination's --final run.
+    summary["mean_best_epoch"] = float(np.mean(best_epochs)) if best_epochs else None
 
     overfit_msg = check_overfit_and_suggest(model_name, summary["mean_train_macro_f1"], summary["mean_val_macro_f1"])
     summary["overfit_warning"] = overfit_msg

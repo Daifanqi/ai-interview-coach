@@ -51,6 +51,26 @@ def load_test(splits_dir: Path = SPLITS_DIR) -> dict:
         return json.load(f)
 
 
+def load_trainval_ids(samples_by_id: dict[str, dict], test_ids: list[str] | None = None) -> list[str]:
+    """All non-test sample ids (~128 of the 150) — the union of every fold's
+    train_ids+val_ids, which is the same set across all 5 folds since it's
+    k-fold over one shared pool. Used by train.py's --final mode to train
+    once on train+val combined and evaluate once on the untouched test set.
+
+    Deliberately computed as "everything not in test_ids" rather than by
+    unioning fold_0's train_ids/val_ids, so it stays correct (and a mismatch
+    would raise, not silently pass) even if the fold files and test.json
+    ever drift apart.
+    """
+    if test_ids is None:
+        test_ids = load_test()["test_ids"]
+    test_id_set = set(test_ids)
+    missing = test_id_set - samples_by_id.keys()
+    if missing:
+        raise ValueError(f"test_ids not found in samples_by_id: {sorted(missing)[:5]}...")
+    return sorted(i for i in samples_by_id if i not in test_id_set)
+
+
 def ids_to_labels(ids: list[str], samples_by_id: dict[str, dict]) -> list[int]:
     """band_label (0-4) for each id, in the same order as `ids`."""
     return [samples_by_id[i]["band_label"] for i in ids]

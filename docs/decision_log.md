@@ -780,3 +780,73 @@ fold 0-4后需要重新抽查几条，确认回译质量仍然保留原有的结
 记录不代为下结论。
 
 **归属：** ml/实验脚本（`ml/augment.py`、`ml/requirements.txt`）。
+
+## 33. 第7周微调模型最终选择：distilbert-base-multilingual-cased，不使用数据增强；train.py新增最终模型训练模式
+
+**背景：** [[30]]确定第7周只用batch1的150条数据（5折交叉验证pool 128条
++封存测试集22条）。5折交叉验证跑完了四组组合：xlm-roberta-base（普通版
+/增强版）、distilbert-base-multilingual-cased（普通版/增强版）。
+
+**决策（模型选择）：** 最终模型定为
+`distilbert-base-multilingual-cased`，**不使用**`ml/augment.py`的回译
+数据增强。
+
+**理由（对比数字，均为5折验证集均值）：**
+
+1. distilbert全面优于xlm-roberta-base：mean val macro_f1 0.885 vs
+   0.770，mean val qwk 0.950 vs 0.929。
+2. `ml/train.py`的过拟合检测（`check_overfit_and_suggest()`，train-val
+   macro_f1差距>0.15阈值）在xlm-roberta-base上触发了警告，
+   distilbert-base-multilingual-cased没有触发——即模型本身的建议路径
+   （见`ml/train.py`模块docstring"Fallback... if xlm-roberta-base shows
+   clear overfitting"）也指向同一个结论。
+3. distilbert-base-multilingual-cased训练速度明显更快（6层 vs
+   xlm-roberta-base的12层，且模型整体更小），在Colab GPU时间有限的
+   前提下是额外的加分项，不是决定性理由。
+4. 数据增强对distilbert没有带来提升，反而三项指标都略微下降且波动
+   变大：macro_f1 0.885→0.878，qwk 0.950→0.942，within1_accuracy
+   0.985→0.977。因此最终模型不使用增强数据训练。
+
+**决策（新增train.py最终模型训练模式）：** 之前`ml/train.py`只支持5折
+交叉验证（每折在自己的val_ids上评估），没有"确定模型后，合并全部
+train+val数据重新训练一次、在封存测试集上出正式指标"这一步。本次给
+`ml/train.py`加了`--final`模式：
+
+1. `ml/common.py`新增`load_trainval_ids()`：返回不在`test.json`里的
+   全部约128个id（用"排除test_ids"算，不是直接并5折里某一折的
+   train_ids+val_ids，这样即使将来fold文件和test.json出现不一致也会
+   在下游校验里体现出来，而不是默默算错）。
+2. `ml/train.py`新增`train_final_model()`：只用`load_trainval_ids()`
+   算出的~128条数据训练，**没有**再切一份验证集出来做早停。训练全部
+   结束（`trainer.train()`跑完）之后，才对22条`test_ids`做**唯一一次**
+   `trainer.predict()`调用，用来算最终要写进报告的macro_f1、qwk、
+   within1_accuracy、exact_accuracy和混淆矩阵。函数一开始就校验
+   `trainval_ids`和`test_ids`没有交集，有重叠直接抛`ValueError`，不会
+   静默拿测试集数据参与训练——这是本次任务要求里"测试集绝不能以任何
+   形式参与训练或早停决策"的硬约束在代码层面的落地。`ml/self_test.py`
+   新增了针对这条guard的测试（构造故意重叠的id，断言必须抛异常）。
+3. 早停策略调整：因为没有验证集了，`--max-epochs`/`--patience`/
+   `--monitor`这几个CV模式的参数在`--final`模式下不生效，改成
+   `--final-epochs`固定训练轮数。默认值`DEFAULT_FINAL_EPOCHS=14`——
+   取自distilbert-base-multilingual-cased（不增强）5折交叉验证里各折
+   收敛所在epoch数区间（约10-18轮）的中位数附近，作为没有精确逐折
+   数字时的合理近似（当前Colab上那次CV跑的时候还没有记录逐折收敛
+   epoch，本地也没有同步那次跑的summary.json，所以只能用这个近似值）。
+   同时给`train_one_fold()`加了`best_epoch`字段（从
+   `trainer.state.log_history`里，找`eval_{monitor}`取到最大值那次的
+   epoch），`_write_summary()`里汇总出`mean_best_epoch`——以后重新跑
+   CV时，`--final-epochs`可以直接从新一次summary.json的
+   `mean_best_epoch`读，不用再靠这个近似值。`ml/colab_run.ipynb`新增
+   的步骤11会自动读取该字段（读不到就落回默认值）。
+4. `--final --augment`组合直接抛`NotImplementedError`：
+   `ml/augment.py`的回译数据是按每折的train_ids单独生成的
+   （`fold_{i}_train_augmented.json`），没有对应128条trainval全集的
+   增强文件，而且本决策定的最终模型本来就不用增强，这个组合超出当前
+   范围，不做即时支持。
+5. `ml/colab_run.ipynb`新增步骤11（"最终模型——合并train+val训练一次，
+   在封存测试集上评估一次"），原步骤11"拉取结果"顺延为步骤12。
+
+**范围：** `ml/train.py`（`train_final_model()`、`--final`/
+`--final-epochs`CLI、`train_one_fold()`的`best_epoch`记录）、
+`ml/common.py`（`load_trainval_ids()`）、`ml/self_test.py`
+（`test_train_final_smoke()`）、`ml/colab_run.ipynb`（新增步骤11）。

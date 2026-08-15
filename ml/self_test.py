@@ -11,6 +11,9 @@ Uses a handful of fabricated small samples (not the real 150) to exercise:
      each supported architecture — same class as the real backbone, but
      2 layers / hidden_size 32, so no large pretrained-weight download and
      each run takes seconds, not GPU time.
+  6. ml/train.py's --final path (train_final_model): fixed-epoch fit on a
+     fake trainval/test split, plus the trainval/test id-overlap guard
+     actually raising instead of silently training on "test" data.
 
 Point of this script: catch wiring bugs (wrong config field name, wrong
 param-group split, Trainer args that don't parse, tokenizer/dataset shape
@@ -126,7 +129,7 @@ def build_fake_questions():
 
 
 def test_common(tmp_dir: Path, samples: dict[str, dict]) -> None:
-    print("\n[1/7] ml/common.py — split/sample loading")
+    print("\n[1/8] ml/common.py — split/sample loading")
 
     samples_path = tmp_dir / "prepared_samples.json"
     samples_path.write_text(json.dumps(list(samples.values()), ensure_ascii=False), encoding="utf-8")
@@ -169,7 +172,7 @@ def test_common(tmp_dir: Path, samples: dict[str, dict]) -> None:
 
 
 def test_metrics() -> None:
-    print("\n[2/7] ml/metrics.py — metric computation")
+    print("\n[2/8] ml/metrics.py — metric computation")
 
     perfect = metrics.compute_metrics([0, 1, 2, 3, 4], [0, 1, 2, 3, 4])
     check(perfect["macro_f1"] == 1.0, f"perfect predictions -> macro_f1=1.0, got {perfect['macro_f1']}")
@@ -193,7 +196,7 @@ def test_metrics() -> None:
 
 
 def test_baselines(samples: dict[str, dict]) -> None:
-    print("\n[3/7] ml/baselines.py — majority-class + existing-app-scoring baselines")
+    print("\n[3/8] ml/baselines.py — majority-class + existing-app-scoring baselines")
 
     all_ids = list(samples)
     train_ids, eval_ids = all_ids[:6], all_ids[6:]
@@ -218,7 +221,7 @@ def test_baselines(samples: dict[str, dict]) -> None:
 
 
 def test_augment(samples: dict[str, dict]) -> None:
-    print("\n[4/7] ml/augment.py — back-translation + leakage check")
+    print("\n[4/8] ml/augment.py — back-translation + leakage check")
 
     all_ids = list(samples)
     val_ids = all_ids[:2]
@@ -255,7 +258,7 @@ def test_augment(samples: dict[str, dict]) -> None:
 
 
 def test_learning_curve(samples: dict[str, dict]) -> None:
-    print("\n[5/7] ml/learning_curve.py — nested stratified subsampling")
+    print("\n[5/8] ml/learning_curve.py — nested stratified subsampling")
 
     train_ids = list(samples)
     subsets = learning_curve.nested_stratified_subsets(train_ids, samples, fractions=(0.25, 0.5, 0.75, 1.0), seed=42)
@@ -278,7 +281,7 @@ def test_learning_curve(samples: dict[str, dict]) -> None:
 
 
 def test_error_analysis(samples: dict[str, dict]) -> None:
-    print("\n[6/7] ml/error_analysis.py — error summarization")
+    print("\n[6/8] ml/error_analysis.py — error summarization")
 
     ids = list(samples)
     # Fabricate predictions: one major miss (|pred-true|>=2), one near miss, one exact hit.
@@ -348,7 +351,7 @@ def test_error_analysis(samples: dict[str, dict]) -> None:
 
 
 def test_train_smoke(samples: dict[str, dict], tmp_dir: Path) -> None:
-    print("\n[7/7] ml/train.py — real Trainer smoke test (tiny random-init model, no pretrained weights)")
+    print("\n[7/8] ml/train.py — real Trainer smoke test (tiny random-init model, no pretrained weights)")
     try:
         import torch  # noqa: F401
         import transformers  # noqa: F401
@@ -393,6 +396,112 @@ def test_train_smoke(samples: dict[str, dict], tmp_dir: Path) -> None:
         check(result["frozen_encoder_layers"] == train.effective_freeze_count(model_name, 1),
               f"{model_name}: frozen_encoder_layers matches effective_freeze_count")
         check(0.0 <= result["train_metrics"]["macro_f1"] <= 1.0, f"{model_name}: train macro_f1 is a valid ratio")
+        check("best_epoch" in result, f"{model_name}: result records best_epoch (for a future --final-epochs choice)")
+
+    print("  done")
+
+
+# ---------------------------------------------------------------------------
+# 8. train.py --final path — full trainval/test fit + isolation guard
+# ---------------------------------------------------------------------------
+
+
+def test_train_final_smoke(samples: dict[str, dict], tmp_dir: Path) -> None:
+    print("\n[8/8] ml/train.py --final path — real Trainer smoke test (tiny random-init model, no pretrained weights)")
+    try:
+        import torch  # noqa: F401
+        import transformers  # noqa: F401
+    except ImportError:
+        print("  SKIPPED: torch/transformers not installed locally.")
+        return
+
+    import ml.train as train
+
+    all_ids = list(samples)
+    test_ids = all_ids[-2:]
+    trainval_ids = all_ids[:-2]
+    check(len(trainval_ids) >= 4, "fake dataset has enough trainval samples for a 1-epoch/batch-2 final-fit smoke run")
+
+    first_model = next(iter(train.MODEL_ARCH_INFO))
+
+    # Leakage guard: an overlapping id between trainval and test must raise,
+    # never silently train on "held-out" data.
+    try:
+        train.train_final_model(
+            model_name=first_model,
+            samples_by_id=samples,
+            max_length=32,
+            encoder_lr=1e-5,
+            head_lr=5e-4,
+            dropout=0.3,
+            freeze_layers_n=1,
+            final_epochs=1,
+            batch_size=2,
+            label_smoothing=0.1,
+            seed=42,
+            from_pretrained=False,
+            output_root=tmp_dir / "train_final_smoke_leak",
+            trainval_ids=trainval_ids + test_ids[:1],  # deliberate overlap
+            test_ids=test_ids,
+            use_cpu=True,
+        )
+        check(False, "train_final_model should raise ValueError on trainval/test id overlap")
+    except ValueError:
+        pass
+
+    # --augment isn't supported in --final mode (no full-trainval augmented set exists).
+    try:
+        train.train_final_model(
+            model_name=first_model,
+            samples_by_id=samples,
+            max_length=32,
+            encoder_lr=1e-5,
+            head_lr=5e-4,
+            dropout=0.3,
+            freeze_layers_n=1,
+            final_epochs=1,
+            batch_size=2,
+            label_smoothing=0.1,
+            seed=42,
+            use_augmented=True,
+            from_pretrained=False,
+            output_root=tmp_dir / "train_final_smoke_aug",
+            trainval_ids=trainval_ids,
+            test_ids=test_ids,
+            use_cpu=True,
+        )
+        check(False, "train_final_model(use_augmented=True) should raise NotImplementedError")
+    except NotImplementedError:
+        pass
+
+    for model_name in train.MODEL_ARCH_INFO:
+        print(f"  final-fitting {model_name} for 1 epoch on {len(trainval_ids)} fake samples, "
+              f"evaluating once on {len(test_ids)} fake held-out samples...")
+        result = train.train_final_model(
+            model_name=model_name,
+            samples_by_id=samples,
+            max_length=32,
+            encoder_lr=1e-5,
+            head_lr=5e-4,
+            dropout=0.3,
+            freeze_layers_n=1,
+            final_epochs=1,
+            batch_size=2,
+            label_smoothing=0.1,
+            seed=42,
+            from_pretrained=False,
+            output_root=tmp_dir / "train_final_smoke",
+            trainval_ids=trainval_ids,
+            test_ids=test_ids,
+            use_cpu=True,
+        )
+        check(result["n_train"] == len(trainval_ids), f"{model_name}: n_train matches trainval id count")
+        check(result["n_test"] == len(test_ids), f"{model_name}: n_test matches held-out test id count")
+        check(result["test_metrics"]["n"] == len(test_ids), f"{model_name}: test_metrics n matches held-out test set size")
+        check(len(result["test_metrics"]["confusion_matrix"]) == 5, f"{model_name}: test confusion matrix is 5x5")
+        check(len(result["per_sample_test"]) == len(test_ids), f"{model_name}: per_sample_test has one entry per test id")
+        check({s["id"] for s in result["per_sample_test"]} == set(test_ids),
+              f"{model_name}: per_sample_test ids are exactly the held-out test ids, nothing else")
 
     print("  done")
 
@@ -413,6 +522,7 @@ def main() -> None:
         test_learning_curve(samples)
         test_error_analysis(samples)
         test_train_smoke(samples, tmp_dir)
+        test_train_final_smoke(samples, tmp_dir)
 
     print()
     if _FAILURES:
