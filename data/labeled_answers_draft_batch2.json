@@ -1,0 +1,3302 @@
+[
+  {
+    "question_id": "tech_behavioral_01",
+    "answer_text": "我们组当时也遇到过类似的事，最后好像是别人主要在推动，我配合了一下。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 0.5,
+      "keyword_coverage": 0.7,
+      "logical_coherence": 0.8,
+      "specificity": 0.8
+    }
+  },
+  {
+    "question_id": "tech_behavioral_01",
+    "answer_text": "我们组好像遇到过类似的情况——作为技术负责人（tech lead）推动一个跨团队技术项目交付。我当时也算是技术方向上参与其中，大概做了一些跨团队协调相关的事情，具体怎么推进的我记得不是很清楚，反正最后事情算是过去了。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 3.7,
+      "keyword_coverage": 3.0,
+      "logical_coherence": 3.2,
+      "specificity": 3.7
+    }
+  },
+  {
+    "question_id": "tech_behavioral_01",
+    "answer_text": "有一次我经历过这样的情况——作为技术负责人（tech lead）推动一个跨团队技术项目交付。当时我是团队里负责这块的人，带了4个同事一起做。我们大致分了下工，我主要盯跨团队协调和按期交付这两块，中间遇到一些阻碍，比如资源没到位，我们协调了一下，用了大概一个月把事情推完了，最后按计划完成了，没出什么大问题。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 4.6,
+      "keyword_coverage": 5.5,
+      "logical_coherence": 5.0,
+      "specificity": 5.0
+    }
+  },
+  {
+    "question_id": "tech_behavioral_01",
+    "answer_text": "去年我负责的一个项目里就遇到过这样的情况——作为技术负责人（tech lead）推动一个跨团队技术项目交付。当时背景是业务方要求比较紧，我作为主要负责人，带了2个同事一起推进，直接向部门负责人汇报。我先在技术方案设计上做了梳理，再把按期交付和风险识别拆成具体任务分给大家，过程中遇到了一个比较棘手的阻碍——核心资源临时被抽调，我重新协调了跨团队协调相关的安排，自己也补上了一部分工作。最终在六周内完成了目标，相关指标比之前提升了12%。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 7.0,
+      "keyword_coverage": 6.9,
+      "logical_coherence": 7.7,
+      "specificity": 8.0
+    }
+  },
+  {
+    "question_id": "tech_behavioral_01",
+    "answer_text": "去年我负责的一个项目正好对应这样的场景——作为技术负责人（tech lead）推动一个跨团队技术项目交付。当时背景是时间紧、涉及多方协作，我是这个3人小组的负责人，向项目发起人同步进展。我先在跨团队协调和任务拆解上做了完整梳理，明确目标和验收标准，然后把代码评审拆解成具体任务分配给对应的同事，并建立了固定的进度同步机制跟踪风险。项目进行到一半时遇到了一个比较大的阻碍——风险识别方面出现了意外情况，我评估后重新调整了优先级和分工，同时提前和相关方同步了风险和取舍方案，避免了被动。最终项目提前完成，核心指标比预期提升了25%，按期交付也保持在健康水平。复盘下来，我觉得提前识别风险、及时调整分工比单纯埋头硬做更重要，这也是我在类似场景里持续在用的方法。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 8.5,
+      "keyword_coverage": 10.0,
+      "logical_coherence": 9.7,
+      "specificity": 9.0
+    }
+  },
+  {
+    "question_id": "product_behavioral_01",
+    "answer_text": "我们组当时也遇到过类似的事，最后好像是别人主要在推动，我配合了一下。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 1.0,
+      "keyword_coverage": 0.8,
+      "logical_coherence": 0.6,
+      "specificity": 0.4
+    }
+  },
+  {
+    "question_id": "product_behavioral_01",
+    "answer_text": "我们组好像遇到过类似的情况——作为产品经理主导跨职能团队（研发/设计/运营）把一个产品从0到1做出来。我当时也算是产品方向上参与其中，大概做了一些数据验证相关的事情，具体怎么推进的我记得不是很清楚，反正最后事情算是过去了。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 3.4,
+      "keyword_coverage": 3.3,
+      "logical_coherence": 3.6,
+      "specificity": 2.8
+    }
+  },
+  {
+    "question_id": "product_behavioral_01",
+    "answer_text": "有一次我经历过这样的情况——作为产品经理主导跨职能团队（研发/设计/运营）把一个产品从0到1做出来。当时我是团队里负责这块的人，带了3个同事一起做。我们大致分了下工，我主要盯产品规划和目标拆解这两块，中间遇到一些阻碍，比如资源没到位，我们协调了一下，用了大概一周把事情推完了，最后按计划完成了，没出什么大问题。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 5.5,
+      "keyword_coverage": 5.0,
+      "logical_coherence": 5.8,
+      "specificity": 6.0
+    }
+  },
+  {
+    "question_id": "product_behavioral_01",
+    "answer_text": "去年我负责的一个项目里就遇到过这样的情况——作为产品经理主导跨职能团队（研发/设计/运营）把一个产品从0到1做出来。当时背景是业务方要求比较紧，我作为主要负责人，带了3个同事一起推进，直接向部门负责人汇报。我先在产品规划上做了梳理，再把跨职能协调和按期交付拆成具体任务分给大家，过程中遇到了一个比较棘手的阻碍——核心资源临时被抽调，我重新协调了数据验证相关的安排，自己也补上了一部分工作。最终在两周内完成了目标，相关指标比之前提升了12%。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 8.1,
+      "keyword_coverage": 7.9,
+      "logical_coherence": 7.3,
+      "specificity": 7.3
+    }
+  },
+  {
+    "question_id": "product_behavioral_01",
+    "answer_text": "去年我负责的一个项目正好对应这样的场景——作为产品经理主导跨职能团队（研发/设计/运营）把一个产品从0到1做出来。当时背景是时间紧、涉及多方协作，我是这个5人小组的负责人，向项目发起人同步进展。我先在按期交付和目标拆解上做了完整梳理，明确目标和验收标准，然后把产品规划拆解成具体任务分配给对应的同事，并建立了固定的进度同步机制跟踪风险。项目进行到一半时遇到了一个比较大的阻碍——数据验证方面出现了意外情况，我评估后重新调整了优先级和分工，同时提前和相关方同步了风险和取舍方案，避免了被动。最终项目提前完成，核心指标比预期提升了18%，资源协调也保持在健康水平。复盘下来，我觉得提前识别风险、及时调整分工比单纯埋头硬做更重要，这也是我在类似场景里持续在用的方法。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 9.2,
+      "keyword_coverage": 9.4,
+      "logical_coherence": 8.8,
+      "specificity": 9.8
+    }
+  },
+  {
+    "question_id": "marketing_behavioral_01",
+    "answer_text": "我记得当时挺忙的，具体怎么解决的现在想不太起来了，反正最后是搞定了。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 0.3,
+      "keyword_coverage": 1.6,
+      "logical_coherence": 1.4,
+      "specificity": 1.6
+    }
+  },
+  {
+    "question_id": "marketing_behavioral_01",
+    "answer_text": "我们组好像遇到过类似的情况——主导一次营销campaign从策划到执行落地。我当时也算是市场营销方向上参与其中，大概做了一些效果追踪相关的事情，具体怎么推进的我记得不是很清楚，反正最后事情算是过去了。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 3.1,
+      "keyword_coverage": 3.4,
+      "logical_coherence": 3.1,
+      "specificity": 4.0
+    }
+  },
+  {
+    "question_id": "marketing_behavioral_01",
+    "answer_text": "有一次我经历过这样的情况——主导一次营销campaign从策划到执行落地。当时我是团队里负责这块的人，带了2个同事一起做。我们大致分了下工，我主要盯campaign策划和目标拆解这两块，中间遇到一些阻碍，比如资源没到位，我们协调了一下，用了大概六周把事情推完了，最后按计划完成了，没出什么大问题。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 6.0,
+      "keyword_coverage": 5.1,
+      "logical_coherence": 4.8,
+      "specificity": 5.0
+    }
+  },
+  {
+    "question_id": "marketing_behavioral_01",
+    "answer_text": "去年我负责的一个项目里就遇到过这样的情况——主导一次营销campaign从策划到执行落地。当时背景是业务方要求比较紧，我作为主要负责人，带了3个同事一起推进，直接向部门负责人汇报。我先在效果追踪上做了梳理，再把预算管理和campaign策划拆成具体任务分给大家，过程中遇到了一个比较棘手的阻碍——核心资源临时被抽调，我重新协调了按期交付相关的安排，自己也补上了一部分工作。最终在两个月内完成了目标，相关指标比之前提升了22%。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 7.1,
+      "keyword_coverage": 6.7,
+      "logical_coherence": 7.3,
+      "specificity": 7.7
+    }
+  },
+  {
+    "question_id": "marketing_behavioral_01",
+    "answer_text": "去年我负责的一个项目正好对应这样的场景——主导一次营销campaign从策划到执行落地。当时背景是时间紧、涉及多方协作，我是这个5人小组的负责人，向项目发起人同步进展。我先在目标拆解和效果追踪上做了完整梳理，明确目标和验收标准，然后把campaign策划拆解成具体任务分配给对应的同事，并建立了固定的进度同步机制跟踪风险。项目进行到一半时遇到了一个比较大的阻碍——跨团队协调方面出现了意外情况，我评估后重新调整了优先级和分工，同时提前和相关方同步了风险和取舍方案，避免了被动。最终项目提前完成，核心指标比预期提升了22%，按期交付也保持在健康水平。复盘下来，我觉得提前识别风险、及时调整分工比单纯埋头硬做更重要，这也是我在类似场景里持续在用的方法。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 10.0,
+      "keyword_coverage": 8.8,
+      "logical_coherence": 9.9,
+      "specificity": 9.2
+    }
+  },
+  {
+    "question_id": "ops_behavioral_01",
+    "answer_text": "我们组当时也遇到过类似的事，最后好像是别人主要在推动，我配合了一下。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 1.7,
+      "keyword_coverage": 0.3,
+      "logical_coherence": 1.3,
+      "specificity": 0.8
+    }
+  },
+  {
+    "question_id": "ops_behavioral_01",
+    "answer_text": "我们组好像遇到过类似的情况——主导一次用户增长或留存提升项目。我当时也算是运营方向上参与其中，大概做了一些按期交付相关的事情，具体怎么推进的我记得不是很清楚，反正最后事情算是过去了。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 2.9,
+      "keyword_coverage": 3.3,
+      "logical_coherence": 3.9,
+      "specificity": 3.3
+    }
+  },
+  {
+    "question_id": "ops_behavioral_01",
+    "answer_text": "有一次我经历过这样的情况——主导一次用户增长或留存提升项目。当时我是团队里负责这块的人，带了8个同事一起做。我们大致分了下工，我主要盯增长项目和资源协调这两块，中间遇到一些阻碍，比如资源没到位，我们协调了一下，用了大概三周把事情推完了，最后按计划完成了，没出什么大问题。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 5.8,
+      "keyword_coverage": 5.1,
+      "logical_coherence": 5.1,
+      "specificity": 5.3
+    }
+  },
+  {
+    "question_id": "ops_behavioral_01",
+    "answer_text": "去年我负责的一个项目里就遇到过这样的情况——主导一次用户增长或留存提升项目。当时背景是业务方要求比较紧，我作为主要负责人，带了4个同事一起推进，直接向部门负责人汇报。我先在目标拆解上做了梳理，再把资源协调和数据驱动拆成具体任务分给大家，过程中遇到了一个比较棘手的阻碍——核心资源临时被抽调，我重新协调了按期交付相关的安排，自己也补上了一部分工作。最终在两个月内完成了目标，相关指标比之前提升了18%。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 7.0,
+      "keyword_coverage": 8.1,
+      "logical_coherence": 7.4,
+      "specificity": 7.9
+    }
+  },
+  {
+    "question_id": "ops_behavioral_01",
+    "answer_text": "去年我负责的一个项目正好对应这样的场景——主导一次用户增长或留存提升项目。当时背景是时间紧、涉及多方协作，我是这个4人小组的负责人，向项目发起人同步进展。我先在增长项目和跨团队协调上做了完整梳理，明确目标和验收标准，然后把数据驱动拆解成具体任务分配给对应的同事，并建立了固定的进度同步机制跟踪风险。项目进行到一半时遇到了一个比较大的阻碍——资源协调方面出现了意外情况，我评估后重新调整了优先级和分工，同时提前和相关方同步了风险和取舍方案，避免了被动。最终项目提前完成，核心指标比预期提升了25%，按期交付也保持在健康水平。复盘下来，我觉得提前识别风险、及时调整分工比单纯埋头硬做更重要，这也是我在类似场景里持续在用的方法。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 9.1,
+      "keyword_coverage": 9.8,
+      "logical_coherence": 8.7,
+      "specificity": 9.7
+    }
+  },
+  {
+    "question_id": "design_behavioral_01",
+    "answer_text": "我们组当时也遇到过类似的事，最后好像是别人主要在推动，我配合了一下。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 1.3,
+      "keyword_coverage": 0.4,
+      "logical_coherence": 0.4,
+      "specificity": 1.2
+    }
+  },
+  {
+    "question_id": "design_behavioral_01",
+    "answer_text": "我们组好像遇到过类似的情况——主导设计系统（design system）搭建或改版项目。我当时也算是设计方向上参与其中，大概做了一些按期交付相关的事情，具体怎么推进的我记得不是很清楚，反正最后事情算是过去了。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 3.6,
+      "keyword_coverage": 3.8,
+      "logical_coherence": 3.6,
+      "specificity": 3.6
+    }
+  },
+  {
+    "question_id": "design_behavioral_01",
+    "answer_text": "有一次我经历过这样的情况——主导设计系统（design system）搭建或改版项目。当时我是团队里负责这块的人，带了3个同事一起做。我们大致分了下工，我主要盯推广落地和设计系统这两块，中间遇到一些阻碍，比如资源没到位，我们协调了一下，用了大概一周把事情推完了，最后按计划完成了，没出什么大问题。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 4.6,
+      "keyword_coverage": 5.3,
+      "logical_coherence": 5.7,
+      "specificity": 6.1
+    }
+  },
+  {
+    "question_id": "design_behavioral_01",
+    "answer_text": "去年我负责的一个项目里就遇到过这样的情况——主导设计系统（design system）搭建或改版项目。当时背景是业务方要求比较紧，我作为主要负责人，带了4个同事一起推进，直接向部门负责人汇报。我先在规范统一上做了梳理，再把设计系统和按期交付拆成具体任务分给大家，过程中遇到了一个比较棘手的阻碍——核心资源临时被抽调，我重新协调了目标拆解相关的安排，自己也补上了一部分工作。最终在六周内完成了目标，相关指标比之前提升了28%。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 8.0,
+      "keyword_coverage": 7.9,
+      "logical_coherence": 6.7,
+      "specificity": 7.1
+    }
+  },
+  {
+    "question_id": "design_behavioral_01",
+    "answer_text": "去年我负责的一个项目正好对应这样的场景——主导设计系统（design system）搭建或改版项目。当时背景是时间紧、涉及多方协作，我是这个4人小组的负责人，向项目发起人同步进展。我先在推广落地和按期交付上做了完整梳理，明确目标和验收标准，然后把跨团队协调拆解成具体任务分配给对应的同事，并建立了固定的进度同步机制跟踪风险。项目进行到一半时遇到了一个比较大的阻碍——目标拆解方面出现了意外情况，我评估后重新调整了优先级和分工，同时提前和相关方同步了风险和取舍方案，避免了被动。最终项目提前完成，核心指标比预期提升了15%，设计系统也保持在健康水平。复盘下来，我觉得提前识别风险、及时调整分工比单纯埋头硬做更重要，这也是我在类似场景里持续在用的方法。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 9.1,
+      "keyword_coverage": 8.7,
+      "logical_coherence": 9.4,
+      "specificity": 8.7
+    }
+  },
+  {
+    "question_id": "consulting_behavioral_01",
+    "answer_text": "这个我没有太多准备，临场发挥一下应该就能应付过去。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 0.2,
+      "keyword_coverage": 0.6,
+      "logical_coherence": 0.6,
+      "specificity": 1.6
+    }
+  },
+  {
+    "question_id": "consulting_behavioral_01",
+    "answer_text": "我们组好像遇到过类似的情况——主导咨询项目团队向客户交付成果。我当时也算是咨询方向上参与其中，大概做了一些按期交付相关的事情，具体怎么推进的我记得不是很清楚，反正最后事情算是过去了。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 2.8,
+      "keyword_coverage": 3.8,
+      "logical_coherence": 3.8,
+      "specificity": 3.9
+    }
+  },
+  {
+    "question_id": "consulting_behavioral_01",
+    "answer_text": "有一次我经历过这样的情况——主导咨询项目团队向客户交付成果。当时我是团队里负责这块的人，带了5个同事一起做。我们大致分了下工，我主要盯按期交付和分析质量把控这两块，中间遇到一些阻碍，比如资源没到位，我们协调了一下，用了大概一个月把事情推完了，最后按计划完成了，没出什么大问题。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 5.7,
+      "keyword_coverage": 5.5,
+      "logical_coherence": 5.9,
+      "specificity": 6.0
+    }
+  },
+  {
+    "question_id": "consulting_behavioral_01",
+    "answer_text": "去年我负责的一个项目里就遇到过这样的情况——主导咨询项目团队向客户交付成果。当时背景是业务方要求比较紧，我作为主要负责人，带了5个同事一起推进，直接向部门负责人汇报。我先在分析质量把控上做了梳理，再把项目管理和风险识别拆成具体任务分给大家，过程中遇到了一个比较棘手的阻碍——核心资源临时被抽调，我重新协调了团队协调相关的安排，自己也补上了一部分工作。最终在两个月内完成了目标，相关指标比之前提升了18%。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 7.4,
+      "keyword_coverage": 7.7,
+      "logical_coherence": 7.2,
+      "specificity": 7.9
+    }
+  },
+  {
+    "question_id": "consulting_behavioral_01",
+    "answer_text": "去年我负责的一个项目正好对应这样的场景——主导咨询项目团队向客户交付成果。当时背景是时间紧、涉及多方协作，我是这个6人小组的负责人，向项目发起人同步进展。我先在分析质量把控和风险识别上做了完整梳理，明确目标和验收标准，然后把按期交付拆解成具体任务分配给对应的同事，并建立了固定的进度同步机制跟踪风险。项目进行到一半时遇到了一个比较大的阻碍——项目管理方面出现了意外情况，我评估后重新调整了优先级和分工，同时提前和相关方同步了风险和取舍方案，避免了被动。最终项目提前完成，核心指标比预期提升了30%，团队协调也保持在健康水平。复盘下来，我觉得提前识别风险、及时调整分工比单纯埋头硬做更重要，这也是我在类似场景里持续在用的方法。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 9.1,
+      "keyword_coverage": 8.6,
+      "logical_coherence": 8.6,
+      "specificity": 9.7
+    }
+  },
+  {
+    "question_id": "finance_behavioral_01",
+    "answer_text": "差不多就是按常规流程走了一遍，没什么特别的，结果还算可以。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 1.7,
+      "keyword_coverage": 0.9,
+      "logical_coherence": 0.8,
+      "specificity": 1.5
+    }
+  },
+  {
+    "question_id": "finance_behavioral_01",
+    "answer_text": "我们组好像遇到过类似的情况——主导一个投资/信贷/风控项目团队完成分析交付。我当时也算是金融方向上参与其中，大概做了一些汇报沟通相关的事情，具体怎么推进的我记得不是很清楚，反正最后事情算是过去了。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 2.8,
+      "keyword_coverage": 3.4,
+      "logical_coherence": 3.6,
+      "specificity": 3.6
+    }
+  },
+  {
+    "question_id": "finance_behavioral_01",
+    "answer_text": "有一次我经历过这样的情况——主导一个投资/信贷/风控项目团队完成分析交付。当时我是团队里负责这块的人，带了3个同事一起做。我们大致分了下工，我主要盯风险识别和分析质量把控这两块，中间遇到一些阻碍，比如资源没到位，我们协调了一下，用了大概两个月把事情推完了，最后按计划完成了，没出什么大问题。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 5.3,
+      "keyword_coverage": 5.7,
+      "logical_coherence": 6.1,
+      "specificity": 6.1
+    }
+  },
+  {
+    "question_id": "finance_behavioral_01",
+    "answer_text": "去年我负责的一个项目里就遇到过这样的情况——主导一个投资/信贷/风控项目团队完成分析交付。当时背景是业务方要求比较紧，我作为主要负责人，带了8个同事一起推进，直接向部门负责人汇报。我先在汇报沟通上做了梳理，再把团队协调和按期交付拆成具体任务分给大家，过程中遇到了一个比较棘手的阻碍——核心资源临时被抽调，我重新协调了项目管理相关的安排，自己也补上了一部分工作。最终在六周内完成了目标，相关指标比之前提升了25%。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 7.7,
+      "keyword_coverage": 7.9,
+      "logical_coherence": 6.6,
+      "specificity": 7.6
+    }
+  },
+  {
+    "question_id": "finance_behavioral_01",
+    "answer_text": "去年我负责的一个项目正好对应这样的场景——主导一个投资/信贷/风控项目团队完成分析交付。当时背景是时间紧、涉及多方协作，我是这个8人小组的负责人，向项目发起人同步进展。我先在项目管理和分析质量把控上做了完整梳理，明确目标和验收标准，然后把汇报沟通拆解成具体任务分配给对应的同事，并建立了固定的进度同步机制跟踪风险。项目进行到一半时遇到了一个比较大的阻碍——风险识别方面出现了意外情况，我评估后重新调整了优先级和分工，同时提前和相关方同步了风险和取舍方案，避免了被动。最终项目提前完成，核心指标比预期提升了22%，团队协调也保持在健康水平。复盘下来，我觉得提前识别风险、及时调整分工比单纯埋头硬做更重要，这也是我在类似场景里持续在用的方法。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 9.0,
+      "keyword_coverage": 9.7,
+      "logical_coherence": 8.5,
+      "specificity": 9.5
+    }
+  },
+  {
+    "question_id": "tech_behavioral_02",
+    "answer_text": "这个我们当时是大家一起商量着处理的，具体细节记不太清了，反正后来事情就过去了。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 0.4,
+      "keyword_coverage": 0.8,
+      "logical_coherence": 0.4,
+      "specificity": 1.1
+    }
+  },
+  {
+    "question_id": "tech_behavioral_02",
+    "answer_text": "我们组好像遇到过类似的情况——在生产环境紧急故障（P0/P1事故）下排查并恢复服务。我当时也算是技术方向上参与其中，大概做了一些根因定位相关的事情，具体怎么推进的我记得不是很清楚，反正最后事情算是过去了。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 3.1,
+      "keyword_coverage": 3.8,
+      "logical_coherence": 3.3,
+      "specificity": 3.4
+    }
+  },
+  {
+    "question_id": "tech_behavioral_02",
+    "answer_text": "有一次我经历过这样的情况——在生产环境紧急故障（P0/P1事故）下排查并恢复服务。当时我是团队里负责这块的人，带了6个同事一起做。我们大致分了下工，我主要盯监控告警和线上故障这两块，中间遇到一些阻碍，比如资源没到位，我们协调了一下，用了大概六周把事情推完了，最后按计划完成了，没出什么大问题。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 5.4,
+      "keyword_coverage": 6.1,
+      "logical_coherence": 6.1,
+      "specificity": 6.1
+    }
+  },
+  {
+    "question_id": "tech_behavioral_02",
+    "answer_text": "去年我负责的一个项目里就遇到过这样的情况——在生产环境紧急故障（P0/P1事故）下排查并恢复服务。当时背景是业务方要求比较紧，我作为主要负责人，带了6个同事一起推进，直接向部门负责人汇报。我先在监控告警上做了梳理，再把回滚和事后复盘拆成具体任务分给大家，过程中遇到了一个比较棘手的阻碍——核心资源临时被抽调，我重新协调了根因定位相关的安排，自己也补上了一部分工作。最终在两周内完成了目标，相关指标比之前提升了12%。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 7.9,
+      "keyword_coverage": 7.8,
+      "logical_coherence": 7.4,
+      "specificity": 6.8
+    }
+  },
+  {
+    "question_id": "tech_behavioral_02",
+    "answer_text": "去年我负责的一个项目正好对应这样的场景——在生产环境紧急故障（P0/P1事故）下排查并恢复服务。当时背景是时间紧、涉及多方协作，我是这个6人小组的负责人，向项目发起人同步进展。我先在应急响应和事后复盘上做了完整梳理，明确目标和验收标准，然后把线上故障拆解成具体任务分配给对应的同事，并建立了固定的进度同步机制跟踪风险。项目进行到一半时遇到了一个比较大的阻碍——根因定位方面出现了意外情况，我评估后重新调整了优先级和分工，同时提前和相关方同步了风险和取舍方案，避免了被动。最终项目提前完成，核心指标比预期提升了30%，监控告警也保持在健康水平。复盘下来，我觉得提前识别风险、及时调整分工比单纯埋头硬做更重要，这也是我在类似场景里持续在用的方法。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 8.8,
+      "keyword_coverage": 9.3,
+      "logical_coherence": 8.7,
+      "specificity": 9.8
+    }
+  },
+  {
+    "question_id": "product_behavioral_02",
+    "answer_text": "差不多就是按常规流程走了一遍，没什么特别的，结果还算可以。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 1.2,
+      "keyword_coverage": 0.7,
+      "logical_coherence": 1.7,
+      "specificity": 0.4
+    }
+  },
+  {
+    "question_id": "product_behavioral_02",
+    "answer_text": "我们组好像遇到过类似的情况——在紧迫deadline下推动一个产品需求上线。我当时也算是产品方向上参与其中，大概做了一些风险沟通相关的事情，具体怎么推进的我记得不是很清楚，反正最后事情算是过去了。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 3.1,
+      "keyword_coverage": 3.6,
+      "logical_coherence": 3.3,
+      "specificity": 2.7
+    }
+  },
+  {
+    "question_id": "product_behavioral_02",
+    "answer_text": "有一次我经历过这样的情况——在紧迫deadline下推动一个产品需求上线。当时我是团队里负责这块的人，带了5个同事一起做。我们大致分了下工，我主要盯deadline和需求取舍这两块，中间遇到一些阻碍，比如资源没到位，我们协调了一下，用了大概一个月把事情推完了，最后按计划完成了，没出什么大问题。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 4.8,
+      "keyword_coverage": 5.5,
+      "logical_coherence": 6.0,
+      "specificity": 4.7
+    }
+  },
+  {
+    "question_id": "product_behavioral_02",
+    "answer_text": "去年我负责的一个项目里就遇到过这样的情况——在紧迫deadline下推动一个产品需求上线。当时背景是业务方要求比较紧，我作为主要负责人，带了4个同事一起推进，直接向部门负责人汇报。我先在需求取舍上做了梳理，再把deadline和跨团队协调拆成具体任务分给大家，过程中遇到了一个比较棘手的阻碍——核心资源临时被抽调，我重新协调了风险沟通相关的安排，自己也补上了一部分工作。最终在六周内完成了目标，相关指标比之前提升了12%。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 7.1,
+      "keyword_coverage": 7.0,
+      "logical_coherence": 7.1,
+      "specificity": 7.1
+    }
+  },
+  {
+    "question_id": "product_behavioral_02",
+    "answer_text": "去年我负责的一个项目正好对应这样的场景——在紧迫deadline下推动一个产品需求上线。当时背景是时间紧、涉及多方协作，我是这个8人小组的负责人，向项目发起人同步进展。我先在deadline和按时交付上做了完整梳理，明确目标和验收标准，然后把跨团队协调拆解成具体任务分配给对应的同事，并建立了固定的进度同步机制跟踪风险。项目进行到一半时遇到了一个比较大的阻碍——抗压方面出现了意外情况，我评估后重新调整了优先级和分工，同时提前和相关方同步了风险和取舍方案，避免了被动。最终项目提前完成，核心指标比预期提升了28%，需求取舍也保持在健康水平。复盘下来，我觉得提前识别风险、及时调整分工比单纯埋头硬做更重要，这也是我在类似场景里持续在用的方法。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 9.1,
+      "keyword_coverage": 8.6,
+      "logical_coherence": 9.0,
+      "specificity": 8.7
+    }
+  },
+  {
+    "question_id": "marketing_behavioral_02",
+    "answer_text": "这种情况我一般不会想太多，遇到了就顺其自然地处理一下。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 1.3,
+      "keyword_coverage": 1.6,
+      "logical_coherence": 1.3,
+      "specificity": 0.8
+    }
+  },
+  {
+    "question_id": "marketing_behavioral_02",
+    "answer_text": "我们组好像遇到过类似的情况——在大促或发布会前紧急调整营销方案。我当时也算是市场营销方向上参与其中，大概做了一些情绪管理相关的事情，具体怎么推进的我记得不是很清楚，反正最后事情算是过去了。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 2.9,
+      "keyword_coverage": 3.6,
+      "logical_coherence": 2.9,
+      "specificity": 3.4
+    }
+  },
+  {
+    "question_id": "marketing_behavioral_02",
+    "answer_text": "有一次我经历过这样的情况——在大促或发布会前紧急调整营销方案。当时我是团队里负责这块的人，带了4个同事一起做。我们大致分了下工，我主要盯复盘改进和资源协调这两块，中间遇到一些阻碍，比如资源没到位，我们协调了一下，用了大概两周把事情推完了，最后按计划完成了，没出什么大问题。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 5.1,
+      "keyword_coverage": 4.8,
+      "logical_coherence": 5.1,
+      "specificity": 5.8
+    }
+  },
+  {
+    "question_id": "marketing_behavioral_02",
+    "answer_text": "去年我负责的一个项目里就遇到过这样的情况——在大促或发布会前紧急调整营销方案。当时背景是业务方要求比较紧，我作为主要负责人，带了2个同事一起推进，直接向部门负责人汇报。我先在紧急调整上做了梳理，再把复盘改进和资源协调拆成具体任务分给大家，过程中遇到了一个比较棘手的阻碍——核心资源临时被抽调，我重新协调了抗压相关的安排，自己也补上了一部分工作。最终在一周内完成了目标，相关指标比之前提升了30%。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 6.9,
+      "keyword_coverage": 7.7,
+      "logical_coherence": 7.0,
+      "specificity": 6.8
+    }
+  },
+  {
+    "question_id": "marketing_behavioral_02",
+    "answer_text": "去年我负责的一个项目正好对应这样的场景——在大促或发布会前紧急调整营销方案。当时背景是时间紧、涉及多方协作，我是这个5人小组的负责人，向项目发起人同步进展。我先在资源协调和紧急调整上做了完整梳理，明确目标和验收标准，然后把复盘改进拆解成具体任务分配给对应的同事，并建立了固定的进度同步机制跟踪风险。项目进行到一半时遇到了一个比较大的阻碍——按时交付方面出现了意外情况，我评估后重新调整了优先级和分工，同时提前和相关方同步了风险和取舍方案，避免了被动。最终项目提前完成，核心指标比预期提升了30%，抗压也保持在健康水平。复盘下来，我觉得提前识别风险、及时调整分工比单纯埋头硬做更重要，这也是我在类似场景里持续在用的方法。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 9.8,
+      "keyword_coverage": 9.0,
+      "logical_coherence": 9.3,
+      "specificity": 9.8
+    }
+  },
+  {
+    "question_id": "ops_behavioral_02",
+    "answer_text": "这个我们当时是大家一起商量着处理的，具体细节记不太清了，反正后来事情就过去了。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 1.0,
+      "keyword_coverage": 0.9,
+      "logical_coherence": 1.4,
+      "specificity": 0.2
+    }
+  },
+  {
+    "question_id": "ops_behavioral_02",
+    "answer_text": "我们组好像遇到过类似的情况——在大促或秒杀活动运营保障中处理紧急情况。我当时也算是运营方向上参与其中，大概做了一些复盘改进相关的事情，具体怎么推进的我记得不是很清楚，反正最后事情算是过去了。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 3.6,
+      "keyword_coverage": 4.0,
+      "logical_coherence": 2.8,
+      "specificity": 3.1
+    }
+  },
+  {
+    "question_id": "ops_behavioral_02",
+    "answer_text": "有一次我经历过这样的情况——在大促或秒杀活动运营保障中处理紧急情况。当时我是团队里负责这块的人，带了2个同事一起做。我们大致分了下工，我主要盯按时交付和资源协调这两块，中间遇到一些阻碍，比如资源没到位，我们协调了一下，用了大概一个月把事情推完了，最后按计划完成了，没出什么大问题。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 5.1,
+      "keyword_coverage": 4.8,
+      "logical_coherence": 5.4,
+      "specificity": 4.6
+    }
+  },
+  {
+    "question_id": "ops_behavioral_02",
+    "answer_text": "去年我负责的一个项目里就遇到过这样的情况——在大促或秒杀活动运营保障中处理紧急情况。当时背景是业务方要求比较紧，我作为主要负责人，带了3个同事一起推进，直接向部门负责人汇报。我先在抗压上做了梳理，再把资源协调和按时交付拆成具体任务分给大家，过程中遇到了一个比较棘手的阻碍——核心资源临时被抽调，我重新协调了复盘改进相关的安排，自己也补上了一部分工作。最终在一个月内完成了目标，相关指标比之前提升了18%。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 8.1,
+      "keyword_coverage": 7.3,
+      "logical_coherence": 7.7,
+      "specificity": 7.6
+    }
+  },
+  {
+    "question_id": "ops_behavioral_02",
+    "answer_text": "去年我负责的一个项目正好对应这样的场景——在大促或秒杀活动运营保障中处理紧急情况。当时背景是时间紧、涉及多方协作，我是这个8人小组的负责人，向项目发起人同步进展。我先在按时交付和资源协调上做了完整梳理，明确目标和验收标准，然后把抗压拆解成具体任务分配给对应的同事，并建立了固定的进度同步机制跟踪风险。项目进行到一半时遇到了一个比较大的阻碍——情绪管理方面出现了意外情况，我评估后重新调整了优先级和分工，同时提前和相关方同步了风险和取舍方案，避免了被动。最终项目提前完成，核心指标比预期提升了28%，活动保障也保持在健康水平。复盘下来，我觉得提前识别风险、及时调整分工比单纯埋头硬做更重要，这也是我在类似场景里持续在用的方法。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 8.9,
+      "keyword_coverage": 9.8,
+      "logical_coherence": 8.5,
+      "specificity": 8.8
+    }
+  },
+  {
+    "question_id": "design_behavioral_02",
+    "answer_text": "我记得当时挺忙的，具体怎么解决的现在想不太起来了，反正最后是搞定了。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 0.6,
+      "keyword_coverage": 1.2,
+      "logical_coherence": 1.3,
+      "specificity": 1.4
+    }
+  },
+  {
+    "question_id": "design_behavioral_02",
+    "answer_text": "我们组好像遇到过类似的情况——在紧迫deadline下完成设计交付。我当时也算是设计方向上参与其中，大概做了一些范围取舍相关的事情，具体怎么推进的我记得不是很清楚，反正最后事情算是过去了。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 3.4,
+      "keyword_coverage": 3.7,
+      "logical_coherence": 3.3,
+      "specificity": 3.7
+    }
+  },
+  {
+    "question_id": "design_behavioral_02",
+    "answer_text": "有一次我经历过这样的情况——在紧迫deadline下完成设计交付。当时我是团队里负责这块的人，带了3个同事一起做。我们大致分了下工，我主要盯范围取舍和按时交付这两块，中间遇到一些阻碍，比如资源没到位，我们协调了一下，用了大概六周把事情推完了，最后按计划完成了，没出什么大问题。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 6.1,
+      "keyword_coverage": 5.1,
+      "logical_coherence": 5.7,
+      "specificity": 4.7
+    }
+  },
+  {
+    "question_id": "design_behavioral_02",
+    "answer_text": "去年我负责的一个项目里就遇到过这样的情况——在紧迫deadline下完成设计交付。当时背景是业务方要求比较紧，我作为主要负责人，带了8个同事一起推进，直接向部门负责人汇报。我先在跨团队协调上做了梳理，再把抗压和deadline拆成具体任务分给大家，过程中遇到了一个比较棘手的阻碍——核心资源临时被抽调，我重新协调了按时交付相关的安排，自己也补上了一部分工作。最终在一个月内完成了目标，相关指标比之前提升了30%。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 6.7,
+      "keyword_coverage": 7.9,
+      "logical_coherence": 7.9,
+      "specificity": 8.0
+    }
+  },
+  {
+    "question_id": "design_behavioral_02",
+    "answer_text": "去年我负责的一个项目正好对应这样的场景——在紧迫deadline下完成设计交付。当时背景是时间紧、涉及多方协作，我是这个8人小组的负责人，向项目发起人同步进展。我先在复盘改进和deadline上做了完整梳理，明确目标和验收标准，然后把跨团队协调拆解成具体任务分配给对应的同事，并建立了固定的进度同步机制跟踪风险。项目进行到一半时遇到了一个比较大的阻碍——抗压方面出现了意外情况，我评估后重新调整了优先级和分工，同时提前和相关方同步了风险和取舍方案，避免了被动。最终项目提前完成，核心指标比预期提升了18%，范围取舍也保持在健康水平。复盘下来，我觉得提前识别风险、及时调整分工比单纯埋头硬做更重要，这也是我在类似场景里持续在用的方法。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 10.0,
+      "keyword_coverage": 9.6,
+      "logical_coherence": 8.9,
+      "specificity": 9.2
+    }
+  },
+  {
+    "question_id": "consulting_behavioral_02",
+    "answer_text": "这个我们当时是大家一起商量着处理的，具体细节记不太清了，反正后来事情就过去了。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 1.7,
+      "keyword_coverage": 0.7,
+      "logical_coherence": 0.8,
+      "specificity": 0.7
+    }
+  },
+  {
+    "question_id": "consulting_behavioral_02",
+    "answer_text": "我们组好像遇到过类似的情况——项目deadline紧张、客户又临时增加要求时。我当时也算是咨询方向上参与其中，大概做了一些按时交付相关的事情，具体怎么推进的我记得不是很清楚，反正最后事情算是过去了。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 2.9,
+      "keyword_coverage": 3.1,
+      "logical_coherence": 3.5,
+      "specificity": 3.4
+    }
+  },
+  {
+    "question_id": "consulting_behavioral_02",
+    "answer_text": "有一次我经历过这样的情况——项目deadline紧张、客户又临时增加要求时。当时我是团队里负责这块的人，带了6个同事一起做。我们大致分了下工，我主要盯客户预期管理和范围管理这两块，中间遇到一些阻碍，比如资源没到位，我们协调了一下，用了大概三周把事情推完了，最后按计划完成了，没出什么大问题。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 4.9,
+      "keyword_coverage": 5.1,
+      "logical_coherence": 5.5,
+      "specificity": 5.1
+    }
+  },
+  {
+    "question_id": "consulting_behavioral_02",
+    "answer_text": "去年我负责的一个项目里就遇到过这样的情况——项目deadline紧张、客户又临时增加要求时。当时背景是业务方要求比较紧，我作为主要负责人，带了6个同事一起推进，直接向部门负责人汇报。我先在按时交付上做了梳理，再把deadline和复盘改进拆成具体任务分给大家，过程中遇到了一个比较棘手的阻碍——核心资源临时被抽调，我重新协调了范围管理相关的安排，自己也补上了一部分工作。最终在一周内完成了目标，相关指标比之前提升了18%。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 7.3,
+      "keyword_coverage": 7.0,
+      "logical_coherence": 8.1,
+      "specificity": 7.2
+    }
+  },
+  {
+    "question_id": "consulting_behavioral_02",
+    "answer_text": "去年我负责的一个项目正好对应这样的场景——项目deadline紧张、客户又临时增加要求时。当时背景是时间紧、涉及多方协作，我是这个2人小组的负责人，向项目发起人同步进展。我先在范围管理和抗压上做了完整梳理，明确目标和验收标准，然后把复盘改进拆解成具体任务分配给对应的同事，并建立了固定的进度同步机制跟踪风险。项目进行到一半时遇到了一个比较大的阻碍——客户预期管理方面出现了意外情况，我评估后重新调整了优先级和分工，同时提前和相关方同步了风险和取舍方案，避免了被动。最终项目提前完成，核心指标比预期提升了35%，deadline也保持在健康水平。复盘下来，我觉得提前识别风险、及时调整分工比单纯埋头硬做更重要，这也是我在类似场景里持续在用的方法。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 9.2,
+      "keyword_coverage": 9.9,
+      "logical_coherence": 9.3,
+      "specificity": 9.3
+    }
+  },
+  {
+    "question_id": "finance_behavioral_02",
+    "answer_text": "差不多就是按常规流程走了一遍，没什么特别的，结果还算可以。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 1.5,
+      "keyword_coverage": 1.7,
+      "logical_coherence": 0.4,
+      "specificity": 0.9
+    }
+  },
+  {
+    "question_id": "finance_behavioral_02",
+    "answer_text": "我们组好像遇到过类似的情况——在财报季或交易截止日紧张情况下完成分析工作。我当时也算是金融方向上参与其中，大概做了一些任务取舍相关的事情，具体怎么推进的我记得不是很清楚，反正最后事情算是过去了。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 3.4,
+      "keyword_coverage": 3.2,
+      "logical_coherence": 2.9,
+      "specificity": 2.9
+    }
+  },
+  {
+    "question_id": "finance_behavioral_02",
+    "answer_text": "有一次我经历过这样的情况——在财报季或交易截止日紧张情况下完成分析工作。当时我是团队里负责这块的人，带了6个同事一起做。我们大致分了下工，我主要盯按时交付和资源协调这两块，中间遇到一些阻碍，比如资源没到位，我们协调了一下，用了大概两周把事情推完了，最后按计划完成了，没出什么大问题。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 5.2,
+      "keyword_coverage": 6.0,
+      "logical_coherence": 4.8,
+      "specificity": 5.1
+    }
+  },
+  {
+    "question_id": "finance_behavioral_02",
+    "answer_text": "去年我负责的一个项目里就遇到过这样的情况——在财报季或交易截止日紧张情况下完成分析工作。当时背景是业务方要求比较紧，我作为主要负责人，带了8个同事一起推进，直接向部门负责人汇报。我先在复盘改进上做了梳理，再把截止日期和按时交付拆成具体任务分给大家，过程中遇到了一个比较棘手的阻碍——核心资源临时被抽调，我重新协调了任务取舍相关的安排，自己也补上了一部分工作。最终在六周内完成了目标，相关指标比之前提升了25%。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 8.0,
+      "keyword_coverage": 7.4,
+      "logical_coherence": 7.1,
+      "specificity": 8.1
+    }
+  },
+  {
+    "question_id": "finance_behavioral_02",
+    "answer_text": "去年我负责的一个项目正好对应这样的场景——在财报季或交易截止日紧张情况下完成分析工作。当时背景是时间紧、涉及多方协作，我是这个3人小组的负责人，向项目发起人同步进展。我先在复盘改进和抗压上做了完整梳理，明确目标和验收标准，然后把按时交付拆解成具体任务分配给对应的同事，并建立了固定的进度同步机制跟踪风险。项目进行到一半时遇到了一个比较大的阻碍——资源协调方面出现了意外情况，我评估后重新调整了优先级和分工，同时提前和相关方同步了风险和取舍方案，避免了被动。最终项目提前完成，核心指标比预期提升了15%，任务取舍也保持在健康水平。复盘下来，我觉得提前识别风险、及时调整分工比单纯埋头硬做更重要，这也是我在类似场景里持续在用的方法。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 9.2,
+      "keyword_coverage": 9.4,
+      "logical_coherence": 8.8,
+      "specificity": 8.6
+    }
+  },
+  {
+    "question_id": "tech_behavioral_03",
+    "answer_text": "这个我们当时是大家一起商量着处理的，具体细节记不太清了，反正后来事情就过去了。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 0.6,
+      "keyword_coverage": 1.3,
+      "logical_coherence": 1.4,
+      "specificity": 1.4
+    }
+  },
+  {
+    "question_id": "tech_behavioral_03",
+    "answer_text": "我们组好像遇到过类似的情况——和同事在代码评审或技术方案上出现分歧。我当时也算是技术方向上参与其中，大概做了一些数据/基准支撑相关的事情，具体怎么推进的我记得不是很清楚，反正最后事情算是过去了。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 3.3,
+      "keyword_coverage": 3.8,
+      "logical_coherence": 2.6,
+      "specificity": 3.9
+    }
+  },
+  {
+    "question_id": "tech_behavioral_03",
+    "answer_text": "有一次我经历过这样的情况——和同事在代码评审或技术方案上出现分歧。当时我是团队里负责这块的人，带了6个同事一起做。我们大致分了下工，我主要盯折中方案和数据/基准支撑这两块，中间遇到一些阻碍，比如资源没到位，我们协调了一下，用了大概三周把事情推完了，最后按计划完成了，没出什么大问题。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 5.2,
+      "keyword_coverage": 5.9,
+      "logical_coherence": 5.0,
+      "specificity": 6.0
+    }
+  },
+  {
+    "question_id": "tech_behavioral_03",
+    "answer_text": "去年我负责的一个项目里就遇到过这样的情况——和同事在代码评审或技术方案上出现分歧。当时背景是业务方要求比较紧，我作为主要负责人，带了4个同事一起推进，直接向部门负责人汇报。我先在数据/基准支撑上做了梳理，再把有效沟通和代码评审拆成具体任务分给大家，过程中遇到了一个比较棘手的阻碍——核心资源临时被抽调，我重新协调了折中方案相关的安排，自己也补上了一部分工作。最终在两个月内完成了目标，相关指标比之前提升了22%。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 8.1,
+      "keyword_coverage": 7.3,
+      "logical_coherence": 8.0,
+      "specificity": 8.0
+    }
+  },
+  {
+    "question_id": "tech_behavioral_03",
+    "answer_text": "去年我负责的一个项目正好对应这样的场景——和同事在代码评审或技术方案上出现分歧。当时背景是时间紧、涉及多方协作，我是这个2人小组的负责人，向项目发起人同步进展。我先在折中方案和数据/基准支撑上做了完整梳理，明确目标和验收标准，然后把代码质量拆解成具体任务分配给对应的同事，并建立了固定的进度同步机制跟踪风险。项目进行到一半时遇到了一个比较大的阻碍——有效沟通方面出现了意外情况，我评估后重新调整了优先级和分工，同时提前和相关方同步了风险和取舍方案，避免了被动。最终项目提前完成，核心指标比预期提升了30%，代码评审也保持在健康水平。复盘下来，我觉得提前识别风险、及时调整分工比单纯埋头硬做更重要，这也是我在类似场景里持续在用的方法。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 8.6,
+      "keyword_coverage": 9.4,
+      "logical_coherence": 9.6,
+      "specificity": 8.8
+    }
+  },
+  {
+    "question_id": "product_behavioral_03",
+    "answer_text": "我们组当时也遇到过类似的事，最后好像是别人主要在推动，我配合了一下。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 0.5,
+      "keyword_coverage": 1.3,
+      "logical_coherence": 1.5,
+      "specificity": 1.5
+    }
+  },
+  {
+    "question_id": "product_behavioral_03",
+    "answer_text": "我们组好像遇到过类似的情况——和研发团队在需求优先级或技术可行性上出现分歧。我当时也算是产品方向上参与其中，大概做了一些需求优先级相关的事情，具体怎么推进的我记得不是很清楚，反正最后事情算是过去了。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 3.3,
+      "keyword_coverage": 3.2,
+      "logical_coherence": 3.0,
+      "specificity": 3.2
+    }
+  },
+  {
+    "question_id": "product_behavioral_03",
+    "answer_text": "有一次我经历过这样的情况——和研发团队在需求优先级或技术可行性上出现分歧。当时我是团队里负责这块的人，带了5个同事一起做。我们大致分了下工，我主要盯需求优先级和关系维护这两块，中间遇到一些阻碍，比如资源没到位，我们协调了一下，用了大概一个月把事情推完了，最后按计划完成了，没出什么大问题。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 5.8,
+      "keyword_coverage": 5.5,
+      "logical_coherence": 5.2,
+      "specificity": 5.4
+    }
+  },
+  {
+    "question_id": "product_behavioral_03",
+    "answer_text": "去年我负责的一个项目里就遇到过这样的情况——和研发团队在需求优先级或技术可行性上出现分歧。当时背景是业务方要求比较紧，我作为主要负责人，带了4个同事一起推进，直接向部门负责人汇报。我先在关系维护上做了梳理，再把有效沟通和数据支撑拆成具体任务分给大家，过程中遇到了一个比较棘手的阻碍——核心资源临时被抽调，我重新协调了折中方案相关的安排，自己也补上了一部分工作。最终在两周内完成了目标，相关指标比之前提升了35%。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 7.6,
+      "keyword_coverage": 6.8,
+      "logical_coherence": 8.1,
+      "specificity": 7.9
+    }
+  },
+  {
+    "question_id": "product_behavioral_03",
+    "answer_text": "去年我负责的一个项目正好对应这样的场景——和研发团队在需求优先级或技术可行性上出现分歧。当时背景是时间紧、涉及多方协作，我是这个4人小组的负责人，向项目发起人同步进展。我先在数据支撑和关系维护上做了完整梳理，明确目标和验收标准，然后把技术可行性拆解成具体任务分配给对应的同事，并建立了固定的进度同步机制跟踪风险。项目进行到一半时遇到了一个比较大的阻碍——有效沟通方面出现了意外情况，我评估后重新调整了优先级和分工，同时提前和相关方同步了风险和取舍方案，避免了被动。最终项目提前完成，核心指标比预期提升了15%，折中方案也保持在健康水平。复盘下来，我觉得提前识别风险、及时调整分工比单纯埋头硬做更重要，这也是我在类似场景里持续在用的方法。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 10.0,
+      "keyword_coverage": 8.5,
+      "logical_coherence": 8.6,
+      "specificity": 9.3
+    }
+  },
+  {
+    "question_id": "marketing_behavioral_03",
+    "answer_text": "我记得当时挺忙的，具体怎么解决的现在想不太起来了，反正最后是搞定了。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 0.1,
+      "keyword_coverage": 1.0,
+      "logical_coherence": 1.2,
+      "specificity": 1.6
+    }
+  },
+  {
+    "question_id": "marketing_behavioral_03",
+    "answer_text": "我们组好像遇到过类似的情况——和销售/产品团队在营销策略上出现分歧。我当时也算是市场营销方向上参与其中，大概做了一些跨部门协作相关的事情，具体怎么推进的我记得不是很清楚，反正最后事情算是过去了。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 3.5,
+      "keyword_coverage": 2.8,
+      "logical_coherence": 3.4,
+      "specificity": 3.7
+    }
+  },
+  {
+    "question_id": "marketing_behavioral_03",
+    "answer_text": "有一次我经历过这样的情况——和销售/产品团队在营销策略上出现分歧。当时我是团队里负责这块的人，带了3个同事一起做。我们大致分了下工，我主要盯跨部门协作和数据支撑这两块，中间遇到一些阻碍，比如资源没到位，我们协调了一下，用了大概一个月把事情推完了，最后按计划完成了，没出什么大问题。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 5.7,
+      "keyword_coverage": 6.2,
+      "logical_coherence": 5.4,
+      "specificity": 6.1
+    }
+  },
+  {
+    "question_id": "marketing_behavioral_03",
+    "answer_text": "去年我负责的一个项目里就遇到过这样的情况——和销售/产品团队在营销策略上出现分歧。当时背景是业务方要求比较紧，我作为主要负责人，带了2个同事一起推进，直接向部门负责人汇报。我先在关系维护上做了梳理，再把折中方案和跨部门协作拆成具体任务分给大家，过程中遇到了一个比较棘手的阻碍——核心资源临时被抽调，我重新协调了策略分歧相关的安排，自己也补上了一部分工作。最终在一周内完成了目标，相关指标比之前提升了30%。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 8.1,
+      "keyword_coverage": 7.4,
+      "logical_coherence": 6.8,
+      "specificity": 7.3
+    }
+  },
+  {
+    "question_id": "marketing_behavioral_03",
+    "answer_text": "去年我负责的一个项目正好对应这样的场景——和销售/产品团队在营销策略上出现分歧。当时背景是时间紧、涉及多方协作，我是这个6人小组的负责人，向项目发起人同步进展。我先在数据支撑和策略分歧上做了完整梳理，明确目标和验收标准，然后把跨部门协作拆解成具体任务分配给对应的同事，并建立了固定的进度同步机制跟踪风险。项目进行到一半时遇到了一个比较大的阻碍——有效沟通方面出现了意外情况，我评估后重新调整了优先级和分工，同时提前和相关方同步了风险和取舍方案，避免了被动。最终项目提前完成，核心指标比预期提升了15%，关系维护也保持在健康水平。复盘下来，我觉得提前识别风险、及时调整分工比单纯埋头硬做更重要，这也是我在类似场景里持续在用的方法。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 9.2,
+      "keyword_coverage": 9.7,
+      "logical_coherence": 9.7,
+      "specificity": 9.0
+    }
+  },
+  {
+    "question_id": "ops_behavioral_03",
+    "answer_text": "这个我没有太多准备，临场发挥一下应该就能应付过去。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 1.7,
+      "keyword_coverage": 0.6,
+      "logical_coherence": 0.6,
+      "specificity": 0.5
+    }
+  },
+  {
+    "question_id": "ops_behavioral_03",
+    "answer_text": "我们组好像遇到过类似的情况——和产品/技术团队在运营需求优先级上出现分歧。我当时也算是运营方向上参与其中，大概做了一些需求分歧相关的事情，具体怎么推进的我记得不是很清楚，反正最后事情算是过去了。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 2.8,
+      "keyword_coverage": 3.6,
+      "logical_coherence": 3.4,
+      "specificity": 3.3
+    }
+  },
+  {
+    "question_id": "ops_behavioral_03",
+    "answer_text": "有一次我经历过这样的情况——和产品/技术团队在运营需求优先级上出现分歧。当时我是团队里负责这块的人，带了8个同事一起做。我们大致分了下工，我主要盯需求分歧和折中方案这两块，中间遇到一些阻碍，比如资源没到位，我们协调了一下，用了大概六周把事情推完了，最后按计划完成了，没出什么大问题。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 5.1,
+      "keyword_coverage": 5.1,
+      "logical_coherence": 5.0,
+      "specificity": 6.0
+    }
+  },
+  {
+    "question_id": "ops_behavioral_03",
+    "answer_text": "去年我负责的一个项目里就遇到过这样的情况——和产品/技术团队在运营需求优先级上出现分歧。当时背景是业务方要求比较紧，我作为主要负责人，带了2个同事一起推进，直接向部门负责人汇报。我先在数据支撑上做了梳理，再把关系维护和跨部门协作拆成具体任务分给大家，过程中遇到了一个比较棘手的阻碍——核心资源临时被抽调，我重新协调了需求分歧相关的安排，自己也补上了一部分工作。最终在一个月内完成了目标，相关指标比之前提升了30%。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 7.8,
+      "keyword_coverage": 7.5,
+      "logical_coherence": 8.1,
+      "specificity": 7.3
+    }
+  },
+  {
+    "question_id": "ops_behavioral_03",
+    "answer_text": "去年我负责的一个项目正好对应这样的场景——和产品/技术团队在运营需求优先级上出现分歧。当时背景是时间紧、涉及多方协作，我是这个4人小组的负责人，向项目发起人同步进展。我先在跨部门协作和数据支撑上做了完整梳理，明确目标和验收标准，然后把折中方案拆解成具体任务分配给对应的同事，并建立了固定的进度同步机制跟踪风险。项目进行到一半时遇到了一个比较大的阻碍——需求分歧方面出现了意外情况，我评估后重新调整了优先级和分工，同时提前和相关方同步了风险和取舍方案，避免了被动。最终项目提前完成，核心指标比预期提升了28%，有效沟通也保持在健康水平。复盘下来，我觉得提前识别风险、及时调整分工比单纯埋头硬做更重要，这也是我在类似场景里持续在用的方法。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 8.4,
+      "keyword_coverage": 9.6,
+      "logical_coherence": 8.8,
+      "specificity": 9.7
+    }
+  },
+  {
+    "question_id": "design_behavioral_03",
+    "answer_text": "我记得当时挺忙的，具体怎么解决的现在想不太起来了，反正最后是搞定了。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 1.0,
+      "keyword_coverage": 0.9,
+      "logical_coherence": 1.4,
+      "specificity": 1.2
+    }
+  },
+  {
+    "question_id": "design_behavioral_03",
+    "answer_text": "我们组好像遇到过类似的情况——和产品/研发团队在设计方案上出现分歧。我当时也算是设计方向上参与其中，大概做了一些折中方案相关的事情，具体怎么推进的我记得不是很清楚，反正最后事情算是过去了。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 3.8,
+      "keyword_coverage": 3.6,
+      "logical_coherence": 3.5,
+      "specificity": 3.8
+    }
+  },
+  {
+    "question_id": "design_behavioral_03",
+    "answer_text": "有一次我经历过这样的情况——和产品/研发团队在设计方案上出现分歧。当时我是团队里负责这块的人，带了5个同事一起做。我们大致分了下工，我主要盯关系维护和有效沟通这两块，中间遇到一些阻碍，比如资源没到位，我们协调了一下，用了大概两周把事情推完了，最后按计划完成了，没出什么大问题。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 5.2,
+      "keyword_coverage": 5.0,
+      "logical_coherence": 6.0,
+      "specificity": 5.5
+    }
+  },
+  {
+    "question_id": "design_behavioral_03",
+    "answer_text": "去年我负责的一个项目里就遇到过这样的情况——和产品/研发团队在设计方案上出现分歧。当时背景是业务方要求比较紧，我作为主要负责人，带了4个同事一起推进，直接向部门负责人汇报。我先在折中方案上做了梳理，再把有效沟通和关系维护拆成具体任务分给大家，过程中遇到了一个比较棘手的阻碍——核心资源临时被抽调，我重新协调了跨部门协作相关的安排，自己也补上了一部分工作。最终在一个月内完成了目标，相关指标比之前提升了35%。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 6.6,
+      "keyword_coverage": 7.1,
+      "logical_coherence": 8.1,
+      "specificity": 7.0
+    }
+  },
+  {
+    "question_id": "design_behavioral_03",
+    "answer_text": "去年我负责的一个项目正好对应这样的场景——和产品/研发团队在设计方案上出现分歧。当时背景是时间紧、涉及多方协作，我是这个6人小组的负责人，向项目发起人同步进展。我先在设计分歧和有效沟通上做了完整梳理，明确目标和验收标准，然后把跨部门协作拆解成具体任务分配给对应的同事，并建立了固定的进度同步机制跟踪风险。项目进行到一半时遇到了一个比较大的阻碍——用户数据支撑方面出现了意外情况，我评估后重新调整了优先级和分工，同时提前和相关方同步了风险和取舍方案，避免了被动。最终项目提前完成，核心指标比预期提升了22%，折中方案也保持在健康水平。复盘下来，我觉得提前识别风险、及时调整分工比单纯埋头硬做更重要，这也是我在类似场景里持续在用的方法。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 8.7,
+      "keyword_coverage": 9.0,
+      "logical_coherence": 8.9,
+      "specificity": 9.4
+    }
+  },
+  {
+    "question_id": "consulting_behavioral_03",
+    "answer_text": "这个我没有太多准备，临场发挥一下应该就能应付过去。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 1.0,
+      "keyword_coverage": 1.3,
+      "logical_coherence": 0.9,
+      "specificity": 1.2
+    }
+  },
+  {
+    "question_id": "consulting_behavioral_03",
+    "answer_text": "我们组好像遇到过类似的情况——和客户或团队成员在分析结论上出现分歧。我当时也算是咨询方向上参与其中，大概做了一些假设验证相关的事情，具体怎么推进的我记得不是很清楚，反正最后事情算是过去了。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 3.0,
+      "keyword_coverage": 3.0,
+      "logical_coherence": 3.3,
+      "specificity": 3.5
+    }
+  },
+  {
+    "question_id": "consulting_behavioral_03",
+    "answer_text": "有一次我经历过这样的情况——和客户或团队成员在分析结论上出现分歧。当时我是团队里负责这块的人，带了6个同事一起做。我们大致分了下工，我主要盯假设验证和折中方案这两块，中间遇到一些阻碍，比如资源没到位，我们协调了一下，用了大概六周把事情推完了，最后按计划完成了，没出什么大问题。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 5.7,
+      "keyword_coverage": 4.9,
+      "logical_coherence": 6.1,
+      "specificity": 4.7
+    }
+  },
+  {
+    "question_id": "consulting_behavioral_03",
+    "answer_text": "去年我负责的一个项目里就遇到过这样的情况——和客户或团队成员在分析结论上出现分歧。当时背景是业务方要求比较紧，我作为主要负责人，带了2个同事一起推进，直接向部门负责人汇报。我先在假设验证上做了梳理，再把客户关系维护和有效沟通拆成具体任务分给大家，过程中遇到了一个比较棘手的阻碍——核心资源临时被抽调，我重新协调了折中方案相关的安排，自己也补上了一部分工作。最终在一个月内完成了目标，相关指标比之前提升了15%。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 7.2,
+      "keyword_coverage": 8.1,
+      "logical_coherence": 7.5,
+      "specificity": 7.3
+    }
+  },
+  {
+    "question_id": "consulting_behavioral_03",
+    "answer_text": "去年我负责的一个项目正好对应这样的场景——和客户或团队成员在分析结论上出现分歧。当时背景是时间紧、涉及多方协作，我是这个8人小组的负责人，向项目发起人同步进展。我先在客户关系维护和分析分歧上做了完整梳理，明确目标和验收标准，然后把折中方案拆解成具体任务分配给对应的同事，并建立了固定的进度同步机制跟踪风险。项目进行到一半时遇到了一个比较大的阻碍——有效沟通方面出现了意外情况，我评估后重新调整了优先级和分工，同时提前和相关方同步了风险和取舍方案，避免了被动。最终项目提前完成，核心指标比预期提升了22%，数据支撑也保持在健康水平。复盘下来，我觉得提前识别风险、及时调整分工比单纯埋头硬做更重要，这也是我在类似场景里持续在用的方法。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 8.7,
+      "keyword_coverage": 9.7,
+      "logical_coherence": 9.3,
+      "specificity": 8.5
+    }
+  },
+  {
+    "question_id": "tech_technical_01",
+    "answer_text": "这个我没有太多准备，临场发挥一下应该就能应付过去。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 1.6,
+      "keyword_coverage": 0.3,
+      "logical_coherence": 0.4,
+      "specificity": 1.2
+    }
+  },
+  {
+    "question_id": "tech_technical_01",
+    "answer_text": "这个系统，我觉得大概跟水平扩展有关系，应该考虑一下长连接技术选型（WebSocket）及连接层扩展方案这块，具体怎么做我没有深入想过，就是凭感觉给个大方向。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 2.9,
+      "keyword_coverage": 3.0,
+      "logical_coherence": 3.3,
+      "specificity": 2.9
+    }
+  },
+  {
+    "question_id": "tech_technical_01",
+    "answer_text": "大概思路是这样的：先长连接技术选型（WebSocket）及连接层扩展方案，然后消息可靠投递（ACK+重试+离线存储）设计。中间会用到消息去重和离线消息相关的思路，但具体怎么落地、遇到问题怎么验证，我这里想得还比较粗，大概方向是对的，细节没有完全展开。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 5.6,
+      "keyword_coverage": 4.7,
+      "logical_coherence": 5.1,
+      "specificity": 5.4
+    }
+  },
+  {
+    "question_id": "tech_technical_01",
+    "answer_text": "整体方案我会分成以下几部分来设计：第一，长连接技术选型（WebSocket）及连接层扩展方案。第二，消息可靠投递（ACK+重试+离线存储）设计。第三，在线状态维护（心跳+presence广播）。这个过程中会重点用到在线状态、离线消息和长连接这几个关键环节。落地后核心指标（比如相关的准确率/稳定性）大概能提升到15%左右的改善空间。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 6.7,
+      "keyword_coverage": 6.9,
+      "logical_coherence": 7.6,
+      "specificity": 7.0
+    }
+  },
+  {
+    "question_id": "tech_technical_01",
+    "answer_text": "整体方案我会分成以下几部分来设计：第一，长连接技术选型（WebSocket）及连接层扩展方案。第二，消息可靠投递（ACK+重试+离线存储）设计。第三，在线状态维护（心跳+presence广播）。第四，消息顺序性和去重的保证方式。这里面消息去重、消息顺序性、离线消息、消息投递是几个关键的技术/分析抓手，缺一个都会让方案不完整。上线/落地后核心指标预计能改善12%左右，整体上兼顾了可靠性和扩展性，上线后可以持续通过监控指标验证效果。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 8.6,
+      "keyword_coverage": 8.6,
+      "logical_coherence": 9.1,
+      "specificity": 9.1
+    }
+  },
+  {
+    "question_id": "product_technical_01",
+    "answer_text": "差不多就是按常规流程走了一遍，没什么特别的，结果还算可以。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 0.8,
+      "keyword_coverage": 0.3,
+      "logical_coherence": 1.4,
+      "specificity": 1.8
+    }
+  },
+  {
+    "question_id": "product_technical_01",
+    "answer_text": "这个系统，我觉得大概跟技术方案沟通有关系，应该考虑一下说明如何在需求评审早期引入研发参与可行性判断这块，具体怎么做我没有深入想过，就是凭感觉给个大方向。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 3.7,
+      "keyword_coverage": 3.0,
+      "logical_coherence": 3.3,
+      "specificity": 2.7
+    }
+  },
+  {
+    "question_id": "product_technical_01",
+    "answer_text": "大概思路是这样的：先说明如何在需求评审早期引入研发参与可行性判断，然后PRD中需要明确的边界条件和异常场景。中间会用到工作量评估和技术方案沟通相关的思路，但具体怎么落地、遇到问题怎么验证，我这里想得还比较粗，大概方向是对的，细节没有完全展开。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 5.0,
+      "keyword_coverage": 4.9,
+      "logical_coherence": 4.7,
+      "specificity": 5.5
+    }
+  },
+  {
+    "question_id": "product_technical_01",
+    "answer_text": "整体方案我会分成以下几部分来设计：第一，说明如何在需求评审早期引入研发参与可行性判断。第二，PRD中需要明确的边界条件和异常场景。第三，如何理解并权衡研发给出的工作量估算。这个过程中会重点用到技术方案沟通、MVP拆分和技术可行性这几个关键环节。落地后核心指标（比如相关的准确率/稳定性）大概能提升到22%左右的改善空间。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 6.8,
+      "keyword_coverage": 6.9,
+      "logical_coherence": 7.5,
+      "specificity": 6.9
+    }
+  },
+  {
+    "question_id": "product_technical_01",
+    "answer_text": "整体方案我会分成以下几部分来设计：第一，说明如何在需求评审早期引入研发参与可行性判断。第二，PRD中需要明确的边界条件和异常场景。第三，如何理解并权衡研发给出的工作量估算。第四，遇到实现成本过高时如何和研发协商MVP方案。这里面技术可行性、需求文档、风险识别、MVP拆分是几个关键的技术/分析抓手，缺一个都会让方案不完整。上线/落地后核心指标预计能改善18%左右，这样设计既能保证核心链路的稳定性，也为后续的容量增长留了扩展空间。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 8.5,
+      "keyword_coverage": 9.2,
+      "logical_coherence": 9.7,
+      "specificity": 9.8
+    }
+  },
+  {
+    "question_id": "marketing_technical_01",
+    "answer_text": "差不多就是按常规流程走了一遍，没什么特别的，结果还算可以。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 0.3,
+      "keyword_coverage": 0.3,
+      "logical_coherence": 1.2,
+      "specificity": 1.4
+    }
+  },
+  {
+    "question_id": "marketing_technical_01",
+    "answer_text": "这个系统，我觉得大概跟归因模型有关系，应该考虑一下常见归因模型对比（末次点击/线性/时间衰减/算法归因）这块，具体怎么做我没有深入想过，就是凭感觉给个大方向。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 3.7,
+      "keyword_coverage": 3.0,
+      "logical_coherence": 3.6,
+      "specificity": 3.8
+    }
+  },
+  {
+    "question_id": "marketing_technical_01",
+    "answer_text": "大概思路是这样的：先常见归因模型对比（末次点击/线性/时间衰减/算法归因），然后不同业务场景（长决策周期 vs 短决策周期）如何选择归因模型。中间会用到多触点归因和渠道贡献度相关的思路，但具体怎么落地、遇到问题怎么验证，我这里想得还比较粗，大概方向是对的，细节没有完全展开。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 4.9,
+      "keyword_coverage": 4.8,
+      "logical_coherence": 4.8,
+      "specificity": 5.8
+    }
+  },
+  {
+    "question_id": "marketing_technical_01",
+    "answer_text": "整体方案我会分成以下几部分来设计：第一，常见归因模型对比（末次点击/线性/时间衰减/算法归因）。第二，不同业务场景（长决策周期 vs 短决策周期）如何选择归因模型。第三，归因模型的局限性（如无法完全捕捉线下触点）。这个过程中会重点用到归因窗口期、数据打通和渠道贡献度这几个关键环节。落地后核心指标（比如相关的准确率/稳定性）大概能提升到30%左右的改善空间。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 6.6,
+      "keyword_coverage": 6.6,
+      "logical_coherence": 7.4,
+      "specificity": 8.0
+    }
+  },
+  {
+    "question_id": "marketing_technical_01",
+    "answer_text": "整体方案我会分成以下几部分来设计：第一，常见归因模型对比（末次点击/线性/时间衰减/算法归因）。第二，不同业务场景（长决策周期 vs 短决策周期）如何选择归因模型。第三，归因模型的局限性（如无法完全捕捉线下触点）。第四，结合具体案例说明归因结果如何指导预算分配。这里面归因窗口期、渠道贡献度、数据打通、多触点归因是几个关键的技术/分析抓手，缺一个都会让方案不完整。上线/落地后核心指标预计能改善30%左右，这样设计既能保证核心链路的稳定性，也为后续的容量增长留了扩展空间。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 9.3,
+      "keyword_coverage": 9.6,
+      "logical_coherence": 8.4,
+      "specificity": 9.3
+    }
+  },
+  {
+    "question_id": "ops_technical_01",
+    "answer_text": "我记得当时挺忙的，具体怎么解决的现在想不太起来了，反正最后是搞定了。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 0.6,
+      "keyword_coverage": 1.0,
+      "logical_coherence": 0.6,
+      "specificity": 0.8
+    }
+  },
+  {
+    "question_id": "ops_technical_01",
+    "answer_text": "这个系统，我觉得大概跟用户分群有关系，应该考虑一下说明如何从数据中发现增长机会点这块，具体怎么做我没有深入想过，就是凭感觉给个大方向。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 3.3,
+      "keyword_coverage": 2.9,
+      "logical_coherence": 3.8,
+      "specificity": 3.2
+    }
+  },
+  {
+    "question_id": "ops_technical_01",
+    "answer_text": "大概思路是这样的：先说明如何从数据中发现增长机会点，然后如何设计漏斗分析定位问题环节。中间会用到A/B测试和归因分析相关的思路，但具体怎么落地、遇到问题怎么验证，我这里想得还比较粗，大概方向是对的，细节没有完全展开。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 5.8,
+      "keyword_coverage": 6.1,
+      "logical_coherence": 5.9,
+      "specificity": 5.0
+    }
+  },
+  {
+    "question_id": "ops_technical_01",
+    "answer_text": "整体方案我会分成以下几部分来设计：第一，说明如何从数据中发现增长机会点。第二，如何设计漏斗分析定位问题环节。第三，如何用A/B测试验证运营策略假设。这个过程中会重点用到漏斗分析、A/B测试和归因分析这几个关键环节。落地后核心指标（比如相关的准确率/稳定性）大概能提升到28%左右的改善空间。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 7.8,
+      "keyword_coverage": 6.8,
+      "logical_coherence": 6.8,
+      "specificity": 6.9
+    }
+  },
+  {
+    "question_id": "ops_technical_01",
+    "answer_text": "整体方案我会分成以下几部分来设计：第一，说明如何从数据中发现增长机会点。第二，如何设计漏斗分析定位问题环节。第三，如何用A/B测试验证运营策略假设。第四，结合具体案例说明数据驱动决策的完整流程。这里面增长指标、漏斗分析、数据驱动决策、归因分析是几个关键的技术/分析抓手，缺一个都会让方案不完整。上线/落地后核心指标预计能改善28%左右，这样设计既能保证核心链路的稳定性，也为后续的容量增长留了扩展空间。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 8.9,
+      "keyword_coverage": 9.3,
+      "logical_coherence": 9.6,
+      "specificity": 9.6
+    }
+  },
+  {
+    "question_id": "design_technical_01",
+    "answer_text": "我们组当时也遇到过类似的事，最后好像是别人主要在推动，我配合了一下。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 0.5,
+      "keyword_coverage": 1.8,
+      "logical_coherence": 0.3,
+      "specificity": 1.3
+    }
+  },
+  {
+    "question_id": "design_technical_01",
+    "answer_text": "这个系统，我觉得大概跟设计规范有关系，应该考虑一下设计系统的核心价值（一致性+效率）这块，具体怎么做我没有深入想过，就是凭感觉给个大方向。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 2.7,
+      "keyword_coverage": 3.2,
+      "logical_coherence": 2.7,
+      "specificity": 3.3
+    }
+  },
+  {
+    "question_id": "design_technical_01",
+    "answer_text": "大概思路是这样的：先设计系统的核心价值（一致性+效率），然后design token、组件库的层次结构设计。中间会用到设计系统和设计规范相关的思路，但具体怎么落地、遇到问题怎么验证，我这里想得还比较粗，大概方向是对的，细节没有完全展开。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 6.2,
+      "keyword_coverage": 5.8,
+      "logical_coherence": 5.7,
+      "specificity": 5.5
+    }
+  },
+  {
+    "question_id": "design_technical_01",
+    "answer_text": "整体方案我会分成以下几部分来设计：第一，设计系统的核心价值（一致性+效率）。第二，design token、组件库的层次结构设计。第三，如何保证设计系统在团队内被持续维护和采纳。这个过程中会重点用到设计系统、一致性维护和设计开发协同这几个关键环节。落地后核心指标（比如相关的准确率/稳定性）大概能提升到18%左右的改善空间。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 8.0,
+      "keyword_coverage": 7.7,
+      "logical_coherence": 6.7,
+      "specificity": 8.0
+    }
+  },
+  {
+    "question_id": "design_technical_01",
+    "answer_text": "整体方案我会分成以下几部分来设计：第一，设计系统的核心价值（一致性+效率）。第二，design token、组件库的层次结构设计。第三，如何保证设计系统在团队内被持续维护和采纳。第四，结合具体案例说明设计系统搭建过程。这里面组件复用、一致性维护、设计开发协同、设计规范是几个关键的技术/分析抓手，缺一个都会让方案不完整。上线/落地后核心指标预计能改善35%左右，整体上兼顾了可靠性和扩展性，上线后可以持续通过监控指标验证效果。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 8.6,
+      "keyword_coverage": 8.5,
+      "logical_coherence": 9.5,
+      "specificity": 9.1
+    }
+  },
+  {
+    "question_id": "consulting_technical_01",
+    "answer_text": "差不多就是按常规流程走了一遍，没什么特别的，结果还算可以。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 0.3,
+      "keyword_coverage": 1.7,
+      "logical_coherence": 1.1,
+      "specificity": 1.4
+    }
+  },
+  {
+    "question_id": "consulting_technical_01",
+    "answer_text": "这个系统，我觉得大概跟交叉验证有关系，应该考虑一下TAM/SAM/SOM三个层次的定义及测算逻辑这块，具体怎么做我没有深入想过，就是凭感觉给个大方向。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 2.9,
+      "keyword_coverage": 2.9,
+      "logical_coherence": 3.9,
+      "specificity": 2.7
+    }
+  },
+  {
+    "question_id": "consulting_technical_01",
+    "answer_text": "大概思路是这样的：先TAM/SAM/SOM三个层次的定义及测算逻辑，然后自上而下和自下而上两种方法的优劣及适用场景。中间会用到数据来源和市场规模测算相关的思路，但具体怎么落地、遇到问题怎么验证，我这里想得还比较粗，大概方向是对的，细节没有完全展开。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 6.1,
+      "keyword_coverage": 6.1,
+      "logical_coherence": 5.0,
+      "specificity": 5.3
+    }
+  },
+  {
+    "question_id": "consulting_technical_01",
+    "answer_text": "整体方案我会分成以下几部分来设计：第一，TAM/SAM/SOM三个层次的定义及测算逻辑。第二，自上而下和自下而上两种方法的优劣及适用场景。第三，如何用两种方法交叉验证测算结果的合理性。这个过程中会重点用到市场规模测算、假设合理性和数据来源这几个关键环节。落地后核心指标（比如相关的准确率/稳定性）大概能提升到12%左右的改善空间。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 7.5,
+      "keyword_coverage": 6.7,
+      "logical_coherence": 7.9,
+      "specificity": 8.1
+    }
+  },
+  {
+    "question_id": "consulting_technical_01",
+    "answer_text": "整体方案我会分成以下几部分来设计：第一，TAM/SAM/SOM三个层次的定义及测算逻辑。第二，自上而下和自下而上两种方法的优劣及适用场景。第三，如何用两种方法交叉验证测算结果的合理性。第四，结合具体案例说明市场测算过程。这里面自下而上法、自上而下法、市场规模测算、数据来源是几个关键的技术/分析抓手，缺一个都会让方案不完整。上线/落地后核心指标预计能改善18%左右，方案落地后我会持续观察核心指标，如果出现异常再回到具体环节做针对性优化。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 9.3,
+      "keyword_coverage": 8.8,
+      "logical_coherence": 9.8,
+      "specificity": 9.3
+    }
+  },
+  {
+    "question_id": "finance_technical_01",
+    "answer_text": "差不多就是按常规流程走了一遍，没什么特别的，结果还算可以。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 0.2,
+      "keyword_coverage": 0.4,
+      "logical_coherence": 1.3,
+      "specificity": 0.2
+    }
+  },
+  {
+    "question_id": "finance_technical_01",
+    "answer_text": "这个系统，我觉得大概跟DCF估值有关系，应该考虑一下DCF估值的核心逻辑（未来现金流折现到现值）这块，具体怎么做我没有深入想过，就是凭感觉给个大方向。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 3.4,
+      "keyword_coverage": 3.0,
+      "logical_coherence": 3.8,
+      "specificity": 3.9
+    }
+  },
+  {
+    "question_id": "finance_technical_01",
+    "answer_text": "大概思路是这样的：先DCF估值的核心逻辑（未来现金流折现到现值），然后可比公司法的核心逻辑（用市场倍数类比）。中间会用到估值倍数和终值计算相关的思路，但具体怎么落地、遇到问题怎么验证，我这里想得还比较粗，大概方向是对的，细节没有完全展开。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 5.4,
+      "keyword_coverage": 4.7,
+      "logical_coherence": 4.8,
+      "specificity": 5.7
+    }
+  },
+  {
+    "question_id": "finance_technical_01",
+    "answer_text": "整体方案我会分成以下几部分来设计：第一，DCF估值的核心逻辑（未来现金流折现到现值）。第二，可比公司法的核心逻辑（用市场倍数类比）。第三，WACC和终值假设对DCF结果的敏感性。这个过程中会重点用到终值计算、估值倍数和DCF估值这几个关键环节。落地后核心指标（比如相关的准确率/稳定性）大概能提升到25%左右的改善空间。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 7.7,
+      "keyword_coverage": 7.8,
+      "logical_coherence": 7.8,
+      "specificity": 7.8
+    }
+  },
+  {
+    "question_id": "finance_technical_01",
+    "answer_text": "整体方案我会分成以下几部分来设计：第一，DCF估值的核心逻辑（未来现金流折现到现值）。第二，可比公司法的核心逻辑（用市场倍数类比）。第三，WACC和终值假设对DCF结果的敏感性。第四，如何用多种方法交叉验证估值结果的合理性。这里面加权平均资本成本、估值倍数、终值计算、估值交叉验证是几个关键的技术/分析抓手，缺一个都会让方案不完整。上线/落地后核心指标预计能改善30%左右，这样设计既能保证核心链路的稳定性，也为后续的容量增长留了扩展空间。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 9.6,
+      "keyword_coverage": 9.4,
+      "logical_coherence": 9.4,
+      "specificity": 8.8
+    }
+  },
+  {
+    "question_id": "tech_technical_02",
+    "answer_text": "我记得当时挺忙的，具体怎么解决的现在想不太起来了，反正最后是搞定了。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 0.3,
+      "keyword_coverage": 0.4,
+      "logical_coherence": 1.8,
+      "specificity": 0.7
+    }
+  },
+  {
+    "question_id": "tech_technical_02",
+    "answer_text": "这个系统，我觉得大概跟延迟监控有关系，应该考虑一下说明主从复制的原理及延迟产生的原因这块，具体怎么做我没有深入想过，就是凭感觉给个大方向。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 3.9,
+      "keyword_coverage": 3.9,
+      "logical_coherence": 3.2,
+      "specificity": 3.7
+    }
+  },
+  {
+    "question_id": "tech_technical_02",
+    "answer_text": "大概思路是这样的：先说明主从复制的原理及延迟产生的原因，然后读写分离下数据不一致的典型场景（写后立即读）。中间会用到复制延迟和主从复制相关的思路，但具体怎么落地、遇到问题怎么验证，我这里想得还比较粗，大概方向是对的，细节没有完全展开。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 5.8,
+      "keyword_coverage": 4.9,
+      "logical_coherence": 5.3,
+      "specificity": 4.7
+    }
+  },
+  {
+    "question_id": "tech_technical_02",
+    "answer_text": "整体方案我会分成以下几部分来设计：第一，说明主从复制的原理及延迟产生的原因。第二，读写分离下数据不一致的典型场景（写后立即读）。第三，应对方案（强制读主/延迟监控/业务容忍最终一致性）。这个过程中会重点用到延迟监控、主从复制和强制读主这几个关键环节。落地后核心指标（比如相关的准确率/稳定性）大概能提升到25%左右的改善空间。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 8.2,
+      "keyword_coverage": 7.2,
+      "logical_coherence": 7.6,
+      "specificity": 8.1
+    }
+  },
+  {
+    "question_id": "tech_technical_02",
+    "answer_text": "整体方案我会分成以下几部分来设计：第一，说明主从复制的原理及延迟产生的原因。第二，读写分离下数据不一致的典型场景（写后立即读）。第三，应对方案（强制读主/延迟监控/业务容忍最终一致性）。第四，结合具体业务场景说明如何选择方案。这里面最终一致性、读写分离、主从复制、延迟监控是几个关键的技术/分析抓手，缺一个都会让方案不完整。上线/落地后核心指标预计能改善25%左右，整体上兼顾了可靠性和扩展性，上线后可以持续通过监控指标验证效果。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 9.8,
+      "keyword_coverage": 8.9,
+      "logical_coherence": 8.7,
+      "specificity": 8.9
+    }
+  },
+  {
+    "question_id": "product_technical_02",
+    "answer_text": "我们组当时也遇到过类似的事，最后好像是别人主要在推动，我配合了一下。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 0.5,
+      "keyword_coverage": 1.1,
+      "logical_coherence": 0.3,
+      "specificity": 0.6
+    }
+  },
+  {
+    "question_id": "product_technical_02",
+    "answer_text": "这个系统，我觉得大概跟指标选取有关系，应该考虑一下如何把产品假设转化为可验证的实验设计（自变量/因变量）这块，具体怎么做我没有深入想过，就是凭感觉给个大方向。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 3.0,
+      "keyword_coverage": 3.7,
+      "logical_coherence": 2.7,
+      "specificity": 2.8
+    }
+  },
+  {
+    "question_id": "product_technical_02",
+    "answer_text": "大概思路是这样的：先如何把产品假设转化为可验证的实验设计（自变量/因变量），然后样本量和实验周期如何估算才能保证统计显著性。中间会用到分流设计和指标选取相关的思路，但具体怎么落地、遇到问题怎么验证，我这里想得还比较粗，大概方向是对的，细节没有完全展开。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 5.8,
+      "keyword_coverage": 5.4,
+      "logical_coherence": 5.7,
+      "specificity": 5.4
+    }
+  },
+  {
+    "question_id": "product_technical_02",
+    "answer_text": "整体方案我会分成以下几部分来设计：第一，如何把产品假设转化为可验证的实验设计（自变量/因变量）。第二，样本量和实验周期如何估算才能保证统计显著性。第三，核心指标与护栏指标（不能牺牲的其他指标）的设计。这个过程中会重点用到A/B测试、结果解读和分流设计这几个关键环节。落地后核心指标（比如相关的准确率/稳定性）大概能提升到28%左右的改善空间。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 7.7,
+      "keyword_coverage": 7.1,
+      "logical_coherence": 7.9,
+      "specificity": 7.7
+    }
+  },
+  {
+    "question_id": "product_technical_02",
+    "answer_text": "整体方案我会分成以下几部分来设计：第一，如何把产品假设转化为可验证的实验设计（自变量/因变量）。第二，样本量和实验周期如何估算才能保证统计显著性。第三，核心指标与护栏指标（不能牺牲的其他指标）的设计。第四，如何解读实验结果并避免误读随机波动为显著效果。这里面假设设计、分流设计、A/B测试、样本量计算是几个关键的技术/分析抓手，缺一个都会让方案不完整。上线/落地后核心指标预计能改善35%左右，整体上兼顾了可靠性和扩展性，上线后可以持续通过监控指标验证效果。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 9.7,
+      "keyword_coverage": 8.6,
+      "logical_coherence": 9.5,
+      "specificity": 9.9
+    }
+  },
+  {
+    "question_id": "marketing_technical_02",
+    "answer_text": "这种情况我一般不会想太多，遇到了就顺其自然地处理一下。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 1.3,
+      "keyword_coverage": 1.4,
+      "logical_coherence": 0.3,
+      "specificity": 1.5
+    }
+  },
+  {
+    "question_id": "marketing_technical_02",
+    "answer_text": "这个系统，我觉得大概跟SEO有关系，应该考虑一下SEO和SEM的核心策略差异及配合方式这块，具体怎么做我没有深入想过，就是凭感觉给个大方向。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 3.7,
+      "keyword_coverage": 3.8,
+      "logical_coherence": 2.9,
+      "specificity": 3.0
+    }
+  },
+  {
+    "question_id": "marketing_technical_02",
+    "answer_text": "大概思路是这样的：先SEO和SEM的核心策略差异及配合方式，然后关键词研究及内容策略如何支撑SEO效果。中间会用到关键词策略和落地页优化相关的思路，但具体怎么落地、遇到问题怎么验证，我这里想得还比较粗，大概方向是对的，细节没有完全展开。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 4.7,
+      "keyword_coverage": 4.7,
+      "logical_coherence": 5.7,
+      "specificity": 5.0
+    }
+  },
+  {
+    "question_id": "marketing_technical_02",
+    "answer_text": "整体方案我会分成以下几部分来设计：第一，SEO和SEM的核心策略差异及配合方式。第二，关键词研究及内容策略如何支撑SEO效果。第三，SEM效果评估的核心指标（CTR/CPC/转化率）。这个过程中会重点用到效果评估指标、内容策略和SEM这几个关键环节。落地后核心指标（比如相关的准确率/稳定性）大概能提升到35%左右的改善空间。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 6.8,
+      "keyword_coverage": 7.4,
+      "logical_coherence": 7.1,
+      "specificity": 7.5
+    }
+  },
+  {
+    "question_id": "marketing_technical_02",
+    "answer_text": "整体方案我会分成以下几部分来设计：第一，SEO和SEM的核心策略差异及配合方式。第二，关键词研究及内容策略如何支撑SEO效果。第三，SEM效果评估的核心指标（CTR/CPC/转化率）。第四，结合具体案例说明如何持续优化。这里面SEM、落地页优化、效果评估指标、SEO是几个关键的技术/分析抓手，缺一个都会让方案不完整。上线/落地后核心指标预计能改善35%左右，整体上兼顾了可靠性和扩展性，上线后可以持续通过监控指标验证效果。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 8.9,
+      "keyword_coverage": 8.6,
+      "logical_coherence": 9.5,
+      "specificity": 8.6
+    }
+  },
+  {
+    "question_id": "ops_technical_02",
+    "answer_text": "差不多就是按常规流程走了一遍，没什么特别的，结果还算可以。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 1.2,
+      "keyword_coverage": 0.3,
+      "logical_coherence": 1.8,
+      "specificity": 0.7
+    }
+  },
+  {
+    "question_id": "ops_technical_02",
+    "answer_text": "这个系统，我觉得大概跟激活有关系，应该考虑一下AARRR各环节对应的核心运营动作这块，具体怎么做我没有深入想过，就是凭感觉给个大方向。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 3.4,
+      "keyword_coverage": 3.0,
+      "logical_coherence": 3.1,
+      "specificity": 3.5
+    }
+  },
+  {
+    "question_id": "ops_technical_02",
+    "answer_text": "大概思路是这样的：先AARRR各环节对应的核心运营动作，然后如何针对每个环节设计对应的指标和运营策略。中间会用到激活和推荐相关的思路，但具体怎么落地、遇到问题怎么验证，我这里想得还比较粗，大概方向是对的，细节没有完全展开。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 5.9,
+      "keyword_coverage": 4.6,
+      "logical_coherence": 6.0,
+      "specificity": 6.0
+    }
+  },
+  {
+    "question_id": "ops_technical_02",
+    "answer_text": "整体方案我会分成以下几部分来设计：第一，AARRR各环节对应的核心运营动作。第二，如何针对每个环节设计对应的指标和运营策略。第三，结合具体产品案例说明如何用AARRR诊断问题环节。这个过程中会重点用到留存、激活和推荐这几个关键环节。落地后核心指标（比如相关的准确率/稳定性）大概能提升到28%左右的改善空间。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 6.9,
+      "keyword_coverage": 8.0,
+      "logical_coherence": 8.0,
+      "specificity": 7.2
+    }
+  },
+  {
+    "question_id": "ops_technical_02",
+    "answer_text": "整体方案我会分成以下几部分来设计：第一，AARRR各环节对应的核心运营动作。第二，如何针对每个环节设计对应的指标和运营策略。第三，结合具体产品案例说明如何用AARRR诊断问题环节。第四，各环节运营策略之间如何协同。这里面转化、获客、推荐、留存是几个关键的技术/分析抓手，缺一个都会让方案不完整。上线/落地后核心指标预计能改善35%左右，整体上兼顾了可靠性和扩展性，上线后可以持续通过监控指标验证效果。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 9.0,
+      "keyword_coverage": 9.2,
+      "logical_coherence": 9.3,
+      "specificity": 8.6
+    }
+  },
+  {
+    "question_id": "design_technical_02",
+    "answer_text": "这个我没有太多准备，临场发挥一下应该就能应付过去。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 0.5,
+      "keyword_coverage": 1.5,
+      "logical_coherence": 0.2,
+      "specificity": 0.1
+    }
+  },
+  {
+    "question_id": "design_technical_02",
+    "answer_text": "这个系统，我觉得大概跟定性反馈收集有关系，应该考虑一下可用性测试的核心流程（任务设计-招募-执行-分析）这块，具体怎么做我没有深入想过，就是凭感觉给个大方向。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 3.5,
+      "keyword_coverage": 2.7,
+      "logical_coherence": 2.8,
+      "specificity": 2.8
+    }
+  },
+  {
+    "question_id": "design_technical_02",
+    "answer_text": "大概思路是这样的：先可用性测试的核心流程（任务设计-招募-执行-分析），然后常用测试方法（think-aloud、任务完成率测量）。中间会用到可用性测试和测试任务设计相关的思路，但具体怎么落地、遇到问题怎么验证，我这里想得还比较粗，大概方向是对的，细节没有完全展开。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 5.2,
+      "keyword_coverage": 4.9,
+      "logical_coherence": 5.5,
+      "specificity": 5.7
+    }
+  },
+  {
+    "question_id": "design_technical_02",
+    "answer_text": "整体方案我会分成以下几部分来设计：第一，可用性测试的核心流程（任务设计-招募-执行-分析）。第二，常用测试方法（think-aloud、任务完成率测量）。第三，如何从测试结果中提炼可执行的改进建议。这个过程中会重点用到可用性测试、样本招募和测试任务设计这几个关键环节。落地后核心指标（比如相关的准确率/稳定性）大概能提升到35%左右的改善空间。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 7.4,
+      "keyword_coverage": 7.9,
+      "logical_coherence": 6.6,
+      "specificity": 7.1
+    }
+  },
+  {
+    "question_id": "design_technical_02",
+    "answer_text": "整体方案我会分成以下几部分来设计：第一，可用性测试的核心流程（任务设计-招募-执行-分析）。第二，常用测试方法（think-aloud、任务完成率测量）。第三，如何从测试结果中提炼可执行的改进建议。第四，结合具体案例说明测试设计与结果应用。这里面测试任务设计、测试指标、可用性测试、定性反馈收集是几个关键的技术/分析抓手，缺一个都会让方案不完整。上线/落地后核心指标预计能改善28%左右，方案落地后我会持续观察核心指标，如果出现异常再回到具体环节做针对性优化。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 9.0,
+      "keyword_coverage": 8.9,
+      "logical_coherence": 9.4,
+      "specificity": 9.6
+    }
+  },
+  {
+    "question_id": "consulting_technical_02",
+    "answer_text": "我记得当时挺忙的，具体怎么解决的现在想不太起来了，反正最后是搞定了。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 0.6,
+      "keyword_coverage": 0.8,
+      "logical_coherence": 1.5,
+      "specificity": 0.4
+    }
+  },
+  {
+    "question_id": "consulting_technical_02",
+    "answer_text": "这个系统，我觉得大概跟初始假设有关系，应该考虑一下假设驱动分析相比穷举式分析的效率优势这块，具体怎么做我没有深入想过，就是凭感觉给个大方向。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 3.6,
+      "keyword_coverage": 2.9,
+      "logical_coherence": 3.3,
+      "specificity": 2.9
+    }
+  },
+  {
+    "question_id": "consulting_technical_02",
+    "answer_text": "大概思路是这样的：先假设驱动分析相比穷举式分析的效率优势，然后如何提出初始假设并设计验证方法。中间会用到问题树和初始假设相关的思路，但具体怎么落地、遇到问题怎么验证，我这里想得还比较粗，大概方向是对的，细节没有完全展开。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 5.0,
+      "keyword_coverage": 4.9,
+      "logical_coherence": 4.7,
+      "specificity": 5.1
+    }
+  },
+  {
+    "question_id": "consulting_technical_02",
+    "answer_text": "整体方案我会分成以下几部分来设计：第一，假设驱动分析相比穷举式分析的效率优势。第二，如何提出初始假设并设计验证方法。第三，假设被证伪后如何迭代调整分析方向。这个过程中会重点用到初始假设、假设驱动分析和数据验证这几个关键环节。落地后核心指标（比如相关的准确率/稳定性）大概能提升到18%左右的改善空间。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 7.4,
+      "keyword_coverage": 6.6,
+      "logical_coherence": 8.0,
+      "specificity": 7.6
+    }
+  },
+  {
+    "question_id": "consulting_technical_02",
+    "answer_text": "整体方案我会分成以下几部分来设计：第一，假设驱动分析相比穷举式分析的效率优势。第二，如何提出初始假设并设计验证方法。第三，假设被证伪后如何迭代调整分析方向。第四，结合具体案例说明假设驱动分析的完整流程。这里面迭代修正、问题树、数据验证、假设驱动分析是几个关键的技术/分析抓手，缺一个都会让方案不完整。上线/落地后核心指标预计能改善15%左右，方案落地后我会持续观察核心指标，如果出现异常再回到具体环节做针对性优化。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 9.8,
+      "keyword_coverage": 9.3,
+      "logical_coherence": 8.7,
+      "specificity": 8.9
+    }
+  },
+  {
+    "question_id": "finance_technical_02",
+    "answer_text": "这个我们当时是大家一起商量着处理的，具体细节记不太清了，反正后来事情就过去了。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 1.1,
+      "keyword_coverage": 1.6,
+      "logical_coherence": 0.2,
+      "specificity": 0.4
+    }
+  },
+  {
+    "question_id": "finance_technical_02",
+    "answer_text": "这个系统，我觉得大概跟财务比率分析有关系，应该考虑一下三张报表之间的核心勾稽关系这块，具体怎么做我没有深入想过，就是凭感觉给个大方向。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 2.7,
+      "keyword_coverage": 2.7,
+      "logical_coherence": 3.8,
+      "specificity": 2.8
+    }
+  },
+  {
+    "question_id": "finance_technical_02",
+    "answer_text": "大概思路是这样的：先三张报表之间的核心勾稽关系，然后如何用现金流量表验证利润表反映的盈利质量。中间会用到异常科目识别和勾稽关系相关的思路，但具体怎么落地、遇到问题怎么验证，我这里想得还比较粗，大概方向是对的，细节没有完全展开。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 4.8,
+      "keyword_coverage": 4.6,
+      "logical_coherence": 4.9,
+      "specificity": 5.7
+    }
+  },
+  {
+    "question_id": "finance_technical_02",
+    "answer_text": "整体方案我会分成以下几部分来设计：第一，三张报表之间的核心勾稽关系。第二，如何用现金流量表验证利润表反映的盈利质量。第三，关键财务比率（偿债/盈利/营运能力）的分析方法。这个过程中会重点用到财务比率分析、异常科目识别和现金流分析这几个关键环节。落地后核心指标（比如相关的准确率/稳定性）大概能提升到22%左右的改善空间。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 7.9,
+      "keyword_coverage": 6.7,
+      "logical_coherence": 7.1,
+      "specificity": 8.0
+    }
+  },
+  {
+    "question_id": "finance_technical_02",
+    "answer_text": "整体方案我会分成以下几部分来设计：第一，三张报表之间的核心勾稽关系。第二，如何用现金流量表验证利润表反映的盈利质量。第三，关键财务比率（偿债/盈利/营运能力）的分析方法。第四，结合具体案例说明如何识别报表中的异常信号。这里面财务比率分析、勾稽关系、现金流分析、三张报表是几个关键的技术/分析抓手，缺一个都会让方案不完整。上线/落地后核心指标预计能改善12%左右，这样设计既能保证核心链路的稳定性，也为后续的容量增长留了扩展空间。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 8.6,
+      "keyword_coverage": 10.0,
+      "logical_coherence": 9.8,
+      "specificity": 9.5
+    }
+  },
+  {
+    "question_id": "tech_technical_03",
+    "answer_text": "这个我没有太多准备，临场发挥一下应该就能应付过去。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 0.6,
+      "keyword_coverage": 0.8,
+      "logical_coherence": 0.7,
+      "specificity": 1.6
+    }
+  },
+  {
+    "question_id": "tech_technical_03",
+    "answer_text": "这个系统，我觉得大概跟服务耦合度有关系，应该考虑一下拆分原则（业务边界/单一职责/数据自治）这块，具体怎么做我没有深入想过，就是凭感觉给个大方向。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 2.8,
+      "keyword_coverage": 3.5,
+      "logical_coherence": 3.3,
+      "specificity": 3.7
+    }
+  },
+  {
+    "question_id": "tech_technical_03",
+    "answer_text": "大概思路是这样的：先拆分原则（业务边界/单一职责/数据自治），然后REST vs RPC 的适用场景对比（易用性 vs 性能）。中间会用到服务耦合度和RPC相关的思路，但具体怎么落地、遇到问题怎么验证，我这里想得还比较粗，大概方向是对的，细节没有完全展开。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 5.3,
+      "keyword_coverage": 5.4,
+      "logical_coherence": 6.1,
+      "specificity": 5.8
+    }
+  },
+  {
+    "question_id": "tech_technical_03",
+    "answer_text": "整体方案我会分成以下几部分来设计：第一，拆分原则（业务边界/单一职责/数据自治）。第二，REST vs RPC 的适用场景对比（易用性 vs 性能）。第三，事件驱动适用的解耦场景。这个过程中会重点用到事件驱动、RPC和服务耦合度这几个关键环节。落地后核心指标（比如相关的准确率/稳定性）大概能提升到25%左右的改善空间。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 6.9,
+      "keyword_coverage": 7.2,
+      "logical_coherence": 6.6,
+      "specificity": 7.0
+    }
+  },
+  {
+    "question_id": "tech_technical_03",
+    "answer_text": "整体方案我会分成以下几部分来设计：第一，拆分原则（业务边界/单一职责/数据自治）。第二，REST vs RPC 的适用场景对比（易用性 vs 性能）。第三，事件驱动适用的解耦场景。第四，结合实际项目说明选择依据。这里面接口契约、微服务拆分、事件驱动、服务耦合度是几个关键的技术/分析抓手，缺一个都会让方案不完整。上线/落地后核心指标预计能改善22%左右，这样设计既能保证核心链路的稳定性，也为后续的容量增长留了扩展空间。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 9.0,
+      "keyword_coverage": 9.9,
+      "logical_coherence": 9.5,
+      "specificity": 8.7
+    }
+  },
+  {
+    "question_id": "product_technical_03",
+    "answer_text": "我们组当时也遇到过类似的事，最后好像是别人主要在推动，我配合了一下。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 0.8,
+      "keyword_coverage": 0.8,
+      "logical_coherence": 1.7,
+      "specificity": 0.4
+    }
+  },
+  {
+    "question_id": "product_technical_03",
+    "answer_text": "这个系统，我觉得大概跟版本兼容有关系，应该考虑一下PRD中需要明确的关键字段和数据结构这块，具体怎么做我没有深入想过，就是凭感觉给个大方向。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 3.5,
+      "keyword_coverage": 2.9,
+      "logical_coherence": 2.8,
+      "specificity": 3.5
+    }
+  },
+  {
+    "question_id": "product_technical_03",
+    "answer_text": "大概思路是这样的：先PRD中需要明确的关键字段和数据结构，然后如何和研发一起梳理异常/边界场景（如超时、无数据）。中间会用到状态码和API相关的思路，但具体怎么落地、遇到问题怎么验证，我这里想得还比较粗，大概方向是对的，细节没有完全展开。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 5.3,
+      "keyword_coverage": 4.9,
+      "logical_coherence": 5.6,
+      "specificity": 5.8
+    }
+  },
+  {
+    "question_id": "product_technical_03",
+    "answer_text": "整体方案我会分成以下几部分来设计：第一，PRD中需要明确的关键字段和数据结构。第二，如何和研发一起梳理异常/边界场景（如超时、无数据）。第三，接口变更时如何保证向后兼容。这个过程中会重点用到接口契约、版本兼容和请求响应设计这几个关键环节。落地后核心指标（比如相关的准确率/稳定性）大概能提升到15%左右的改善空间。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 7.2,
+      "keyword_coverage": 7.2,
+      "logical_coherence": 7.9,
+      "specificity": 6.8
+    }
+  },
+  {
+    "question_id": "product_technical_03",
+    "answer_text": "整体方案我会分成以下几部分来设计：第一，PRD中需要明确的关键字段和数据结构。第二，如何和研发一起梳理异常/边界场景（如超时、无数据）。第三，接口变更时如何保证向后兼容。第四，结合具体案例说明PM在接口设计中的参与程度。这里面接口契约、请求响应设计、API、状态码是几个关键的技术/分析抓手，缺一个都会让方案不完整。上线/落地后核心指标预计能改善15%左右，方案落地后我会持续观察核心指标，如果出现异常再回到具体环节做针对性优化。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 9.9,
+      "keyword_coverage": 10.0,
+      "logical_coherence": 9.6,
+      "specificity": 9.0
+    }
+  },
+  {
+    "question_id": "marketing_technical_03",
+    "answer_text": "我们组当时也遇到过类似的事，最后好像是别人主要在推动，我配合了一下。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 0.2,
+      "keyword_coverage": 0.3,
+      "logical_coherence": 1.4,
+      "specificity": 0.9
+    }
+  },
+  {
+    "question_id": "marketing_technical_03",
+    "answer_text": "这个系统，我觉得大概跟指标体系有关系，应该考虑一下内容营销区别于效果广告的评估难点（长期/间接价值）这块，具体怎么做我没有深入想过，就是凭感觉给个大方向。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 3.2,
+      "keyword_coverage": 3.0,
+      "logical_coherence": 2.7,
+      "specificity": 2.8
+    }
+  },
+  {
+    "question_id": "marketing_technical_03",
+    "answer_text": "大概思路是这样的：先内容营销区别于效果广告的评估难点（长期/间接价值），然后核心指标设计（曝光/互动/转化/留存）。中间会用到内容营销和品牌指标相关的思路，但具体怎么落地、遇到问题怎么验证，我这里想得还比较粗，大概方向是对的，细节没有完全展开。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 5.4,
+      "keyword_coverage": 5.7,
+      "logical_coherence": 4.7,
+      "specificity": 5.9
+    }
+  },
+  {
+    "question_id": "marketing_technical_03",
+    "answer_text": "整体方案我会分成以下几部分来设计：第一，内容营销区别于效果广告的评估难点（长期/间接价值）。第二，核心指标设计（曝光/互动/转化/留存）。第三，如何评估内容对品牌指标的贡献。这个过程中会重点用到内容消费指标、指标体系和内容营销这几个关键环节。落地后核心指标（比如相关的准确率/稳定性）大概能提升到35%左右的改善空间。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 7.4,
+      "keyword_coverage": 7.9,
+      "logical_coherence": 7.1,
+      "specificity": 6.8
+    }
+  },
+  {
+    "question_id": "marketing_technical_03",
+    "answer_text": "整体方案我会分成以下几部分来设计：第一，内容营销区别于效果广告的评估难点（长期/间接价值）。第二，核心指标设计（曝光/互动/转化/留存）。第三，如何评估内容对品牌指标的贡献。第四，结合具体案例说明指标体系设计。这里面转化归因、指标体系、长期价值评估、内容营销是几个关键的技术/分析抓手，缺一个都会让方案不完整。上线/落地后核心指标预计能改善12%左右，这样设计既能保证核心链路的稳定性，也为后续的容量增长留了扩展空间。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 8.9,
+      "keyword_coverage": 9.8,
+      "logical_coherence": 9.6,
+      "specificity": 8.5
+    }
+  },
+  {
+    "question_id": "ops_technical_03",
+    "answer_text": "我们组当时也遇到过类似的事，最后好像是别人主要在推动，我配合了一下。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 1.1,
+      "keyword_coverage": 1.6,
+      "logical_coherence": 1.5,
+      "specificity": 0.7
+    }
+  },
+  {
+    "question_id": "ops_technical_03",
+    "answer_text": "这个系统，我觉得大概跟社群活跃度有关系，应该考虑一下私域运营的核心价值（低成本触达+精细化运营）这块，具体怎么做我没有深入想过，就是凭感觉给个大方向。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 3.2,
+      "keyword_coverage": 2.7,
+      "logical_coherence": 3.9,
+      "specificity": 3.5
+    }
+  },
+  {
+    "question_id": "ops_technical_03",
+    "answer_text": "大概思路是这样的：先私域运营的核心价值（低成本触达+精细化运营），然后常见工具（企业微信/社群机器人）的应用场景。中间会用到私域运营和用户分层运营相关的思路，但具体怎么落地、遇到问题怎么验证，我这里想得还比较粗，大概方向是对的，细节没有完全展开。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 5.9,
+      "keyword_coverage": 5.3,
+      "logical_coherence": 6.2,
+      "specificity": 4.6
+    }
+  },
+  {
+    "question_id": "ops_technical_03",
+    "answer_text": "整体方案我会分成以下几部分来设计：第一，私域运营的核心价值（低成本触达+精细化运营）。第二，常见工具（企业微信/社群机器人）的应用场景。第三，社群活跃度维护和转化路径设计的方法论。这个过程中会重点用到社群活跃度、转化路径设计和内容运营节奏这几个关键环节。落地后核心指标（比如相关的准确率/稳定性）大概能提升到18%左右的改善空间。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 6.7,
+      "keyword_coverage": 7.6,
+      "logical_coherence": 8.0,
+      "specificity": 8.0
+    }
+  },
+  {
+    "question_id": "ops_technical_03",
+    "answer_text": "整体方案我会分成以下几部分来设计：第一，私域运营的核心价值（低成本触达+精细化运营）。第二，常见工具（企业微信/社群机器人）的应用场景。第三，社群活跃度维护和转化路径设计的方法论。第四，结合具体案例说明私域运营的完整链路。这里面转化路径设计、私域运营、工具选型、用户分层运营是几个关键的技术/分析抓手，缺一个都会让方案不完整。上线/落地后核心指标预计能改善15%左右，这样设计既能保证核心链路的稳定性，也为后续的容量增长留了扩展空间。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 8.7,
+      "keyword_coverage": 8.4,
+      "logical_coherence": 9.7,
+      "specificity": 8.8
+    }
+  },
+  {
+    "question_id": "design_technical_03",
+    "answer_text": "我们组当时也遇到过类似的事，最后好像是别人主要在推动，我配合了一下。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 1.4,
+      "keyword_coverage": 1.8,
+      "logical_coherence": 0.5,
+      "specificity": 0.3
+    }
+  },
+  {
+    "question_id": "design_technical_03",
+    "answer_text": "这个系统，我觉得大概跟信息架构有关系，应该考虑一下信息架构设计的核心目标（可理解性+可发现性）这块，具体怎么做我没有深入想过，就是凭感觉给个大方向。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 3.0,
+      "keyword_coverage": 3.7,
+      "logical_coherence": 3.7,
+      "specificity": 2.7
+    }
+  },
+  {
+    "question_id": "design_technical_03",
+    "answer_text": "大概思路是这样的：先信息架构设计的核心目标（可理解性+可发现性），然后卡片分类法等方法在信息架构设计中的应用。中间会用到卡片分类法和导航层级相关的思路，但具体怎么落地、遇到问题怎么验证，我这里想得还比较粗，大概方向是对的，细节没有完全展开。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 4.7,
+      "keyword_coverage": 5.3,
+      "logical_coherence": 6.1,
+      "specificity": 5.2
+    }
+  },
+  {
+    "question_id": "design_technical_03",
+    "answer_text": "整体方案我会分成以下几部分来设计：第一，信息架构设计的核心目标（可理解性+可发现性）。第二，卡片分类法等方法在信息架构设计中的应用。第三，导航层级深度和命名规范的设计原则。这个过程中会重点用到标签体系、卡片分类法和用户测试验证这几个关键环节。落地后核心指标（比如相关的准确率/稳定性）大概能提升到18%左右的改善空间。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 6.7,
+      "keyword_coverage": 6.8,
+      "logical_coherence": 6.7,
+      "specificity": 7.1
+    }
+  },
+  {
+    "question_id": "design_technical_03",
+    "answer_text": "整体方案我会分成以下几部分来设计：第一，信息架构设计的核心目标（可理解性+可发现性）。第二，卡片分类法等方法在信息架构设计中的应用。第三，导航层级深度和命名规范的设计原则。第四，结合具体案例说明信息架构设计和验证过程。这里面卡片分类法、导航层级、信息架构、可发现性是几个关键的技术/分析抓手，缺一个都会让方案不完整。上线/落地后核心指标预计能改善18%左右，这样设计既能保证核心链路的稳定性，也为后续的容量增长留了扩展空间。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 9.6,
+      "keyword_coverage": 8.5,
+      "logical_coherence": 9.1,
+      "specificity": 9.9
+    }
+  },
+  {
+    "question_id": "consulting_technical_03",
+    "answer_text": "这个我们当时是大家一起商量着处理的，具体细节记不太清了，反正后来事情就过去了。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 1.3,
+      "keyword_coverage": 1.0,
+      "logical_coherence": 1.7,
+      "specificity": 0.5
+    }
+  },
+  {
+    "question_id": "consulting_technical_03",
+    "answer_text": "这个系统，我觉得大概跟情景分析有关系，应该考虑一下财务建模的核心构成（收入/成本/现金流假设）这块，具体怎么做我没有深入想过，就是凭感觉给个大方向。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 3.6,
+      "keyword_coverage": 3.5,
+      "logical_coherence": 3.8,
+      "specificity": 3.9
+    }
+  },
+  {
+    "question_id": "consulting_technical_03",
+    "answer_text": "大概思路是这样的：先财务建模的核心构成（收入/成本/现金流假设），然后敏感性分析如何识别对结果影响最大的关键变量。中间会用到现金流预测和关键假设相关的思路，但具体怎么落地、遇到问题怎么验证，我这里想得还比较粗，大概方向是对的，细节没有完全展开。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 5.9,
+      "keyword_coverage": 6.2,
+      "logical_coherence": 5.2,
+      "specificity": 5.5
+    }
+  },
+  {
+    "question_id": "consulting_technical_03",
+    "answer_text": "整体方案我会分成以下几部分来设计：第一，财务建模的核心构成（收入/成本/现金流假设）。第二，敏感性分析如何识别对结果影响最大的关键变量。第三，情景分析（乐观/中性/悲观）的设计方法。这个过程中会重点用到敏感性分析、财务建模和模型验证这几个关键环节。落地后核心指标（比如相关的准确率/稳定性）大概能提升到28%左右的改善空间。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 6.9,
+      "keyword_coverage": 7.5,
+      "logical_coherence": 7.3,
+      "specificity": 7.4
+    }
+  },
+  {
+    "question_id": "consulting_technical_03",
+    "answer_text": "整体方案我会分成以下几部分来设计：第一，财务建模的核心构成（收入/成本/现金流假设）。第二，敏感性分析如何识别对结果影响最大的关键变量。第三，情景分析（乐观/中性/悲观）的设计方法。第四，结合具体案例说明财务模型搭建过程。这里面现金流预测、财务建模、敏感性分析、模型验证是几个关键的技术/分析抓手，缺一个都会让方案不完整。上线/落地后核心指标预计能改善18%左右，这样设计既能保证核心链路的稳定性，也为后续的容量增长留了扩展空间。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 8.7,
+      "keyword_coverage": 9.3,
+      "logical_coherence": 9.4,
+      "specificity": 9.1
+    }
+  },
+  {
+    "question_id": "tech_case_analysis_01",
+    "answer_text": "这个我没有太多准备，临场发挥一下应该就能应付过去。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 1.0,
+      "keyword_coverage": 1.5,
+      "logical_coherence": 0.2,
+      "specificity": 0.2
+    }
+  },
+  {
+    "question_id": "tech_case_analysis_01",
+    "answer_text": "遇到这种情况，我觉得大概跟资源瓶颈有关系，应该看看确认延迟突增的时间点是否和某次发布/流量变化吻合这块，具体怎么做我没有深入想过，就是凭感觉给个大方向。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 3.9,
+      "keyword_coverage": 3.3,
+      "logical_coherence": 3.5,
+      "specificity": 3.2
+    }
+  },
+  {
+    "question_id": "tech_case_analysis_01",
+    "answer_text": "大概的分析思路是：先确认延迟突增的时间点是否和某次发布/流量变化吻合，然后用链路追踪把耗时拆到具体服务/依赖/资源层面做MECE分析。中间会用到资源瓶颈和灰度回滚相关的思路，但具体怎么落地、遇到问题怎么验证，我这里想得还比较粗，大概方向是对的，细节没有完全展开。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 5.6,
+      "keyword_coverage": 6.0,
+      "logical_coherence": 4.9,
+      "specificity": 5.4
+    }
+  },
+  {
+    "question_id": "tech_case_analysis_01",
+    "answer_text": "我会按照界定问题、结构化拆解、验证假设、给出方案这个顺序来分析：第一，界定：确认延迟突增的时间点是否和某次发布/流量变化吻合。第二，拆解：用链路追踪把耗时拆到具体服务/依赖/资源层面做MECE分析。第三，验证：对比发布前后指标，排查资源瓶颈、慢查询、下游依赖抖动。这个过程中会重点用到版本发布对比、资源瓶颈和MECE这几个关键环节。验证下来这个方向能覆盖大部分场景，问题定位准确率能提升15%左右。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 8.1,
+      "keyword_coverage": 7.0,
+      "logical_coherence": 7.1,
+      "specificity": 8.0
+    }
+  },
+  {
+    "question_id": "tech_case_analysis_01",
+    "answer_text": "我会按照界定问题、结构化拆解、验证假设、给出方案这个顺序来分析：第一，界定：确认延迟突增的时间点是否和某次发布/流量变化吻合。第二，拆解：用链路追踪把耗时拆到具体服务/依赖/资源层面做MECE分析。第三，验证：对比发布前后指标，排查资源瓶颈、慢查询、下游依赖抖动。第四，方案：紧急止血（回滚/扩容/降级）+ 长期根因修复，并设定观察周期验证恢复。这里面资源瓶颈、延迟归因、版本发布对比、MECE是几个关键的技术/分析抓手，缺一个都会让方案不完整。验证后问题定位效率能提升30%左右，后续我会持续跟踪核心指标一段时间，验证方案是否真正解决了问题，如果没有回升就回头重新排查是否遗漏了其他原因。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 8.4,
+      "keyword_coverage": 9.0,
+      "logical_coherence": 9.4,
+      "specificity": 9.2
+    }
+  },
+  {
+    "question_id": "product_case_analysis_01",
+    "answer_text": "我记得当时挺忙的，具体怎么解决的现在想不太起来了，反正最后是搞定了。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 0.3,
+      "keyword_coverage": 0.5,
+      "logical_coherence": 1.4,
+      "specificity": 1.3
+    }
+  },
+  {
+    "question_id": "product_case_analysis_01",
+    "answer_text": "遇到这种情况，我觉得大概跟A/B测试有关系，应该看看确认下降口径（人均时长=打开频次×单次时长）及是否分渠道分人群一致这块，具体怎么做我没有深入想过，就是凭感觉给个大方向。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 2.8,
+      "keyword_coverage": 3.9,
+      "logical_coherence": 3.5,
+      "specificity": 3.2
+    }
+  },
+  {
+    "question_id": "product_case_analysis_01",
+    "answer_text": "大概的分析思路是：先确认下降口径（人均时长=打开频次×单次时长）及是否分渠道分人群一致，然后MECE拆分打开频次和单次时长两个因子，分别排查内容供给/推荐质量/社交关系链等。中间会用到A/B测试和MECE相关的思路，但具体怎么落地、遇到问题怎么验证，我这里想得还比较粗，大概方向是对的，细节没有完全展开。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 4.8,
+      "keyword_coverage": 4.7,
+      "logical_coherence": 4.7,
+      "specificity": 4.8
+    }
+  },
+  {
+    "question_id": "product_case_analysis_01",
+    "answer_text": "我会按照界定问题、结构化拆解、验证假设、给出方案这个顺序来分析：第一，界定：确认下降口径（人均时长=打开频次×单次时长）及是否分渠道分人群一致。第二，拆解：MECE拆分打开频次和单次时长两个因子，分别排查内容供给/推荐质量/社交关系链等。第三，验证：交叉分析内容消耗数据和用户反馈，排查是否有产品改版或外部竞品分流。这个过程中会重点用到优先级排序、用户分群和MECE这几个关键环节。验证下来这个方向能覆盖大部分场景，问题定位准确率能提升35%左右。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 7.1,
+      "keyword_coverage": 7.7,
+      "logical_coherence": 6.8,
+      "specificity": 7.9
+    }
+  },
+  {
+    "question_id": "product_case_analysis_01",
+    "answer_text": "我会按照界定问题、结构化拆解、验证假设、给出方案这个顺序来分析：第一，界定：确认下降口径（人均时长=打开频次×单次时长）及是否分渠道分人群一致。第二，拆解：MECE拆分打开频次和单次时长两个因子，分别排查内容供给/推荐质量/社交关系链等。第三，验证：交叉分析内容消耗数据和用户反馈，排查是否有产品改版或外部竞品分流。第四，方案：区分短期止血（内容/推荐调优）和长期优化（社交关系链建设），设定观察周期。这里面使用时长拆解、用户分群、优先级排序、内容供给是几个关键的技术/分析抓手，缺一个都会让方案不完整。验证后问题定位效率能提升22%左右，整个过程强调先界定、再验证、后决策，避免一上来就凭经验猜原因。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 8.6,
+      "keyword_coverage": 8.9,
+      "logical_coherence": 8.8,
+      "specificity": 9.9
+    }
+  },
+  {
+    "question_id": "marketing_case_analysis_01",
+    "answer_text": "我们组当时也遇到过类似的事，最后好像是别人主要在推动，我配合了一下。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 0.7,
+      "keyword_coverage": 1.4,
+      "logical_coherence": 0.4,
+      "specificity": 0.4
+    }
+  },
+  {
+    "question_id": "marketing_case_analysis_01",
+    "answer_text": "遇到这种情况，我觉得大概跟ROI拆解有关系，应该看看把ROI拆成收入/投放成本，确认是成本端还是收入端主导下降这块，具体怎么做我没有深入想过，就是凭感觉给个大方向。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 3.5,
+      "keyword_coverage": 3.6,
+      "logical_coherence": 4.0,
+      "specificity": 3.4
+    }
+  },
+  {
+    "question_id": "marketing_case_analysis_01",
+    "answer_text": "大概的分析思路是：先把ROI拆成收入/投放成本，确认是成本端还是收入端主导下降，然后按渠道、素材、人群包做MECE交叉拆解，排查竞价环境变化。中间会用到渠道归因和A/B测试相关的思路，但具体怎么落地、遇到问题怎么验证，我这里想得还比较粗，大概方向是对的，细节没有完全展开。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 4.9,
+      "keyword_coverage": 5.2,
+      "logical_coherence": 6.1,
+      "specificity": 5.9
+    }
+  },
+  {
+    "question_id": "marketing_case_analysis_01",
+    "answer_text": "我会按照界定问题、结构化拆解、验证假设、给出方案这个顺序来分析：第一，界定：把ROI拆成收入/投放成本，确认是成本端还是收入端主导下降。第二，拆解：按渠道、素材、人群包做MECE交叉拆解，排查竞价环境变化。第三，验证：分渠道分素材归因分析，评估转化用户质量是否同步下降。这个过程中会重点用到竞品分析、渠道归因和优先级排序这几个关键环节。验证下来这个方向能覆盖大部分场景，问题定位准确率能提升22%左右。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 7.3,
+      "keyword_coverage": 6.8,
+      "logical_coherence": 7.9,
+      "specificity": 8.1
+    }
+  },
+  {
+    "question_id": "marketing_case_analysis_01",
+    "answer_text": "我会按照界定问题、结构化拆解、验证假设、给出方案这个顺序来分析：第一，界定：把ROI拆成收入/投放成本，确认是成本端还是收入端主导下降。第二，拆解：按渠道、素材、人群包做MECE交叉拆解，排查竞价环境变化。第三，验证：分渠道分素材归因分析，评估转化用户质量是否同步下降。第四，方案：短期暂停低效渠道/素材，长期优化定向精准度，设定观察周期。这里面A/B测试、优先级排序、ROI拆解、渠道归因是几个关键的技术/分析抓手，缺一个都会让方案不完整。验证后问题定位效率能提升28%左右，后续我会持续跟踪核心指标一段时间，验证方案是否真正解决了问题，如果没有回升就回头重新排查是否遗漏了其他原因。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 9.0,
+      "keyword_coverage": 9.9,
+      "logical_coherence": 8.7,
+      "specificity": 9.3
+    }
+  },
+  {
+    "question_id": "ops_case_analysis_01",
+    "answer_text": "这个我们当时是大家一起商量着处理的，具体细节记不太清了，反正后来事情就过去了。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 0.3,
+      "keyword_coverage": 1.1,
+      "logical_coherence": 1.2,
+      "specificity": 1.7
+    }
+  },
+  {
+    "question_id": "ops_case_analysis_01",
+    "answer_text": "遇到这种情况，我觉得大概跟用户分群有关系，应该看看确认流失率升高的时间点是否和某次版本发布/渠道投放变化吻合这块，具体怎么做我没有深入想过，就是凭感觉给个大方向。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 3.3,
+      "keyword_coverage": 2.7,
+      "logical_coherence": 2.7,
+      "specificity": 3.0
+    }
+  },
+  {
+    "question_id": "ops_case_analysis_01",
+    "answer_text": "大概的分析思路是：先确认流失率升高的时间点是否和某次版本发布/渠道投放变化吻合，然后按渠道、新老用户、新手引导路径做MECE拆解。中间会用到版本对比和留存漏斗相关的思路，但具体怎么落地、遇到问题怎么验证，我这里想得还比较粗，大概方向是对的，细节没有完全展开。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 4.8,
+      "keyword_coverage": 6.0,
+      "logical_coherence": 5.2,
+      "specificity": 5.9
+    }
+  },
+  {
+    "question_id": "ops_case_analysis_01",
+    "answer_text": "我会按照界定问题、结构化拆解、验证假设、给出方案这个顺序来分析：第一，界定：确认流失率升高的时间点是否和某次版本发布/渠道投放变化吻合。第二，拆解：按渠道、新老用户、新手引导路径做MECE拆解。第三，验证：对比版本发布前后曲线，排查渠道质量变化。这个过程中会重点用到MECE、版本对比和优先级排序这几个关键环节。验证下来这个方向能覆盖大部分场景，问题定位准确率能提升35%左右。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 7.6,
+      "keyword_coverage": 8.1,
+      "logical_coherence": 7.6,
+      "specificity": 6.6
+    }
+  },
+  {
+    "question_id": "ops_case_analysis_01",
+    "answer_text": "我会按照界定问题、结构化拆解、验证假设、给出方案这个顺序来分析：第一，界定：确认流失率升高的时间点是否和某次版本发布/渠道投放变化吻合。第二，拆解：按渠道、新老用户、新手引导路径做MECE拆解。第三，验证：对比版本发布前后曲线，排查渠道质量变化。第四，方案：短期修复明显问题止血，长期优化新手引导体验。这里面A/B测试、用户分群、MECE、版本对比是几个关键的技术/分析抓手，缺一个都会让方案不完整。验证后问题定位效率能提升30%左右，方案落地后设定一个观察周期，用数据验证效果，避免只凭直觉下结论。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 9.1,
+      "keyword_coverage": 9.9,
+      "logical_coherence": 9.1,
+      "specificity": 9.5
+    }
+  },
+  {
+    "question_id": "design_case_analysis_01",
+    "answer_text": "这个我们当时是大家一起商量着处理的，具体细节记不太清了，反正后来事情就过去了。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 1.4,
+      "keyword_coverage": 1.1,
+      "logical_coherence": 1.3,
+      "specificity": 0.4
+    }
+  },
+  {
+    "question_id": "design_case_analysis_01",
+    "answer_text": "遇到这种情况，我觉得大概跟可用性测试有关系，应该看看确认任务成功率下降是所有用户还是特定用户群体，具体卡在哪个步骤这块，具体怎么做我没有深入想过，就是凭感觉给个大方向。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 3.6,
+      "keyword_coverage": 4.0,
+      "logical_coherence": 2.6,
+      "specificity": 2.9
+    }
+  },
+  {
+    "question_id": "design_case_analysis_01",
+    "answer_text": "大概的分析思路是：先确认任务成功率下降是所有用户还是特定用户群体，具体卡在哪个步骤，然后把任务路径拆成关键步骤做MECE分析，定位流失最严重的步骤。中间会用到用户访谈和版本对比相关的思路，但具体怎么落地、遇到问题怎么验证，我这里想得还比较粗，大概方向是对的，细节没有完全展开。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 6.0,
+      "keyword_coverage": 4.9,
+      "logical_coherence": 5.3,
+      "specificity": 6.0
+    }
+  },
+  {
+    "question_id": "design_case_analysis_01",
+    "answer_text": "我会按照界定问题、结构化拆解、验证假设、给出方案这个顺序来分析：第一，界定：确认任务成功率下降是所有用户还是特定用户群体，具体卡在哪个步骤。第二，拆解：把任务路径拆成关键步骤做MECE分析，定位流失最严重的步骤。第三，验证：做可用性测试观察用户实际操作，回访了解失败原因。这个过程中会重点用到任务成功率拆解、可用性测试和优先级排序这几个关键环节。验证下来这个方向能覆盖大部分场景，问题定位准确率能提升18%左右。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 8.1,
+      "keyword_coverage": 7.2,
+      "logical_coherence": 7.1,
+      "specificity": 7.9
+    }
+  },
+  {
+    "question_id": "design_case_analysis_01",
+    "answer_text": "我会按照界定问题、结构化拆解、验证假设、给出方案这个顺序来分析：第一，界定：确认任务成功率下降是所有用户还是特定用户群体，具体卡在哪个步骤。第二，拆解：把任务路径拆成关键步骤做MECE分析，定位流失最严重的步骤。第三，验证：做可用性测试观察用户实际操作，回访了解失败原因。第四，方案：短期修复明显的可用性问题，长期评估改版整体信息架构。这里面可用性测试、用户访谈、版本对比、任务成功率拆解是几个关键的技术/分析抓手，缺一个都会让方案不完整。验证后问题定位效率能提升25%左右，整个过程强调先界定、再验证、后决策，避免一上来就凭经验猜原因。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 9.3,
+      "keyword_coverage": 8.5,
+      "logical_coherence": 9.4,
+      "specificity": 8.5
+    }
+  },
+  {
+    "question_id": "consulting_case_analysis_01",
+    "answer_text": "这个我们当时是大家一起商量着处理的，具体细节记不太清了，反正后来事情就过去了。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 0.6,
+      "keyword_coverage": 1.2,
+      "logical_coherence": 1.5,
+      "specificity": 0.2
+    }
+  },
+  {
+    "question_id": "consulting_case_analysis_01",
+    "answer_text": "遇到这种情况，我觉得大概跟方案优先级有关系，应该看看把利润率拆成收入和成本两端，确认哪端主导了下滑这块，具体怎么做我没有深入想过，就是凭感觉给个大方向。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 3.9,
+      "keyword_coverage": 3.4,
+      "logical_coherence": 3.5,
+      "specificity": 3.7
+    }
+  },
+  {
+    "question_id": "consulting_case_analysis_01",
+    "answer_text": "大概的分析思路是：先把利润率拆成收入和成本两端，确认哪端主导了下滑，然后按门店、品类、区域做MECE交叉分析，定位问题集中在哪些细分维度。中间会用到MECE和门店层面分析相关的思路，但具体怎么落地、遇到问题怎么验证，我这里想得还比较粗，大概方向是对的，细节没有完全展开。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 5.6,
+      "keyword_coverage": 5.8,
+      "logical_coherence": 4.9,
+      "specificity": 5.7
+    }
+  },
+  {
+    "question_id": "consulting_case_analysis_01",
+    "answer_text": "我会按照界定问题、结构化拆解、验证假设、给出方案这个顺序来分析：第一，界定：把利润率拆成收入和成本两端，确认哪端主导了下滑。第二，拆解：按门店、品类、区域做MECE交叉分析，定位问题集中在哪些细分维度。第三，验证：对比同行业基准，排查是行业性问题还是自身经营问题。这个过程中会重点用到MECE、竞争格局和成本结构分析这几个关键环节。验证下来这个方向能覆盖大部分场景，问题定位准确率能提升30%左右。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 7.8,
+      "keyword_coverage": 7.3,
+      "logical_coherence": 7.3,
+      "specificity": 7.4
+    }
+  },
+  {
+    "question_id": "consulting_case_analysis_01",
+    "answer_text": "我会按照界定问题、结构化拆解、验证假设、给出方案这个顺序来分析：第一，界定：把利润率拆成收入和成本两端，确认哪端主导了下滑。第二，拆解：按门店、品类、区域做MECE交叉分析，定位问题集中在哪些细分维度。第三，验证：对比同行业基准，排查是行业性问题还是自身经营问题。第四，方案：短期关停/整改表现最差的门店或品类，长期评估整体门店网络和成本结构。这里面方案优先级、成本结构分析、MECE、竞争格局是几个关键的技术/分析抓手，缺一个都会让方案不完整。验证后问题定位效率能提升25%左右，方案落地后设定一个观察周期，用数据验证效果，避免只凭直觉下结论。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 10.0,
+      "keyword_coverage": 9.5,
+      "logical_coherence": 8.5,
+      "specificity": 8.8
+    }
+  },
+  {
+    "question_id": "finance_case_analysis_01",
+    "answer_text": "我记得当时挺忙的，具体怎么解决的现在想不太起来了，反正最后是搞定了。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 0.4,
+      "keyword_coverage": 0.8,
+      "logical_coherence": 1.1,
+      "specificity": 1.6
+    }
+  },
+  {
+    "question_id": "finance_case_analysis_01",
+    "answer_text": "遇到这种情况，我觉得大概跟方案优先级有关系，应该看看明确项目的现金流预测期限和核心假设这块，具体怎么做我没有深入想过，就是凭感觉给个大方向。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 3.1,
+      "keyword_coverage": 3.8,
+      "logical_coherence": 2.7,
+      "specificity": 3.1
+    }
+  },
+  {
+    "question_id": "finance_case_analysis_01",
+    "answer_text": "大概的分析思路是：先明确项目的现金流预测期限和核心假设，然后用NPV/IRR框架拆解决策所需的关键输入（现金流/折现率/期限）。中间会用到现金流预测和方案优先级相关的思路，但具体怎么落地、遇到问题怎么验证，我这里想得还比较粗，大概方向是对的，细节没有完全展开。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 5.2,
+      "keyword_coverage": 6.0,
+      "logical_coherence": 5.3,
+      "specificity": 5.3
+    }
+  },
+  {
+    "question_id": "finance_case_analysis_01",
+    "answer_text": "我会按照界定问题、结构化拆解、验证假设、给出方案这个顺序来分析：第一，界定：明确项目的现金流预测期限和核心假设。第二，拆解：用NPV/IRR框架拆解决策所需的关键输入（现金流/折现率/期限）。第三，验证：通过敏感性分析检验关键假设变化对结论的影响程度。这个过程中会重点用到现金流预测、MECE和NPV/IRR这几个关键环节。验证下来这个方向能覆盖大部分场景，问题定位准确率能提升22%左右。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 7.3,
+      "keyword_coverage": 7.0,
+      "logical_coherence": 6.8,
+      "specificity": 7.4
+    }
+  },
+  {
+    "question_id": "finance_case_analysis_01",
+    "answer_text": "我会按照界定问题、结构化拆解、验证假设、给出方案这个顺序来分析：第一，界定：明确项目的现金流预测期限和核心假设。第二，拆解：用NPV/IRR框架拆解决策所需的关键输入（现金流/折现率/期限）。第三，验证：通过敏感性分析检验关键假设变化对结论的影响程度。第四，方案：基于NPV/IRR结果并结合机会成本给出投资建议。这里面方案优先级、折现率确定、MECE、NPV/IRR是几个关键的技术/分析抓手，缺一个都会让方案不完整。验证后问题定位效率能提升18%左右，方案落地后设定一个观察周期，用数据验证效果，避免只凭直觉下结论。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 9.2,
+      "keyword_coverage": 9.3,
+      "logical_coherence": 8.9,
+      "specificity": 8.8
+    }
+  },
+  {
+    "question_id": "tech_case_analysis_02",
+    "answer_text": "我记得当时挺忙的，具体怎么解决的现在想不太起来了，反正最后是搞定了。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 0.7,
+      "keyword_coverage": 1.4,
+      "logical_coherence": 1.4,
+      "specificity": 1.3
+    }
+  },
+  {
+    "question_id": "tech_case_analysis_02",
+    "answer_text": "遇到这种情况，我觉得大概跟短期长期区分有关系，应该看看量化交付速度变慢的具体指标（需求周期/缺陷率）及起始时间这块，具体怎么做我没有深入想过，就是凭感觉给个大方向。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 3.6,
+      "keyword_coverage": 3.6,
+      "logical_coherence": 3.3,
+      "specificity": 3.7
+    }
+  },
+  {
+    "question_id": "tech_case_analysis_02",
+    "answer_text": "大概的分析思路是：先量化交付速度变慢的具体指标（需求周期/缺陷率）及起始时间，然后按开发-测试-联调-上线各环节拆解交付周期，定位主要瓶颈。中间会用到交付效率拆解和重构投入产出相关的思路，但具体怎么落地、遇到问题怎么验证，我这里想得还比较粗，大概方向是对的，细节没有完全展开。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 5.4,
+      "keyword_coverage": 5.0,
+      "logical_coherence": 5.2,
+      "specificity": 5.5
+    }
+  },
+  {
+    "question_id": "tech_case_analysis_02",
+    "answer_text": "我会按照界定问题、结构化拆解、验证假设、给出方案这个顺序来分析：第一，界定：量化交付速度变慢的具体指标（需求周期/缺陷率）及起始时间。第二，拆解：按开发-测试-联调-上线各环节拆解交付周期，定位主要瓶颈。第三，验证：交叉分析技术债最集中的模块，评估其对交付速度的实际拖累程度。这个过程中会重点用到技术债务、短期长期区分和交付效率拆解这几个关键环节。验证下来这个方向能覆盖大部分场景，问题定位准确率能提升28%左右。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 7.8,
+      "keyword_coverage": 6.9,
+      "logical_coherence": 6.8,
+      "specificity": 7.3
+    }
+  },
+  {
+    "question_id": "tech_case_analysis_02",
+    "answer_text": "我会按照界定问题、结构化拆解、验证假设、给出方案这个顺序来分析：第一，界定：量化交付速度变慢的具体指标（需求周期/缺陷率）及起始时间。第二，拆解：按开发-测试-联调-上线各环节拆解交付周期，定位主要瓶颈。第三，验证：交叉分析技术债最集中的模块，评估其对交付速度的实际拖累程度。第四，方案：按ROI给重构任务排优先级，短期先治理拖累最大的模块，建立长期技术债治理机制。这里面短期长期区分、重构投入产出、技术债务、根因分析是几个关键的技术/分析抓手，缺一个都会让方案不完整。验证后问题定位效率能提升22%左右，整个过程强调先界定、再验证、后决策，避免一上来就凭经验猜原因。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 8.7,
+      "keyword_coverage": 9.2,
+      "logical_coherence": 9.3,
+      "specificity": 9.8
+    }
+  },
+  {
+    "question_id": "product_case_analysis_02",
+    "answer_text": "这个我没有太多准备，临场发挥一下应该就能应付过去。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 1.6,
+      "keyword_coverage": 1.3,
+      "logical_coherence": 0.2,
+      "specificity": 1.1
+    }
+  },
+  {
+    "question_id": "product_case_analysis_02",
+    "answer_text": "遇到这种情况，我觉得大概跟竞品对比有关系，应该看看确认转化率具体是哪个环节偏低，和行业均值的差距量级这块，具体怎么做我没有深入想过，就是凭感觉给个大方向。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 3.8,
+      "keyword_coverage": 3.5,
+      "logical_coherence": 3.8,
+      "specificity": 2.9
+    }
+  },
+  {
+    "question_id": "product_case_analysis_02",
+    "answer_text": "大概的分析思路是：先确认转化率具体是哪个环节偏低，和行业均值的差距量级，然后按付费点设计、价格带、目标用户画像做MECE拆解。中间会用到付费点设计和用户访谈相关的思路，但具体怎么落地、遇到问题怎么验证，我这里想得还比较粗，大概方向是对的，细节没有完全展开。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 4.8,
+      "keyword_coverage": 5.2,
+      "logical_coherence": 5.3,
+      "specificity": 5.3
+    }
+  },
+  {
+    "question_id": "product_case_analysis_02",
+    "answer_text": "我会按照界定问题、结构化拆解、验证假设、给出方案这个顺序来分析：第一，界定：确认转化率具体是哪个环节偏低，和行业均值的差距量级。第二，拆解：按付费点设计、价格带、目标用户画像做MECE拆解。第三，验证：对比竞品付费点/定价策略，做用户调研了解购买顾虑。这个过程中会重点用到A/B测试、转化漏斗和竞品对比这几个关键环节。验证下来这个方向能覆盖大部分场景，问题定位准确率能提升12%左右。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 8.1,
+      "keyword_coverage": 7.4,
+      "logical_coherence": 7.1,
+      "specificity": 7.0
+    }
+  },
+  {
+    "question_id": "product_case_analysis_02",
+    "answer_text": "我会按照界定问题、结构化拆解、验证假设、给出方案这个顺序来分析：第一，界定：确认转化率具体是哪个环节偏低，和行业均值的差距量级。第二，拆解：按付费点设计、价格带、目标用户画像做MECE拆解。第三，验证：对比竞品付费点/定价策略，做用户调研了解购买顾虑。第四，方案：短期优化付费点展示和引导，长期评估定价和功能分层策略。这里面竞品对比、用户访谈、MECE、A/B测试是几个关键的技术/分析抓手，缺一个都会让方案不完整。验证后问题定位效率能提升15%左右，后续我会持续跟踪核心指标一段时间，验证方案是否真正解决了问题，如果没有回升就回头重新排查是否遗漏了其他原因。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 9.6,
+      "keyword_coverage": 9.5,
+      "logical_coherence": 9.1,
+      "specificity": 9.6
+    }
+  },
+  {
+    "question_id": "marketing_case_analysis_02",
+    "answer_text": "我记得当时挺忙的，具体怎么解决的现在想不太起来了，反正最后是搞定了。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 1.4,
+      "keyword_coverage": 0.7,
+      "logical_coherence": 0.1,
+      "specificity": 1.0
+    }
+  },
+  {
+    "question_id": "marketing_case_analysis_02",
+    "answer_text": "遇到这种情况，我觉得大概跟转化漏斗有关系，应该看看确认转化率低具体是哪个环节（点击率低还是点击后转化低）这块，具体怎么做我没有深入想过，就是凭感觉给个大方向。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 3.4,
+      "keyword_coverage": 3.9,
+      "logical_coherence": 4.0,
+      "specificity": 2.9
+    }
+  },
+  {
+    "question_id": "marketing_case_analysis_02",
+    "answer_text": "大概的分析思路是：先确认转化率低具体是哪个环节（点击率低还是点击后转化低），然后按人群定向、素材内容、落地页体验做MECE拆解。中间会用到落地页体验和素材相关性相关的思路，但具体怎么落地、遇到问题怎么验证，我这里想得还比较粗，大概方向是对的，细节没有完全展开。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 5.1,
+      "keyword_coverage": 5.6,
+      "logical_coherence": 5.9,
+      "specificity": 6.2
+    }
+  },
+  {
+    "question_id": "marketing_case_analysis_02",
+    "answer_text": "我会按照界定问题、结构化拆解、验证假设、给出方案这个顺序来分析：第一，界定：确认转化率低具体是哪个环节（点击率低还是点击后转化低）。第二，拆解：按人群定向、素材内容、落地页体验做MECE拆解。第三，验证：检查素材承诺和落地页内容是否一致，是否存在预期落差。这个过程中会重点用到目标人群匹配度、MECE和转化漏斗这几个关键环节。验证下来这个方向能覆盖大部分场景，问题定位准确率能提升25%左右。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 6.9,
+      "keyword_coverage": 8.0,
+      "logical_coherence": 6.9,
+      "specificity": 7.7
+    }
+  },
+  {
+    "question_id": "marketing_case_analysis_02",
+    "answer_text": "我会按照界定问题、结构化拆解、验证假设、给出方案这个顺序来分析：第一，界定：确认转化率低具体是哪个环节（点击率低还是点击后转化低）。第二，拆解：按人群定向、素材内容、落地页体验做MECE拆解。第三，验证：检查素材承诺和落地页内容是否一致，是否存在预期落差。第四，方案：短期优化落地页和素材一致性，长期重新评估人群定向策略。这里面转化漏斗、MECE、素材相关性、目标人群匹配度是几个关键的技术/分析抓手，缺一个都会让方案不完整。验证后问题定位效率能提升22%左右，整个过程强调先界定、再验证、后决策，避免一上来就凭经验猜原因。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 9.1,
+      "keyword_coverage": 8.6,
+      "logical_coherence": 9.9,
+      "specificity": 9.8
+    }
+  },
+  {
+    "question_id": "ops_case_analysis_02",
+    "answer_text": "差不多就是按常规流程走了一遍，没什么特别的，结果还算可以。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 0.3,
+      "keyword_coverage": 0.7,
+      "logical_coherence": 0.7,
+      "specificity": 0.7
+    }
+  },
+  {
+    "question_id": "ops_case_analysis_02",
+    "answer_text": "遇到这种情况，我觉得大概跟社群成员构成变化有关系，应该看看确认活跃度下降的具体口径（发言量/互动量/在线时长）这块，具体怎么做我没有深入想过，就是凭感觉给个大方向。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 3.3,
+      "keyword_coverage": 3.9,
+      "logical_coherence": 3.1,
+      "specificity": 2.7
+    }
+  },
+  {
+    "question_id": "ops_case_analysis_02",
+    "answer_text": "大概的分析思路是：先确认活跃度下降的具体口径（发言量/互动量/在线时长），然后按新老成员构成、内容运营节奏做MECE拆解。中间会用到内容运营节奏和社群成员构成变化相关的思路，但具体怎么落地、遇到问题怎么验证，我这里想得还比较粗，大概方向是对的，细节没有完全展开。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 5.7,
+      "keyword_coverage": 5.5,
+      "logical_coherence": 4.7,
+      "specificity": 5.1
+    }
+  },
+  {
+    "question_id": "ops_case_analysis_02",
+    "answer_text": "我会按照界定问题、结构化拆解、验证假设、给出方案这个顺序来分析：第一，界定：确认活跃度下降的具体口径（发言量/互动量/在线时长）。第二，拆解：按新老成员构成、内容运营节奏做MECE拆解。第三，验证：回访沉默用户了解真实原因，排查是否有核心成员流失。这个过程中会重点用到内容运营节奏、社群活跃度拆解和MECE这几个关键环节。验证下来这个方向能覆盖大部分场景，问题定位准确率能提升28%左右。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 7.8,
+      "keyword_coverage": 7.4,
+      "logical_coherence": 8.1,
+      "specificity": 6.7
+    }
+  },
+  {
+    "question_id": "ops_case_analysis_02",
+    "answer_text": "我会按照界定问题、结构化拆解、验证假设、给出方案这个顺序来分析：第一，界定：确认活跃度下降的具体口径（发言量/互动量/在线时长）。第二，拆解：按新老成员构成、内容运营节奏做MECE拆解。第三，验证：回访沉默用户了解真实原因，排查是否有核心成员流失。第四，方案：短期加强话题运营和互动激励，长期优化社群成员结构维护机制。这里面社群成员构成变化、内容运营节奏、MECE、优先级排序是几个关键的技术/分析抓手，缺一个都会让方案不完整。验证后问题定位效率能提升30%左右，后续我会持续跟踪核心指标一段时间，验证方案是否真正解决了问题，如果没有回升就回头重新排查是否遗漏了其他原因。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 9.7,
+      "keyword_coverage": 9.0,
+      "logical_coherence": 9.6,
+      "specificity": 9.2
+    }
+  },
+  {
+    "question_id": "design_case_analysis_02",
+    "answer_text": "我们组当时也遇到过类似的事，最后好像是别人主要在推动，我配合了一下。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 0.1,
+      "keyword_coverage": 1.3,
+      "logical_coherence": 0.6,
+      "specificity": 1.4
+    }
+  },
+  {
+    "question_id": "design_case_analysis_02",
+    "answer_text": "遇到这种情况，我觉得大概跟信息架构有关系，应该看看确认是所有用户还是特定用户群体找不到入口这块，具体怎么做我没有深入想过，就是凭感觉给个大方向。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 3.0,
+      "keyword_coverage": 3.4,
+      "logical_coherence": 2.7,
+      "specificity": 3.7
+    }
+  },
+  {
+    "question_id": "design_case_analysis_02",
+    "answer_text": "大概的分析思路是：先确认是所有用户还是特定用户群体找不到入口，然后从信息架构位置、视觉层级、命名理解三个维度MECE拆解可能原因。中间会用到信息架构和视觉层级相关的思路，但具体怎么落地、遇到问题怎么验证，我这里想得还比较粗，大概方向是对的，细节没有完全展开。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 5.1,
+      "keyword_coverage": 5.1,
+      "logical_coherence": 5.8,
+      "specificity": 5.9
+    }
+  },
+  {
+    "question_id": "design_case_analysis_02",
+    "answer_text": "我会按照界定问题、结构化拆解、验证假设、给出方案这个顺序来分析：第一，界定：确认是所有用户还是特定用户群体找不到入口。第二，拆解：从信息架构位置、视觉层级、命名理解三个维度MECE拆解可能原因。第三，验证：用卡片分类法或树测试验证用户对功能归类的心智模型。这个过程中会重点用到视觉层级、命名理解和MECE这几个关键环节。验证下来这个方向能覆盖大部分场景，问题定位准确率能提升18%左右。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 7.6,
+      "keyword_coverage": 6.6,
+      "logical_coherence": 6.7,
+      "specificity": 7.4
+    }
+  },
+  {
+    "question_id": "design_case_analysis_02",
+    "answer_text": "我会按照界定问题、结构化拆解、验证假设、给出方案这个顺序来分析：第一，界定：确认是所有用户还是特定用户群体找不到入口。第二，拆解：从信息架构位置、视觉层级、命名理解三个维度MECE拆解可能原因。第三，验证：用卡片分类法或树测试验证用户对功能归类的心智模型。第四，方案：短期调整入口位置或视觉权重，长期评估信息架构整体设计。这里面MECE、命名理解、用户测试、优先级排序是几个关键的技术/分析抓手，缺一个都会让方案不完整。验证后问题定位效率能提升28%左右，整个过程强调先界定、再验证、后决策，避免一上来就凭经验猜原因。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 9.4,
+      "keyword_coverage": 9.1,
+      "logical_coherence": 9.4,
+      "specificity": 8.6
+    }
+  },
+  {
+    "question_id": "consulting_case_analysis_02",
+    "answer_text": "这个我们当时是大家一起商量着处理的，具体细节记不太清了，反正后来事情就过去了。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 1.2,
+      "keyword_coverage": 1.2,
+      "logical_coherence": 1.7,
+      "specificity": 0.6
+    }
+  },
+  {
+    "question_id": "consulting_case_analysis_02",
+    "answer_text": "遇到这种情况，我觉得大概跟风险评估有关系，应该看看明确目标市场的吸引力评估维度和企业自身的进入目标这块，具体怎么做我没有深入想过，就是凭感觉给个大方向。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 2.9,
+      "keyword_coverage": 3.4,
+      "logical_coherence": 3.2,
+      "specificity": 2.9
+    }
+  },
+  {
+    "question_id": "consulting_case_analysis_02",
+    "answer_text": "大概的分析思路是：先明确目标市场的吸引力评估维度和企业自身的进入目标，然后从市场规模、竞争格局、进入模式、风险几个维度做MECE评估。中间会用到MECE和风险评估相关的思路，但具体怎么落地、遇到问题怎么验证，我这里想得还比较粗，大概方向是对的，细节没有完全展开。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 5.9,
+      "keyword_coverage": 5.9,
+      "logical_coherence": 5.5,
+      "specificity": 5.4
+    }
+  },
+  {
+    "question_id": "consulting_case_analysis_02",
+    "answer_text": "我会按照界定问题、结构化拆解、验证假设、给出方案这个顺序来分析：第一，界定：明确目标市场的吸引力评估维度和企业自身的进入目标。第二，拆解：从市场规模、竞争格局、进入模式、风险几个维度做MECE评估。第三，验证：用市场调研或专家访谈验证关键假设（需求/竞争/监管环境）。这个过程中会重点用到风险评估、进入模式和竞争格局这几个关键环节。验证下来这个方向能覆盖大部分场景，问题定位准确率能提升22%左右。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 8.2,
+      "keyword_coverage": 7.2,
+      "logical_coherence": 6.7,
+      "specificity": 8.2
+    }
+  },
+  {
+    "question_id": "consulting_case_analysis_02",
+    "answer_text": "我会按照界定问题、结构化拆解、验证假设、给出方案这个顺序来分析：第一，界定：明确目标市场的吸引力评估维度和企业自身的进入目标。第二，拆解：从市场规模、竞争格局、进入模式、风险几个维度做MECE评估。第三，验证：用市场调研或专家访谈验证关键假设（需求/竞争/监管环境）。第四，方案：基于ROI测算和风险评估给出进入模式建议及分阶段实施计划。这里面进入模式、竞争格局、投资回报测算、风险评估是几个关键的技术/分析抓手，缺一个都会让方案不完整。验证后问题定位效率能提升22%左右，整个过程强调先界定、再验证、后决策，避免一上来就凭经验猜原因。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 9.1,
+      "keyword_coverage": 9.9,
+      "logical_coherence": 9.0,
+      "specificity": 9.3
+    }
+  },
+  {
+    "question_id": "finance_case_analysis_02",
+    "answer_text": "我记得当时挺忙的，具体怎么解决的现在想不太起来了，反正最后是搞定了。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 1.5,
+      "keyword_coverage": 0.6,
+      "logical_coherence": 0.3,
+      "specificity": 0.2
+    }
+  },
+  {
+    "question_id": "finance_case_analysis_02",
+    "answer_text": "遇到这种情况，我觉得大概跟方案优先级有关系，应该看看确认跑输基准的具体幅度及是否有明确的时间拐点这块，具体怎么做我没有深入想过，就是凭感觉给个大方向。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 3.7,
+      "keyword_coverage": 4.0,
+      "logical_coherence": 2.6,
+      "specificity": 2.9
+    }
+  },
+  {
+    "question_id": "finance_case_analysis_02",
+    "answer_text": "大概的分析思路是：先确认跑输基准的具体幅度及是否有明确的时间拐点，然后用业绩归因把跑输拆解为资产配置贡献和个股选择贡献。中间会用到持仓分析和MECE相关的思路，但具体怎么落地、遇到问题怎么验证，我这里想得还比较粗，大概方向是对的，细节没有完全展开。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 5.4,
+      "keyword_coverage": 5.9,
+      "logical_coherence": 5.0,
+      "specificity": 5.8
+    }
+  },
+  {
+    "question_id": "finance_case_analysis_02",
+    "answer_text": "我会按照界定问题、结构化拆解、验证假设、给出方案这个顺序来分析：第一，界定：确认跑输基准的具体幅度及是否有明确的时间拐点。第二，拆解：用业绩归因把跑输拆解为资产配置贡献和个股选择贡献。第三，验证：核查是否有风格漂移或因子暴露变化导致的系统性偏差。这个过程中会重点用到MECE、方案优先级和持仓分析这几个关键环节。验证下来这个方向能覆盖大部分场景，问题定位准确率能提升22%左右。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 7.7,
+      "keyword_coverage": 8.0,
+      "logical_coherence": 6.9,
+      "specificity": 8.1
+    }
+  },
+  {
+    "question_id": "finance_case_analysis_02",
+    "answer_text": "我会按照界定问题、结构化拆解、验证假设、给出方案这个顺序来分析：第一，界定：确认跑输基准的具体幅度及是否有明确的时间拐点。第二，拆解：用业绩归因把跑输拆解为资产配置贡献和个股选择贡献。第三，验证：核查是否有风格漂移或因子暴露变化导致的系统性偏差。第四，方案：短期评估是否需要调仓，长期评估投资策略是否需要迭代。这里面风险敞口、市场环境、归因分析、持仓分析是几个关键的技术/分析抓手，缺一个都会让方案不完整。验证后问题定位效率能提升28%左右，整个过程强调先界定、再验证、后决策，避免一上来就凭经验猜原因。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 9.5,
+      "keyword_coverage": 8.5,
+      "logical_coherence": 8.5,
+      "specificity": 8.7
+    }
+  },
+  {
+    "question_id": "tech_case_analysis_03",
+    "answer_text": "差不多就是按常规流程走了一遍，没什么特别的，结果还算可以。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 0.7,
+      "keyword_coverage": 0.4,
+      "logical_coherence": 1.1,
+      "specificity": 0.5
+    }
+  },
+  {
+    "question_id": "tech_case_analysis_03",
+    "answer_text": "遇到这种情况，我觉得大概跟根因分析有关系，应该看看确认不一致的具体范围（哪些表/哪个时间窗口）这块，具体怎么做我没有深入想过，就是凭感觉给个大方向。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 3.9,
+      "keyword_coverage": 2.8,
+      "logical_coherence": 2.8,
+      "specificity": 3.4
+    }
+  },
+  {
+    "question_id": "tech_case_analysis_03",
+    "answer_text": "大概的分析思路是：先确认不一致的具体范围（哪些表/哪个时间窗口），然后按迁移各阶段（全量迁移/双写切换/增量同步）拆解排查。中间会用到一致性校验和根因分析相关的思路，但具体怎么落地、遇到问题怎么验证，我这里想得还比较粗，大概方向是对的，细节没有完全展开。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 4.9,
+      "keyword_coverage": 5.9,
+      "logical_coherence": 6.1,
+      "specificity": 6.1
+    }
+  },
+  {
+    "question_id": "tech_case_analysis_03",
+    "answer_text": "我会按照界定问题、结构化拆解、验证假设、给出方案这个顺序来分析：第一，界定：确认不一致的具体范围（哪些表/哪个时间窗口）。第二，拆解：按迁移各阶段（全量迁移/双写切换/增量同步）拆解排查。第三，验证：核对迁移脚本逻辑、双写期间的事务边界、时间窗口内的写入日志。这个过程中会重点用到根因分析、MECE和数据迁移这几个关键环节。验证下来这个方向能覆盖大部分场景，问题定位准确率能提升22%左右。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 7.9,
+      "keyword_coverage": 7.4,
+      "logical_coherence": 7.9,
+      "specificity": 7.8
+    }
+  },
+  {
+    "question_id": "tech_case_analysis_03",
+    "answer_text": "我会按照界定问题、结构化拆解、验证假设、给出方案这个顺序来分析：第一，界定：确认不一致的具体范围（哪些表/哪个时间窗口）。第二，拆解：按迁移各阶段（全量迁移/双写切换/增量同步）拆解排查。第三，验证：核对迁移脚本逻辑、双写期间的事务边界、时间窗口内的写入日志。第四，方案：紧急修复已产生的不一致数据，长期改进迁移流程（分批灰度+严格对账）。这里面数据迁移、灰度验证、一致性校验、MECE是几个关键的技术/分析抓手，缺一个都会让方案不完整。验证后问题定位效率能提升25%左右，整个过程强调先界定、再验证、后决策，避免一上来就凭经验猜原因。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 8.5,
+      "keyword_coverage": 9.9,
+      "logical_coherence": 9.5,
+      "specificity": 9.3
+    }
+  },
+  {
+    "question_id": "product_case_analysis_03",
+    "answer_text": "我们组当时也遇到过类似的事，最后好像是别人主要在推动，我配合了一下。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 0.6,
+      "keyword_coverage": 1.6,
+      "logical_coherence": 0.4,
+      "specificity": 0.2
+    }
+  },
+  {
+    "question_id": "product_case_analysis_03",
+    "answer_text": "遇到这种情况，我觉得大概跟优先级排序有关系，应该看看确认NPS下降是否集中在使用了该功能的用户群体这块，具体怎么做我没有深入想过，就是凭感觉给个大方向。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 2.7,
+      "keyword_coverage": 3.6,
+      "logical_coherence": 2.9,
+      "specificity": 3.2
+    }
+  },
+  {
+    "question_id": "product_case_analysis_03",
+    "answer_text": "大概的分析思路是：先确认NPS下降是否集中在使用了该功能的用户群体，然后拆分推荐者/中立者/贬损者构成变化，定位是哪类用户满意度下降。中间会用到优先级排序和用户访谈相关的思路，但具体怎么落地、遇到问题怎么验证，我这里想得还比较粗，大概方向是对的，细节没有完全展开。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 4.8,
+      "keyword_coverage": 5.4,
+      "logical_coherence": 5.1,
+      "specificity": 4.8
+    }
+  },
+  {
+    "question_id": "product_case_analysis_03",
+    "answer_text": "我会按照界定问题、结构化拆解、验证假设、给出方案这个顺序来分析：第一，界定：确认NPS下降是否集中在使用了该功能的用户群体。第二，拆解：拆分推荐者/中立者/贬损者构成变化，定位是哪类用户满意度下降。第三，验证：分析该功能相关的负面反馈文本，做用户访谈了解具体不满点。这个过程中会重点用到用户反馈分析、NPS拆解和优先级排序这几个关键环节。验证下来这个方向能覆盖大部分场景，问题定位准确率能提升22%左右。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 7.0,
+      "keyword_coverage": 7.6,
+      "logical_coherence": 7.7,
+      "specificity": 6.8
+    }
+  },
+  {
+    "question_id": "product_case_analysis_03",
+    "answer_text": "我会按照界定问题、结构化拆解、验证假设、给出方案这个顺序来分析：第一，界定：确认NPS下降是否集中在使用了该功能的用户群体。第二，拆解：拆分推荐者/中立者/贬损者构成变化，定位是哪类用户满意度下降。第三，验证：分析该功能相关的负面反馈文本，做用户访谈了解具体不满点。第四，方案：短期修复明显的体验问题，长期评估功能设计是否偏离用户预期。这里面用户访谈、优先级排序、NPS拆解、功能体验是几个关键的技术/分析抓手，缺一个都会让方案不完整。验证后问题定位效率能提升35%左右，方案落地后设定一个观察周期，用数据验证效果，避免只凭直觉下结论。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 8.7,
+      "keyword_coverage": 9.2,
+      "logical_coherence": 9.6,
+      "specificity": 9.6
+    }
+  },
+  {
+    "question_id": "marketing_case_analysis_03",
+    "answer_text": "这个我们当时是大家一起商量着处理的，具体细节记不太清了，反正后来事情就过去了。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 0.7,
+      "keyword_coverage": 0.9,
+      "logical_coherence": 1.1,
+      "specificity": 0.9
+    }
+  },
+  {
+    "question_id": "marketing_case_analysis_03",
+    "answer_text": "遇到这种情况，我觉得大概跟MECE有关系，应该看看确认下降是全站流量还是集中在某些关键词/页面这块，具体怎么做我没有深入想过，就是凭感觉给个大方向。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 3.5,
+      "keyword_coverage": 2.8,
+      "logical_coherence": 2.7,
+      "specificity": 3.2
+    }
+  },
+  {
+    "question_id": "marketing_case_analysis_03",
+    "answer_text": "大概的分析思路是：先确认下降是全站流量还是集中在某些关键词/页面，然后按关键词排名变化、内容更新情况、技术SEO问题做MECE拆解。中间会用到MECE和技术SEO相关的思路，但具体怎么落地、遇到问题怎么验证，我这里想得还比较粗，大概方向是对的，细节没有完全展开。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 4.8,
+      "keyword_coverage": 4.6,
+      "logical_coherence": 4.8,
+      "specificity": 6.0
+    }
+  },
+  {
+    "question_id": "marketing_case_analysis_03",
+    "answer_text": "我会按照界定问题、结构化拆解、验证假设、给出方案这个顺序来分析：第一，界定：确认下降是全站流量还是集中在某些关键词/页面。第二，拆解：按关键词排名变化、内容更新情况、技术SEO问题做MECE拆解。第三，验证：核查搜索引擎算法是否有更新、竞品SEO投入是否加大。这个过程中会重点用到A/B测试、SEO排名变化和MECE这几个关键环节。验证下来这个方向能覆盖大部分场景，问题定位准确率能提升18%左右。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 7.6,
+      "keyword_coverage": 7.8,
+      "logical_coherence": 7.6,
+      "specificity": 7.9
+    }
+  },
+  {
+    "question_id": "marketing_case_analysis_03",
+    "answer_text": "我会按照界定问题、结构化拆解、验证假设、给出方案这个顺序来分析：第一，界定：确认下降是全站流量还是集中在某些关键词/页面。第二，拆解：按关键词排名变化、内容更新情况、技术SEO问题做MECE拆解。第三，验证：核查搜索引擎算法是否有更新、竞品SEO投入是否加大。第四，方案：短期修复技术SEO问题，长期加强内容更新和外链建设。这里面内容质量、竞品分析、SEO排名变化、A/B测试是几个关键的技术/分析抓手，缺一个都会让方案不完整。验证后问题定位效率能提升35%左右，后续我会持续跟踪核心指标一段时间，验证方案是否真正解决了问题，如果没有回升就回头重新排查是否遗漏了其他原因。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 8.7,
+      "keyword_coverage": 9.7,
+      "logical_coherence": 9.4,
+      "specificity": 9.7
+    }
+  },
+  {
+    "question_id": "ops_case_analysis_03",
+    "answer_text": "这种情况我一般不会想太多，遇到了就顺其自然地处理一下。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 1.4,
+      "keyword_coverage": 0.4,
+      "logical_coherence": 0.8,
+      "specificity": 1.0
+    }
+  },
+  {
+    "question_id": "ops_case_analysis_03",
+    "answer_text": "遇到这种情况，我觉得大概跟用户访谈有关系，应该看看确认参与人数低是曝光不足还是曝光后转化参与率低这块，具体怎么做我没有深入想过，就是凭感觉给个大方向。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 3.1,
+      "keyword_coverage": 3.8,
+      "logical_coherence": 3.2,
+      "specificity": 3.3
+    }
+  },
+  {
+    "question_id": "ops_case_analysis_03",
+    "answer_text": "大概的分析思路是：先确认参与人数低是曝光不足还是曝光后转化参与率低，然后按触达渠道、活动机制吸引力做MECE拆解。中间会用到A/B测试和活动吸引力相关的思路，但具体怎么落地、遇到问题怎么验证，我这里想得还比较粗，大概方向是对的，细节没有完全展开。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 5.6,
+      "keyword_coverage": 5.6,
+      "logical_coherence": 6.0,
+      "specificity": 6.1
+    }
+  },
+  {
+    "question_id": "ops_case_analysis_03",
+    "answer_text": "我会按照界定问题、结构化拆解、验证假设、给出方案这个顺序来分析：第一，界定：确认参与人数低是曝光不足还是曝光后转化参与率低。第二，拆解：按触达渠道、活动机制吸引力做MECE拆解。第三，验证：回访目标用户了解未参与的真实原因。这个过程中会重点用到MECE、A/B测试和活动吸引力这几个关键环节。验证下来这个方向能覆盖大部分场景，问题定位准确率能提升28%左右。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 7.7,
+      "keyword_coverage": 7.4,
+      "logical_coherence": 7.4,
+      "specificity": 7.5
+    }
+  },
+  {
+    "question_id": "ops_case_analysis_03",
+    "answer_text": "我会按照界定问题、结构化拆解、验证假设、给出方案这个顺序来分析：第一，界定：确认参与人数低是曝光不足还是曝光后转化参与率低。第二，拆解：按触达渠道、活动机制吸引力做MECE拆解。第三，验证：回访目标用户了解未参与的真实原因。第四，方案：短期优化触达渠道和活动机制，长期评估活动策划流程。这里面活动吸引力、A/B测试、参与漏斗、MECE是几个关键的技术/分析抓手，缺一个都会让方案不完整。验证后问题定位效率能提升35%左右，方案落地后设定一个观察周期，用数据验证效果，避免只凭直觉下结论。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 8.9,
+      "keyword_coverage": 9.6,
+      "logical_coherence": 8.5,
+      "specificity": 8.9
+    }
+  },
+  {
+    "question_id": "design_case_analysis_03",
+    "answer_text": "这种情况我一般不会想太多，遇到了就顺其自然地处理一下。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 0.3,
+      "keyword_coverage": 0.6,
+      "logical_coherence": 1.7,
+      "specificity": 0.7
+    }
+  },
+  {
+    "question_id": "design_case_analysis_03",
+    "answer_text": "遇到这种情况，我觉得大概跟组件完整度有关系，应该看看确认采纳率低是团队不知道有这个系统，还是知道但不愿用这块，具体怎么做我没有深入想过，就是凭感觉给个大方向。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 3.0,
+      "keyword_coverage": 2.8,
+      "logical_coherence": 3.8,
+      "specificity": 3.5
+    }
+  },
+  {
+    "question_id": "design_case_analysis_03",
+    "answer_text": "大概的分析思路是：先确认采纳率低是团队不知道有这个系统，还是知道但不愿用，然后按组件覆盖度、接入成本、文档易用性做MECE拆解。中间会用到采纳漏斗和组件完整度相关的思路，但具体怎么落地、遇到问题怎么验证，我这里想得还比较粗，大概方向是对的，细节没有完全展开。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 5.8,
+      "keyword_coverage": 5.8,
+      "logical_coherence": 5.1,
+      "specificity": 4.8
+    }
+  },
+  {
+    "question_id": "design_case_analysis_03",
+    "answer_text": "我会按照界定问题、结构化拆解、验证假设、给出方案这个顺序来分析：第一，界定：确认采纳率低是团队不知道有这个系统，还是知道但不愿用。第二，拆解：按组件覆盖度、接入成本、文档易用性做MECE拆解。第三，验证：访谈团队成员了解不使用的真实原因。这个过程中会重点用到易用性、组件完整度和MECE这几个关键环节。验证下来这个方向能覆盖大部分场景，问题定位准确率能提升35%左右。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 8.1,
+      "keyword_coverage": 7.6,
+      "logical_coherence": 7.4,
+      "specificity": 7.5
+    }
+  },
+  {
+    "question_id": "design_case_analysis_03",
+    "answer_text": "我会按照界定问题、结构化拆解、验证假设、给出方案这个顺序来分析：第一，界定：确认采纳率低是团队不知道有这个系统，还是知道但不愿用。第二，拆解：按组件覆盖度、接入成本、文档易用性做MECE拆解。第三，验证：访谈团队成员了解不使用的真实原因。第四，方案：短期补齐高频场景组件和文档，长期建立设计系统推广和反馈机制。这里面采纳漏斗、组件完整度、易用性、MECE是几个关键的技术/分析抓手，缺一个都会让方案不完整。验证后问题定位效率能提升15%左右，整个过程强调先界定、再验证、后决策，避免一上来就凭经验猜原因。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 9.2,
+      "keyword_coverage": 8.9,
+      "logical_coherence": 9.5,
+      "specificity": 8.5
+    }
+  },
+  {
+    "question_id": "consulting_case_analysis_03",
+    "answer_text": "我们组当时也遇到过类似的事，最后好像是别人主要在推动，我配合了一下。",
+    "score_band": "0-2",
+    "ai_suggested_scores": {
+      "structure_completeness": 1.4,
+      "keyword_coverage": 0.5,
+      "logical_coherence": 0.6,
+      "specificity": 0.9
+    }
+  },
+  {
+    "question_id": "consulting_case_analysis_03",
+    "answer_text": "遇到这种情况，我觉得大概跟估值分析有关系，应该看看明确并购要实现的战略目标（横向扩张/纵向整合/技术获取）这块，具体怎么做我没有深入想过，就是凭感觉给个大方向。",
+    "score_band": "3-4",
+    "ai_suggested_scores": {
+      "structure_completeness": 3.0,
+      "keyword_coverage": 3.9,
+      "logical_coherence": 2.7,
+      "specificity": 3.1
+    }
+  },
+  {
+    "question_id": "consulting_case_analysis_03",
+    "answer_text": "大概的分析思路是：先明确并购要实现的战略目标（横向扩张/纵向整合/技术获取），然后从协同效应、估值合理性、整合风险做MECE评估。中间会用到MECE和估值分析相关的思路，但具体怎么落地、遇到问题怎么验证，我这里想得还比较粗，大概方向是对的，细节没有完全展开。",
+    "score_band": "5-6",
+    "ai_suggested_scores": {
+      "structure_completeness": 6.1,
+      "keyword_coverage": 6.0,
+      "logical_coherence": 4.9,
+      "specificity": 5.0
+    }
+  },
+  {
+    "question_id": "consulting_case_analysis_03",
+    "answer_text": "我会按照界定问题、结构化拆解、验证假设、给出方案这个顺序来分析：第一，界定：明确并购要实现的战略目标（横向扩张/纵向整合/技术获取）。第二，拆解：从协同效应、估值合理性、整合风险做MECE评估。第三，验证：通过尽职调查验证目标企业的财务和运营真实情况。这个过程中会重点用到方案优先级、尽职调查和整合风险这几个关键环节。验证下来这个方向能覆盖大部分场景，问题定位准确率能提升35%左右。",
+    "score_band": "7-8",
+    "ai_suggested_scores": {
+      "structure_completeness": 7.0,
+      "keyword_coverage": 7.0,
+      "logical_coherence": 7.1,
+      "specificity": 7.4
+    }
+  },
+  {
+    "question_id": "consulting_case_analysis_03",
+    "answer_text": "我会按照界定问题、结构化拆解、验证假设、给出方案这个顺序来分析：第一，界定：明确并购要实现的战略目标（横向扩张/纵向整合/技术获取）。第二，拆解：从协同效应、估值合理性、整合风险做MECE评估。第三，验证：通过尽职调查验证目标企业的财务和运营真实情况。第四，方案：基于评估结果给出交易结构建议及整合风险应对预案。这里面整合风险、尽职调查、并购动因分析、估值分析是几个关键的技术/分析抓手，缺一个都会让方案不完整。验证后问题定位效率能提升18%左右，方案落地后设定一个观察周期，用数据验证效果，避免只凭直觉下结论。",
+    "score_band": "9-10",
+    "ai_suggested_scores": {
+      "structure_completeness": 9.3,
+      "keyword_coverage": 9.1,
+      "logical_coherence": 8.8,
+      "specificity": 9.6
+    }
+  }
+]

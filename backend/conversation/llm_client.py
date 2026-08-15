@@ -35,6 +35,22 @@ GROQ_MODEL = "llama-3.3-70b-versatile"
 REQUEST_TIMEOUT_SECONDS = 10.0
 MAX_ATTEMPTS = 3
 _RETRY_BACKOFF_SECONDS = 1.0
+# Fallback wait when a 429 response has no Retry-After header at all (rare --
+# Groq normally sends one). Deliberately longer than _RETRY_BACKOFF_SECONDS:
+# a rate-limit window is seconds-to-a-minute wide, not the ~1s a plain
+# connection hiccup needs.
+_DEFAULT_RATE_LIMIT_WAIT_SECONDS = 5.0
+
+# call_llm()'s default retry-wait cap. This module's primary caller is
+# backend/conversation/engine.py's real-time interview dialogue turn --
+# decisions 17/20 in docs/decision_log.md require the live path to degrade
+# fast rather than make a candidate wait on retries, so the *default* is the
+# real-time-safe one. ml/augment.py's offline batch translation is the one
+# caller that should actually wait out Groq's real Retry-After cooldown
+# (rate-limit windows run seconds-to-a-minute wide); it opts into that
+# explicitly by passing a larger max_retry_wait_seconds rather than the
+# default silently getting slower for every caller.
+_DEFAULT_MAX_RETRY_WAIT_SECONDS = 2.0
 
 # backend/conversation/llm_client.py -> backend/conversation -> backend -> project root
 _ENV_PATH = Path(__file__).resolve().parents[2] / ".env"
@@ -54,6 +70,38 @@ _NON_RETRYABLE_ERRORS: tuple[type[Exception], ...] = (
     groq.NotFoundError,
     groq.UnprocessableEntityError,
 )
+
+
+def _rate_limit_wait_seconds(exc: "groq.RateLimitError") -> float:
+    """How long to actually wait after a 429 before retrying.
+
+    Groq's 429 responses carry a Retry-After (or the more precise
+    Retry-After-Ms) header with the real cooldown; a fixed 1s/2s backoff
+    does nothing once that window is exhausted -- it just burns the retry
+    budget on calls that were always going to fail. Bounded to (0, 60]
+    seconds, mirroring the same sanity bound the Groq SDK's own (disabled)
+    retry logic uses internally, so one malformed/extreme header value can't
+    stall a caller indefinitely.
+    """
+    headers = getattr(getattr(exc, "response", None), "headers", None)
+    if headers is not None:
+        raw_ms = headers.get("retry-after-ms")
+        if raw_ms is not None:
+            try:
+                wait = float(raw_ms) / 1000
+                if 0 < wait <= 60:
+                    return wait
+            except ValueError:
+                pass
+        raw = headers.get("retry-after")
+        if raw is not None:
+            try:
+                wait = float(raw)
+                if 0 < wait <= 60:
+                    return wait
+            except ValueError:
+                pass
+    return _DEFAULT_RATE_LIMIT_WAIT_SECONDS
 
 
 class ChatMessage(TypedDict):
@@ -90,10 +138,24 @@ def _get_client() -> Optional[Groq]:
     return _client
 
 
-def call_llm(prompt: str, history: list[ChatMessage]) -> str:
+def call_llm(
+    prompt: str,
+    history: list[ChatMessage],
+    max_retry_wait_seconds: float = _DEFAULT_MAX_RETRY_WAIT_SECONDS,
+) -> str:
     """
     Send `prompt` as the system message plus `history` as the prior
     conversation turns to Groq, and return the assistant's reply text.
+
+    `max_retry_wait_seconds` bounds how long any single inter-attempt sleep
+    (including a Retry-After-driven 429 wait) is allowed to run -- callers on
+    a latency-sensitive path (the default, e.g. engine.py's live interview
+    turn) get a short cap so a rate limit or other transient failure falls
+    through to the friendly-fallback response quickly instead of stalling
+    the candidate; a patient offline caller (e.g. ml/augment.py's batch
+    translation) can pass a larger value to actually wait out Groq's real
+    cooldown instead of burning retries uselessly. Pass 0 to never sleep
+    between attempts at all.
 
     Never raises: on persistent failure (or a missing API key) this
     returns a friendly, bilingual fallback string instead, so a calling
@@ -117,16 +179,28 @@ def call_llm(prompt: str, history: list[ChatMessage]) -> str:
             if content and content.strip():
                 return content.strip()
             last_error = RuntimeError("Groq returned an empty completion")
+            wait = _RETRY_BACKOFF_SECONDS * attempt
         except _NON_RETRYABLE_ERRORS as exc:
             logger.error("Non-retryable Groq API error, giving up: %r", exc)
             last_error = exc
             break
+        except groq.RateLimitError as exc:  # 429 -- wait the real cooldown, not a guess
+            wait = _rate_limit_wait_seconds(exc)
+            last_error = exc
         except Exception as exc:  # transient SDK/network failure -- retry
             logger.warning("Groq API call failed (attempt %d/%d): %r", attempt, MAX_ATTEMPTS, exc)
             last_error = exc
+            wait = _RETRY_BACKOFF_SECONDS * attempt
 
         if attempt < MAX_ATTEMPTS:
-            time.sleep(_RETRY_BACKOFF_SECONDS * attempt)
+            capped_wait = min(wait, max_retry_wait_seconds)
+            if isinstance(last_error, groq.RateLimitError):
+                logger.warning(
+                    "Groq rate limit hit (attempt %d/%d), waiting %.1fs before retrying "
+                    "(Groq suggested %.1fs, capped to max_retry_wait_seconds=%.1fs): %r",
+                    attempt, MAX_ATTEMPTS, capped_wait, wait, max_retry_wait_seconds, last_error,
+                )
+            time.sleep(capped_wait)
 
     logger.error("All %d attempt(s) to call Groq failed, returning fallback message: %r", MAX_ATTEMPTS, last_error)
     return _FRIENDLY_ERROR_MESSAGE
