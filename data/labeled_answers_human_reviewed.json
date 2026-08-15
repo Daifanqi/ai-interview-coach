@@ -2998,5 +2998,1005 @@
     },
     "status": "scored",
     "reviewed_at": "2026-08-14T03:52:42+00:00"
+  },
+  {
+    "review_id": "tech_behavioral_01__0-2",
+    "question_id": "tech_behavioral_01",
+    "score_band": "0-2",
+    "answer_text": "我们组当时也遇到过类似的事，最后好像是别人主要在推动，我配合了一下。",
+    "ai_suggested_scores": {
+      "structure_completeness": 0.5,
+      "keyword_coverage": 0.7,
+      "logical_coherence": 0.8,
+      "specificity": 0.8
+    },
+    "human_scores": {
+      "structure_completeness": 0.5,
+      "keyword_coverage": 0.8,
+      "logical_coherence": 0.8,
+      "specificity": 0.4
+    },
+    "status": "scored",
+    "reviewed_at": "2026-08-14T06:51:12+00:00"
+  },
+  {
+    "review_id": "tech_behavioral_01__3-4",
+    "question_id": "tech_behavioral_01",
+    "score_band": "3-4",
+    "answer_text": "我们组好像遇到过类似的情况——作为技术负责人（tech lead）推动一个跨团队技术项目交付。我当时也算是技术方向上参与其中，大概做了一些跨团队协调相关的事情，具体怎么推进的我记得不是很清楚，反正最后事情算是过去了。",
+    "ai_suggested_scores": {
+      "structure_completeness": 3.7,
+      "keyword_coverage": 3.0,
+      "logical_coherence": 3.2,
+      "specificity": 3.7
+    },
+    "human_scores": {
+      "structure_completeness": 3.7,
+      "keyword_coverage": 3.0,
+      "logical_coherence": 3.1,
+      "specificity": 3.2
+    },
+    "status": "scored",
+    "reviewed_at": "2026-08-14T06:51:39+00:00"
+  },
+  {
+    "review_id": "tech_behavioral_01__5-6",
+    "question_id": "tech_behavioral_01",
+    "score_band": "5-6",
+    "answer_text": "有一次我经历过这样的情况——作为技术负责人（tech lead）推动一个跨团队技术项目交付。当时我是团队里负责这块的人，带了4个同事一起做。我们大致分了下工，我主要盯跨团队协调和按期交付这两块，中间遇到一些阻碍，比如资源没到位，我们协调了一下，用了大概一个月把事情推完了，最后按计划完成了，没出什么大问题。",
+    "ai_suggested_scores": {
+      "structure_completeness": 4.6,
+      "keyword_coverage": 5.5,
+      "logical_coherence": 5.0,
+      "specificity": 5.0
+    },
+    "human_scores": {
+      "structure_completeness": 5.1,
+      "keyword_coverage": 5.3,
+      "logical_coherence": 5.0,
+      "specificity": 5.0
+    },
+    "status": "scored",
+    "reviewed_at": "2026-08-14T06:51:59+00:00"
+  },
+  {
+    "review_id": "tech_behavioral_01__7-8",
+    "question_id": "tech_behavioral_01",
+    "score_band": "7-8",
+    "answer_text": "去年我负责的一个项目里就遇到过这样的情况——作为技术负责人（tech lead）推动一个跨团队技术项目交付。当时背景是业务方要求比较紧，我作为主要负责人，带了2个同事一起推进，直接向部门负责人汇报。我先在技术方案设计上做了梳理，再把按期交付和风险识别拆成具体任务分给大家，过程中遇到了一个比较棘手的阻碍——核心资源临时被抽调，我重新协调了跨团队协调相关的安排，自己也补上了一部分工作。最终在六周内完成了目标，相关指标比之前提升了12%。",
+    "ai_suggested_scores": {
+      "structure_completeness": 7.0,
+      "keyword_coverage": 6.9,
+      "logical_coherence": 7.7,
+      "specificity": 8.0
+    },
+    "human_scores": {
+      "structure_completeness": 7.0,
+      "keyword_coverage": 6.9,
+      "logical_coherence": 7.5,
+      "specificity": 8.1
+    },
+    "status": "scored",
+    "reviewed_at": "2026-08-14T06:52:21+00:00"
+  },
+  {
+    "review_id": "tech_behavioral_01__9-10",
+    "question_id": "tech_behavioral_01",
+    "score_band": "9-10",
+    "answer_text": "去年我负责的一个项目正好对应这样的场景——作为技术负责人（tech lead）推动一个跨团队技术项目交付。当时背景是时间紧、涉及多方协作，我是这个3人小组的负责人，向项目发起人同步进展。我先在跨团队协调和任务拆解上做了完整梳理，明确目标和验收标准，然后把代码评审拆解成具体任务分配给对应的同事，并建立了固定的进度同步机制跟踪风险。项目进行到一半时遇到了一个比较大的阻碍——风险识别方面出现了意外情况，我评估后重新调整了优先级和分工，同时提前和相关方同步了风险和取舍方案，避免了被动。最终项目提前完成，核心指标比预期提升了25%，按期交付也保持在健康水平。复盘下来，我觉得提前识别风险、及时调整分工比单纯埋头硬做更重要，这也是我在类似场景里持续在用的方法。",
+    "ai_suggested_scores": {
+      "structure_completeness": 8.5,
+      "keyword_coverage": 10.0,
+      "logical_coherence": 9.7,
+      "specificity": 9.0
+    },
+    "human_scores": {
+      "structure_completeness": 8.5,
+      "keyword_coverage": 9.7,
+      "logical_coherence": 9.7,
+      "specificity": 9.8
+    },
+    "status": "scored",
+    "reviewed_at": "2026-08-14T06:52:52+00:00"
+  },
+  {
+    "review_id": "product_behavioral_01__0-2",
+    "question_id": "product_behavioral_01",
+    "score_band": "0-2",
+    "answer_text": "我们组当时也遇到过类似的事，最后好像是别人主要在推动，我配合了一下。",
+    "ai_suggested_scores": {
+      "structure_completeness": 1.0,
+      "keyword_coverage": 0.8,
+      "logical_coherence": 0.6,
+      "specificity": 0.4
+    },
+    "human_scores": {
+      "structure_completeness": 1.0,
+      "keyword_coverage": 0.8,
+      "logical_coherence": 0.6,
+      "specificity": 0.4
+    },
+    "status": "scored",
+    "reviewed_at": "2026-08-14T06:53:04+00:00"
+  },
+  {
+    "review_id": "product_behavioral_01__3-4",
+    "question_id": "product_behavioral_01",
+    "score_band": "3-4",
+    "answer_text": "我们组好像遇到过类似的情况——作为产品经理主导跨职能团队（研发/设计/运营）把一个产品从0到1做出来。我当时也算是产品方向上参与其中，大概做了一些数据验证相关的事情，具体怎么推进的我记得不是很清楚，反正最后事情算是过去了。",
+    "ai_suggested_scores": {
+      "structure_completeness": 3.4,
+      "keyword_coverage": 3.3,
+      "logical_coherence": 3.6,
+      "specificity": 2.8
+    },
+    "human_scores": {
+      "structure_completeness": 3.4,
+      "keyword_coverage": 3.3,
+      "logical_coherence": 3.6,
+      "specificity": 2.8
+    },
+    "status": "scored",
+    "reviewed_at": "2026-08-14T06:53:26+00:00"
+  },
+  {
+    "review_id": "product_behavioral_01__5-6",
+    "question_id": "product_behavioral_01",
+    "score_band": "5-6",
+    "answer_text": "有一次我经历过这样的情况——作为产品经理主导跨职能团队（研发/设计/运营）把一个产品从0到1做出来。当时我是团队里负责这块的人，带了3个同事一起做。我们大致分了下工，我主要盯产品规划和目标拆解这两块，中间遇到一些阻碍，比如资源没到位，我们协调了一下，用了大概一周把事情推完了，最后按计划完成了，没出什么大问题。",
+    "ai_suggested_scores": {
+      "structure_completeness": 5.5,
+      "keyword_coverage": 5.0,
+      "logical_coherence": 5.8,
+      "specificity": 6.0
+    },
+    "human_scores": {
+      "structure_completeness": 5.5,
+      "keyword_coverage": 5.0,
+      "logical_coherence": 5.8,
+      "specificity": 6.0
+    },
+    "status": "scored",
+    "reviewed_at": "2026-08-14T06:55:43+00:00"
+  },
+  {
+    "review_id": "product_behavioral_01__7-8",
+    "question_id": "product_behavioral_01",
+    "score_band": "7-8",
+    "answer_text": "去年我负责的一个项目里就遇到过这样的情况——作为产品经理主导跨职能团队（研发/设计/运营）把一个产品从0到1做出来。当时背景是业务方要求比较紧，我作为主要负责人，带了3个同事一起推进，直接向部门负责人汇报。我先在产品规划上做了梳理，再把跨职能协调和按期交付拆成具体任务分给大家，过程中遇到了一个比较棘手的阻碍——核心资源临时被抽调，我重新协调了数据验证相关的安排，自己也补上了一部分工作。最终在两周内完成了目标，相关指标比之前提升了12%。",
+    "ai_suggested_scores": {
+      "structure_completeness": 8.1,
+      "keyword_coverage": 7.9,
+      "logical_coherence": 7.3,
+      "specificity": 7.3
+    },
+    "human_scores": {
+      "structure_completeness": 8.1,
+      "keyword_coverage": 0.9,
+      "logical_coherence": 7.3,
+      "specificity": 7.2
+    },
+    "status": "scored",
+    "reviewed_at": "2026-08-14T06:58:52+00:00"
+  },
+  {
+    "review_id": "product_behavioral_01__9-10",
+    "question_id": "product_behavioral_01",
+    "score_band": "9-10",
+    "answer_text": "去年我负责的一个项目正好对应这样的场景——作为产品经理主导跨职能团队（研发/设计/运营）把一个产品从0到1做出来。当时背景是时间紧、涉及多方协作，我是这个5人小组的负责人，向项目发起人同步进展。我先在按期交付和目标拆解上做了完整梳理，明确目标和验收标准，然后把产品规划拆解成具体任务分配给对应的同事，并建立了固定的进度同步机制跟踪风险。项目进行到一半时遇到了一个比较大的阻碍——数据验证方面出现了意外情况，我评估后重新调整了优先级和分工，同时提前和相关方同步了风险和取舍方案，避免了被动。最终项目提前完成，核心指标比预期提升了18%，资源协调也保持在健康水平。复盘下来，我觉得提前识别风险、及时调整分工比单纯埋头硬做更重要，这也是我在类似场景里持续在用的方法。",
+    "ai_suggested_scores": {
+      "structure_completeness": 9.2,
+      "keyword_coverage": 9.4,
+      "logical_coherence": 8.8,
+      "specificity": 9.8
+    },
+    "human_scores": {
+      "structure_completeness": 9.2,
+      "keyword_coverage": 9.4,
+      "logical_coherence": 8.9,
+      "specificity": 9.6
+    },
+    "status": "scored",
+    "reviewed_at": "2026-08-14T06:59:05+00:00"
+  },
+  {
+    "review_id": "marketing_behavioral_01__0-2",
+    "question_id": "marketing_behavioral_01",
+    "score_band": "0-2",
+    "answer_text": "我记得当时挺忙的，具体怎么解决的现在想不太起来了，反正最后是搞定了。",
+    "ai_suggested_scores": {
+      "structure_completeness": 0.3,
+      "keyword_coverage": 1.6,
+      "logical_coherence": 1.4,
+      "specificity": 1.6
+    },
+    "human_scores": {
+      "structure_completeness": 0.3,
+      "keyword_coverage": 1.6,
+      "logical_coherence": 1.4,
+      "specificity": 1.7
+    },
+    "status": "scored",
+    "reviewed_at": "2026-08-14T06:59:14+00:00"
+  },
+  {
+    "review_id": "marketing_behavioral_01__3-4",
+    "question_id": "marketing_behavioral_01",
+    "score_band": "3-4",
+    "answer_text": "我们组好像遇到过类似的情况——主导一次营销campaign从策划到执行落地。我当时也算是市场营销方向上参与其中，大概做了一些效果追踪相关的事情，具体怎么推进的我记得不是很清楚，反正最后事情算是过去了。",
+    "ai_suggested_scores": {
+      "structure_completeness": 3.1,
+      "keyword_coverage": 3.4,
+      "logical_coherence": 3.1,
+      "specificity": 4.0
+    },
+    "human_scores": {
+      "structure_completeness": 3.1,
+      "keyword_coverage": 3.4,
+      "logical_coherence": 3.1,
+      "specificity": 3.9
+    },
+    "status": "scored",
+    "reviewed_at": "2026-08-14T06:59:27+00:00"
+  },
+  {
+    "review_id": "marketing_behavioral_01__5-6",
+    "question_id": "marketing_behavioral_01",
+    "score_band": "5-6",
+    "answer_text": "有一次我经历过这样的情况——主导一次营销campaign从策划到执行落地。当时我是团队里负责这块的人，带了2个同事一起做。我们大致分了下工，我主要盯campaign策划和目标拆解这两块，中间遇到一些阻碍，比如资源没到位，我们协调了一下，用了大概六周把事情推完了，最后按计划完成了，没出什么大问题。",
+    "ai_suggested_scores": {
+      "structure_completeness": 6.0,
+      "keyword_coverage": 5.1,
+      "logical_coherence": 4.8,
+      "specificity": 5.0
+    },
+    "human_scores": {
+      "structure_completeness": 6.0,
+      "keyword_coverage": 5.1,
+      "logical_coherence": 4.8,
+      "specificity": 5.0
+    },
+    "status": "scored",
+    "reviewed_at": "2026-08-14T06:59:56+00:00"
+  },
+  {
+    "review_id": "marketing_behavioral_01__7-8",
+    "question_id": "marketing_behavioral_01",
+    "score_band": "7-8",
+    "answer_text": "去年我负责的一个项目里就遇到过这样的情况——主导一次营销campaign从策划到执行落地。当时背景是业务方要求比较紧，我作为主要负责人，带了3个同事一起推进，直接向部门负责人汇报。我先在效果追踪上做了梳理，再把预算管理和campaign策划拆成具体任务分给大家，过程中遇到了一个比较棘手的阻碍——核心资源临时被抽调，我重新协调了按期交付相关的安排，自己也补上了一部分工作。最终在两个月内完成了目标，相关指标比之前提升了22%。",
+    "ai_suggested_scores": {
+      "structure_completeness": 7.1,
+      "keyword_coverage": 6.7,
+      "logical_coherence": 7.3,
+      "specificity": 7.7
+    },
+    "human_scores": {
+      "structure_completeness": 7.1,
+      "keyword_coverage": 6.7,
+      "logical_coherence": 7.3,
+      "specificity": 7.8
+    },
+    "status": "scored",
+    "reviewed_at": "2026-08-14T07:00:05+00:00"
+  },
+  {
+    "review_id": "marketing_behavioral_01__9-10",
+    "question_id": "marketing_behavioral_01",
+    "score_band": "9-10",
+    "answer_text": "去年我负责的一个项目正好对应这样的场景——主导一次营销campaign从策划到执行落地。当时背景是时间紧、涉及多方协作，我是这个5人小组的负责人，向项目发起人同步进展。我先在目标拆解和效果追踪上做了完整梳理，明确目标和验收标准，然后把campaign策划拆解成具体任务分配给对应的同事，并建立了固定的进度同步机制跟踪风险。项目进行到一半时遇到了一个比较大的阻碍——跨团队协调方面出现了意外情况，我评估后重新调整了优先级和分工，同时提前和相关方同步了风险和取舍方案，避免了被动。最终项目提前完成，核心指标比预期提升了22%，按期交付也保持在健康水平。复盘下来，我觉得提前识别风险、及时调整分工比单纯埋头硬做更重要，这也是我在类似场景里持续在用的方法。",
+    "ai_suggested_scores": {
+      "structure_completeness": 10.0,
+      "keyword_coverage": 8.8,
+      "logical_coherence": 9.9,
+      "specificity": 9.2
+    },
+    "human_scores": {
+      "structure_completeness": 9.7,
+      "keyword_coverage": 8.8,
+      "logical_coherence": 9.6,
+      "specificity": 9.2
+    },
+    "status": "scored",
+    "reviewed_at": "2026-08-14T07:00:17+00:00"
+  },
+  {
+    "review_id": "ops_behavioral_01__0-2",
+    "question_id": "ops_behavioral_01",
+    "score_band": "0-2",
+    "answer_text": "我们组当时也遇到过类似的事，最后好像是别人主要在推动，我配合了一下。",
+    "ai_suggested_scores": {
+      "structure_completeness": 1.7,
+      "keyword_coverage": 0.3,
+      "logical_coherence": 1.3,
+      "specificity": 0.8
+    },
+    "human_scores": {
+      "structure_completeness": 1.7,
+      "keyword_coverage": 0.2,
+      "logical_coherence": 1.3,
+      "specificity": 0.8
+    },
+    "status": "scored",
+    "reviewed_at": "2026-08-14T07:00:47+00:00"
+  },
+  {
+    "review_id": "ops_behavioral_01__3-4",
+    "question_id": "ops_behavioral_01",
+    "score_band": "3-4",
+    "answer_text": "我们组好像遇到过类似的情况——主导一次用户增长或留存提升项目。我当时也算是运营方向上参与其中，大概做了一些按期交付相关的事情，具体怎么推进的我记得不是很清楚，反正最后事情算是过去了。",
+    "ai_suggested_scores": {
+      "structure_completeness": 2.9,
+      "keyword_coverage": 3.3,
+      "logical_coherence": 3.9,
+      "specificity": 3.3
+    },
+    "human_scores": {
+      "structure_completeness": 2.9,
+      "keyword_coverage": 3.3,
+      "logical_coherence": 3.9,
+      "specificity": 3.3
+    },
+    "status": "scored",
+    "reviewed_at": "2026-08-14T07:01:18+00:00"
+  },
+  {
+    "review_id": "ops_behavioral_01__5-6",
+    "question_id": "ops_behavioral_01",
+    "score_band": "5-6",
+    "answer_text": "有一次我经历过这样的情况——主导一次用户增长或留存提升项目。当时我是团队里负责这块的人，带了8个同事一起做。我们大致分了下工，我主要盯增长项目和资源协调这两块，中间遇到一些阻碍，比如资源没到位，我们协调了一下，用了大概三周把事情推完了，最后按计划完成了，没出什么大问题。",
+    "ai_suggested_scores": {
+      "structure_completeness": 5.8,
+      "keyword_coverage": 5.1,
+      "logical_coherence": 5.1,
+      "specificity": 5.3
+    },
+    "human_scores": {
+      "structure_completeness": 5.6,
+      "keyword_coverage": 5.1,
+      "logical_coherence": 5.2,
+      "specificity": 5.2
+    },
+    "status": "scored",
+    "reviewed_at": "2026-08-14T07:01:32+00:00"
+  },
+  {
+    "review_id": "ops_behavioral_01__7-8",
+    "question_id": "ops_behavioral_01",
+    "score_band": "7-8",
+    "answer_text": "去年我负责的一个项目里就遇到过这样的情况——主导一次用户增长或留存提升项目。当时背景是业务方要求比较紧，我作为主要负责人，带了4个同事一起推进，直接向部门负责人汇报。我先在目标拆解上做了梳理，再把资源协调和数据驱动拆成具体任务分给大家，过程中遇到了一个比较棘手的阻碍——核心资源临时被抽调，我重新协调了按期交付相关的安排，自己也补上了一部分工作。最终在两个月内完成了目标，相关指标比之前提升了18%。",
+    "ai_suggested_scores": {
+      "structure_completeness": 7.0,
+      "keyword_coverage": 8.1,
+      "logical_coherence": 7.4,
+      "specificity": 7.9
+    },
+    "human_scores": {
+      "structure_completeness": 7.0,
+      "keyword_coverage": 8.1,
+      "logical_coherence": 7.4,
+      "specificity": 7.9
+    },
+    "status": "scored",
+    "reviewed_at": "2026-08-14T07:02:46+00:00"
+  },
+  {
+    "review_id": "ops_behavioral_01__9-10",
+    "question_id": "ops_behavioral_01",
+    "score_band": "9-10",
+    "answer_text": "去年我负责的一个项目正好对应这样的场景——主导一次用户增长或留存提升项目。当时背景是时间紧、涉及多方协作，我是这个4人小组的负责人，向项目发起人同步进展。我先在增长项目和跨团队协调上做了完整梳理，明确目标和验收标准，然后把数据驱动拆解成具体任务分配给对应的同事，并建立了固定的进度同步机制跟踪风险。项目进行到一半时遇到了一个比较大的阻碍——资源协调方面出现了意外情况，我评估后重新调整了优先级和分工，同时提前和相关方同步了风险和取舍方案，避免了被动。最终项目提前完成，核心指标比预期提升了25%，按期交付也保持在健康水平。复盘下来，我觉得提前识别风险、及时调整分工比单纯埋头硬做更重要，这也是我在类似场景里持续在用的方法。",
+    "ai_suggested_scores": {
+      "structure_completeness": 9.1,
+      "keyword_coverage": 9.8,
+      "logical_coherence": 8.7,
+      "specificity": 9.7
+    },
+    "human_scores": {
+      "structure_completeness": 9.1,
+      "keyword_coverage": 9.8,
+      "logical_coherence": 8.7,
+      "specificity": 9.7
+    },
+    "status": "scored",
+    "reviewed_at": "2026-08-14T07:03:04+00:00"
+  },
+  {
+    "review_id": "design_behavioral_01__0-2",
+    "question_id": "design_behavioral_01",
+    "score_band": "0-2",
+    "answer_text": "我们组当时也遇到过类似的事，最后好像是别人主要在推动，我配合了一下。",
+    "ai_suggested_scores": {
+      "structure_completeness": 1.3,
+      "keyword_coverage": 0.4,
+      "logical_coherence": 0.4,
+      "specificity": 1.2
+    },
+    "human_scores": {
+      "structure_completeness": 1.3,
+      "keyword_coverage": 0.4,
+      "logical_coherence": 0.4,
+      "specificity": 1.2
+    },
+    "status": "scored",
+    "reviewed_at": "2026-08-14T07:03:43+00:00"
+  },
+  {
+    "review_id": "design_behavioral_01__3-4",
+    "question_id": "design_behavioral_01",
+    "score_band": "3-4",
+    "answer_text": "我们组好像遇到过类似的情况——主导设计系统（design system）搭建或改版项目。我当时也算是设计方向上参与其中，大概做了一些按期交付相关的事情，具体怎么推进的我记得不是很清楚，反正最后事情算是过去了。",
+    "ai_suggested_scores": {
+      "structure_completeness": 3.6,
+      "keyword_coverage": 3.8,
+      "logical_coherence": 3.6,
+      "specificity": 3.6
+    },
+    "human_scores": {
+      "structure_completeness": 3.4,
+      "keyword_coverage": 3.5,
+      "logical_coherence": 3.5,
+      "specificity": 3.5
+    },
+    "status": "scored",
+    "reviewed_at": "2026-08-14T07:03:57+00:00"
+  },
+  {
+    "review_id": "design_behavioral_01__5-6",
+    "question_id": "design_behavioral_01",
+    "score_band": "5-6",
+    "answer_text": "有一次我经历过这样的情况——主导设计系统（design system）搭建或改版项目。当时我是团队里负责这块的人，带了3个同事一起做。我们大致分了下工，我主要盯推广落地和设计系统这两块，中间遇到一些阻碍，比如资源没到位，我们协调了一下，用了大概一周把事情推完了，最后按计划完成了，没出什么大问题。",
+    "ai_suggested_scores": {
+      "structure_completeness": 4.6,
+      "keyword_coverage": 5.3,
+      "logical_coherence": 5.7,
+      "specificity": 6.1
+    },
+    "human_scores": {
+      "structure_completeness": 4.6,
+      "keyword_coverage": 5.3,
+      "logical_coherence": 5.7,
+      "specificity": 6.2
+    },
+    "status": "scored",
+    "reviewed_at": "2026-08-14T07:04:09+00:00"
+  },
+  {
+    "review_id": "design_behavioral_01__7-8",
+    "question_id": "design_behavioral_01",
+    "score_band": "7-8",
+    "answer_text": "去年我负责的一个项目里就遇到过这样的情况——主导设计系统（design system）搭建或改版项目。当时背景是业务方要求比较紧，我作为主要负责人，带了4个同事一起推进，直接向部门负责人汇报。我先在规范统一上做了梳理，再把设计系统和按期交付拆成具体任务分给大家，过程中遇到了一个比较棘手的阻碍——核心资源临时被抽调，我重新协调了目标拆解相关的安排，自己也补上了一部分工作。最终在六周内完成了目标，相关指标比之前提升了28%。",
+    "ai_suggested_scores": {
+      "structure_completeness": 8.0,
+      "keyword_coverage": 7.9,
+      "logical_coherence": 6.7,
+      "specificity": 7.1
+    },
+    "human_scores": {
+      "structure_completeness": 8.1,
+      "keyword_coverage": 7.7,
+      "logical_coherence": 6.5,
+      "specificity": 7.2
+    },
+    "status": "scored",
+    "reviewed_at": "2026-08-14T07:04:30+00:00"
+  },
+  {
+    "review_id": "design_behavioral_01__9-10",
+    "question_id": "design_behavioral_01",
+    "score_band": "9-10",
+    "answer_text": "去年我负责的一个项目正好对应这样的场景——主导设计系统（design system）搭建或改版项目。当时背景是时间紧、涉及多方协作，我是这个4人小组的负责人，向项目发起人同步进展。我先在推广落地和按期交付上做了完整梳理，明确目标和验收标准，然后把跨团队协调拆解成具体任务分配给对应的同事，并建立了固定的进度同步机制跟踪风险。项目进行到一半时遇到了一个比较大的阻碍——目标拆解方面出现了意外情况，我评估后重新调整了优先级和分工，同时提前和相关方同步了风险和取舍方案，避免了被动。最终项目提前完成，核心指标比预期提升了15%，设计系统也保持在健康水平。复盘下来，我觉得提前识别风险、及时调整分工比单纯埋头硬做更重要，这也是我在类似场景里持续在用的方法。",
+    "ai_suggested_scores": {
+      "structure_completeness": 9.1,
+      "keyword_coverage": 8.7,
+      "logical_coherence": 9.4,
+      "specificity": 8.7
+    },
+    "human_scores": {
+      "structure_completeness": 9.1,
+      "keyword_coverage": 8.7,
+      "logical_coherence": 9.3,
+      "specificity": 8.4
+    },
+    "status": "scored",
+    "reviewed_at": "2026-08-14T07:05:06+00:00"
+  },
+  {
+    "review_id": "consulting_behavioral_01__0-2",
+    "question_id": "consulting_behavioral_01",
+    "score_band": "0-2",
+    "answer_text": "这个我没有太多准备，临场发挥一下应该就能应付过去。",
+    "ai_suggested_scores": {
+      "structure_completeness": 0.2,
+      "keyword_coverage": 0.6,
+      "logical_coherence": 0.6,
+      "specificity": 1.6
+    },
+    "human_scores": {
+      "structure_completeness": 0.3,
+      "keyword_coverage": 0.5,
+      "logical_coherence": 0.4,
+      "specificity": 1.4
+    },
+    "status": "scored",
+    "reviewed_at": "2026-08-14T07:05:17+00:00"
+  },
+  {
+    "review_id": "consulting_behavioral_01__3-4",
+    "question_id": "consulting_behavioral_01",
+    "score_band": "3-4",
+    "answer_text": "我们组好像遇到过类似的情况——主导咨询项目团队向客户交付成果。我当时也算是咨询方向上参与其中，大概做了一些按期交付相关的事情，具体怎么推进的我记得不是很清楚，反正最后事情算是过去了。",
+    "ai_suggested_scores": {
+      "structure_completeness": 2.8,
+      "keyword_coverage": 3.8,
+      "logical_coherence": 3.8,
+      "specificity": 3.9
+    },
+    "human_scores": {
+      "structure_completeness": 2.4,
+      "keyword_coverage": 3.6,
+      "logical_coherence": 3.8,
+      "specificity": 3.9
+    },
+    "status": "scored",
+    "reviewed_at": "2026-08-14T07:05:38+00:00"
+  },
+  {
+    "review_id": "consulting_behavioral_01__5-6",
+    "question_id": "consulting_behavioral_01",
+    "score_band": "5-6",
+    "answer_text": "有一次我经历过这样的情况——主导咨询项目团队向客户交付成果。当时我是团队里负责这块的人，带了5个同事一起做。我们大致分了下工，我主要盯按期交付和分析质量把控这两块，中间遇到一些阻碍，比如资源没到位，我们协调了一下，用了大概一个月把事情推完了，最后按计划完成了，没出什么大问题。",
+    "ai_suggested_scores": {
+      "structure_completeness": 5.7,
+      "keyword_coverage": 5.5,
+      "logical_coherence": 5.9,
+      "specificity": 6.0
+    },
+    "human_scores": {
+      "structure_completeness": 5.6,
+      "keyword_coverage": 5.5,
+      "logical_coherence": 5.9,
+      "specificity": 6.0
+    },
+    "status": "scored",
+    "reviewed_at": "2026-08-14T07:06:00+00:00"
+  },
+  {
+    "review_id": "consulting_behavioral_01__7-8",
+    "question_id": "consulting_behavioral_01",
+    "score_band": "7-8",
+    "answer_text": "去年我负责的一个项目里就遇到过这样的情况——主导咨询项目团队向客户交付成果。当时背景是业务方要求比较紧，我作为主要负责人，带了5个同事一起推进，直接向部门负责人汇报。我先在分析质量把控上做了梳理，再把项目管理和风险识别拆成具体任务分给大家，过程中遇到了一个比较棘手的阻碍——核心资源临时被抽调，我重新协调了团队协调相关的安排，自己也补上了一部分工作。最终在两个月内完成了目标，相关指标比之前提升了18%。",
+    "ai_suggested_scores": {
+      "structure_completeness": 7.4,
+      "keyword_coverage": 7.7,
+      "logical_coherence": 7.2,
+      "specificity": 7.9
+    },
+    "human_scores": {
+      "structure_completeness": 7.4,
+      "keyword_coverage": 7.7,
+      "logical_coherence": 7.1,
+      "specificity": 7.8
+    },
+    "status": "scored",
+    "reviewed_at": "2026-08-14T07:06:14+00:00"
+  },
+  {
+    "review_id": "consulting_behavioral_01__9-10",
+    "question_id": "consulting_behavioral_01",
+    "score_band": "9-10",
+    "answer_text": "去年我负责的一个项目正好对应这样的场景——主导咨询项目团队向客户交付成果。当时背景是时间紧、涉及多方协作，我是这个6人小组的负责人，向项目发起人同步进展。我先在分析质量把控和风险识别上做了完整梳理，明确目标和验收标准，然后把按期交付拆解成具体任务分配给对应的同事，并建立了固定的进度同步机制跟踪风险。项目进行到一半时遇到了一个比较大的阻碍——项目管理方面出现了意外情况，我评估后重新调整了优先级和分工，同时提前和相关方同步了风险和取舍方案，避免了被动。最终项目提前完成，核心指标比预期提升了30%，团队协调也保持在健康水平。复盘下来，我觉得提前识别风险、及时调整分工比单纯埋头硬做更重要，这也是我在类似场景里持续在用的方法。",
+    "ai_suggested_scores": {
+      "structure_completeness": 9.1,
+      "keyword_coverage": 8.6,
+      "logical_coherence": 8.6,
+      "specificity": 9.7
+    },
+    "human_scores": {
+      "structure_completeness": 9.1,
+      "keyword_coverage": 8.6,
+      "logical_coherence": 8.6,
+      "specificity": 9.6
+    },
+    "status": "scored",
+    "reviewed_at": "2026-08-14T07:06:22+00:00"
+  },
+  {
+    "review_id": "finance_behavioral_01__0-2",
+    "question_id": "finance_behavioral_01",
+    "score_band": "0-2",
+    "answer_text": "差不多就是按常规流程走了一遍，没什么特别的，结果还算可以。",
+    "ai_suggested_scores": {
+      "structure_completeness": 1.7,
+      "keyword_coverage": 0.9,
+      "logical_coherence": 0.8,
+      "specificity": 1.5
+    },
+    "human_scores": {
+      "structure_completeness": 1.3,
+      "keyword_coverage": 0.9,
+      "logical_coherence": 0.8,
+      "specificity": 1.5
+    },
+    "status": "scored",
+    "reviewed_at": "2026-08-14T07:06:32+00:00"
+  },
+  {
+    "review_id": "finance_behavioral_01__3-4",
+    "question_id": "finance_behavioral_01",
+    "score_band": "3-4",
+    "answer_text": "我们组好像遇到过类似的情况——主导一个投资/信贷/风控项目团队完成分析交付。我当时也算是金融方向上参与其中，大概做了一些汇报沟通相关的事情，具体怎么推进的我记得不是很清楚，反正最后事情算是过去了。",
+    "ai_suggested_scores": {
+      "structure_completeness": 2.8,
+      "keyword_coverage": 3.4,
+      "logical_coherence": 3.6,
+      "specificity": 3.6
+    },
+    "human_scores": {
+      "structure_completeness": 2.6,
+      "keyword_coverage": 3.4,
+      "logical_coherence": 3.6,
+      "specificity": 3.5
+    },
+    "status": "scored",
+    "reviewed_at": "2026-08-14T07:07:08+00:00"
+  },
+  {
+    "review_id": "finance_behavioral_01__5-6",
+    "question_id": "finance_behavioral_01",
+    "score_band": "5-6",
+    "answer_text": "有一次我经历过这样的情况——主导一个投资/信贷/风控项目团队完成分析交付。当时我是团队里负责这块的人，带了3个同事一起做。我们大致分了下工，我主要盯风险识别和分析质量把控这两块，中间遇到一些阻碍，比如资源没到位，我们协调了一下，用了大概两个月把事情推完了，最后按计划完成了，没出什么大问题。",
+    "ai_suggested_scores": {
+      "structure_completeness": 5.3,
+      "keyword_coverage": 5.7,
+      "logical_coherence": 6.1,
+      "specificity": 6.1
+    },
+    "human_scores": {
+      "structure_completeness": 5.3,
+      "keyword_coverage": 5.6,
+      "logical_coherence": 6.0,
+      "specificity": 6.1
+    },
+    "status": "scored",
+    "reviewed_at": "2026-08-14T07:07:19+00:00"
+  },
+  {
+    "review_id": "finance_behavioral_01__7-8",
+    "question_id": "finance_behavioral_01",
+    "score_band": "7-8",
+    "answer_text": "去年我负责的一个项目里就遇到过这样的情况——主导一个投资/信贷/风控项目团队完成分析交付。当时背景是业务方要求比较紧，我作为主要负责人，带了8个同事一起推进，直接向部门负责人汇报。我先在汇报沟通上做了梳理，再把团队协调和按期交付拆成具体任务分给大家，过程中遇到了一个比较棘手的阻碍——核心资源临时被抽调，我重新协调了项目管理相关的安排，自己也补上了一部分工作。最终在六周内完成了目标，相关指标比之前提升了25%。",
+    "ai_suggested_scores": {
+      "structure_completeness": 7.7,
+      "keyword_coverage": 7.9,
+      "logical_coherence": 6.6,
+      "specificity": 7.6
+    },
+    "human_scores": {
+      "structure_completeness": 7.7,
+      "keyword_coverage": 7.9,
+      "logical_coherence": 6.6,
+      "specificity": 7.4
+    },
+    "status": "scored",
+    "reviewed_at": "2026-08-14T07:07:32+00:00"
+  },
+  {
+    "review_id": "finance_behavioral_01__9-10",
+    "question_id": "finance_behavioral_01",
+    "score_band": "9-10",
+    "answer_text": "去年我负责的一个项目正好对应这样的场景——主导一个投资/信贷/风控项目团队完成分析交付。当时背景是时间紧、涉及多方协作，我是这个8人小组的负责人，向项目发起人同步进展。我先在项目管理和分析质量把控上做了完整梳理，明确目标和验收标准，然后把汇报沟通拆解成具体任务分配给对应的同事，并建立了固定的进度同步机制跟踪风险。项目进行到一半时遇到了一个比较大的阻碍——风险识别方面出现了意外情况，我评估后重新调整了优先级和分工，同时提前和相关方同步了风险和取舍方案，避免了被动。最终项目提前完成，核心指标比预期提升了22%，团队协调也保持在健康水平。复盘下来，我觉得提前识别风险、及时调整分工比单纯埋头硬做更重要，这也是我在类似场景里持续在用的方法。",
+    "ai_suggested_scores": {
+      "structure_completeness": 9.0,
+      "keyword_coverage": 9.7,
+      "logical_coherence": 8.5,
+      "specificity": 9.5
+    },
+    "human_scores": {
+      "structure_completeness": 9.0,
+      "keyword_coverage": 9.7,
+      "logical_coherence": 8.3,
+      "specificity": 9.6
+    },
+    "status": "scored",
+    "reviewed_at": "2026-08-14T07:07:42+00:00"
+  },
+  {
+    "review_id": "tech_behavioral_02__0-2",
+    "question_id": "tech_behavioral_02",
+    "score_band": "0-2",
+    "answer_text": "这个我们当时是大家一起商量着处理的，具体细节记不太清了，反正后来事情就过去了。",
+    "ai_suggested_scores": {
+      "structure_completeness": 0.4,
+      "keyword_coverage": 0.8,
+      "logical_coherence": 0.4,
+      "specificity": 1.1
+    },
+    "human_scores": {
+      "structure_completeness": 0.4,
+      "keyword_coverage": 0.4,
+      "logical_coherence": 0.3,
+      "specificity": 0.7
+    },
+    "status": "scored",
+    "reviewed_at": "2026-08-14T07:07:59+00:00"
+  },
+  {
+    "review_id": "tech_behavioral_02__3-4",
+    "question_id": "tech_behavioral_02",
+    "score_band": "3-4",
+    "answer_text": "我们组好像遇到过类似的情况——在生产环境紧急故障（P0/P1事故）下排查并恢复服务。我当时也算是技术方向上参与其中，大概做了一些根因定位相关的事情，具体怎么推进的我记得不是很清楚，反正最后事情算是过去了。",
+    "ai_suggested_scores": {
+      "structure_completeness": 3.1,
+      "keyword_coverage": 3.8,
+      "logical_coherence": 3.3,
+      "specificity": 3.4
+    },
+    "human_scores": {
+      "structure_completeness": 3.1,
+      "keyword_coverage": 3.8,
+      "logical_coherence": 3.3,
+      "specificity": 3.5
+    },
+    "status": "scored",
+    "reviewed_at": "2026-08-14T07:08:12+00:00"
+  },
+  {
+    "review_id": "tech_behavioral_02__5-6",
+    "question_id": "tech_behavioral_02",
+    "score_band": "5-6",
+    "answer_text": "有一次我经历过这样的情况——在生产环境紧急故障（P0/P1事故）下排查并恢复服务。当时我是团队里负责这块的人，带了6个同事一起做。我们大致分了下工，我主要盯监控告警和线上故障这两块，中间遇到一些阻碍，比如资源没到位，我们协调了一下，用了大概六周把事情推完了，最后按计划完成了，没出什么大问题。",
+    "ai_suggested_scores": {
+      "structure_completeness": 5.4,
+      "keyword_coverage": 6.1,
+      "logical_coherence": 6.1,
+      "specificity": 6.1
+    },
+    "human_scores": {
+      "structure_completeness": 5.4,
+      "keyword_coverage": 6.1,
+      "logical_coherence": 6.2,
+      "specificity": 6.5
+    },
+    "status": "scored",
+    "reviewed_at": "2026-08-14T07:08:23+00:00"
+  },
+  {
+    "review_id": "tech_behavioral_02__7-8",
+    "question_id": "tech_behavioral_02",
+    "score_band": "7-8",
+    "answer_text": "去年我负责的一个项目里就遇到过这样的情况——在生产环境紧急故障（P0/P1事故）下排查并恢复服务。当时背景是业务方要求比较紧，我作为主要负责人，带了6个同事一起推进，直接向部门负责人汇报。我先在监控告警上做了梳理，再把回滚和事后复盘拆成具体任务分给大家，过程中遇到了一个比较棘手的阻碍——核心资源临时被抽调，我重新协调了根因定位相关的安排，自己也补上了一部分工作。最终在两周内完成了目标，相关指标比之前提升了12%。",
+    "ai_suggested_scores": {
+      "structure_completeness": 7.9,
+      "keyword_coverage": 7.8,
+      "logical_coherence": 7.4,
+      "specificity": 6.8
+    },
+    "human_scores": {
+      "structure_completeness": 7.9,
+      "keyword_coverage": 7.8,
+      "logical_coherence": 7.4,
+      "specificity": 6.8
+    },
+    "status": "scored",
+    "reviewed_at": "2026-08-14T07:08:49+00:00"
+  },
+  {
+    "review_id": "tech_behavioral_02__9-10",
+    "question_id": "tech_behavioral_02",
+    "score_band": "9-10",
+    "answer_text": "去年我负责的一个项目正好对应这样的场景——在生产环境紧急故障（P0/P1事故）下排查并恢复服务。当时背景是时间紧、涉及多方协作，我是这个6人小组的负责人，向项目发起人同步进展。我先在应急响应和事后复盘上做了完整梳理，明确目标和验收标准，然后把线上故障拆解成具体任务分配给对应的同事，并建立了固定的进度同步机制跟踪风险。项目进行到一半时遇到了一个比较大的阻碍——根因定位方面出现了意外情况，我评估后重新调整了优先级和分工，同时提前和相关方同步了风险和取舍方案，避免了被动。最终项目提前完成，核心指标比预期提升了30%，监控告警也保持在健康水平。复盘下来，我觉得提前识别风险、及时调整分工比单纯埋头硬做更重要，这也是我在类似场景里持续在用的方法。",
+    "ai_suggested_scores": {
+      "structure_completeness": 8.8,
+      "keyword_coverage": 9.3,
+      "logical_coherence": 8.7,
+      "specificity": 9.8
+    },
+    "human_scores": {
+      "structure_completeness": 9.0,
+      "keyword_coverage": 9.3,
+      "logical_coherence": 8.7,
+      "specificity": 9.8
+    },
+    "status": "scored",
+    "reviewed_at": "2026-08-14T07:08:59+00:00"
+  },
+  {
+    "review_id": "product_behavioral_02__0-2",
+    "question_id": "product_behavioral_02",
+    "score_band": "0-2",
+    "answer_text": "差不多就是按常规流程走了一遍，没什么特别的，结果还算可以。",
+    "ai_suggested_scores": {
+      "structure_completeness": 1.2,
+      "keyword_coverage": 0.7,
+      "logical_coherence": 1.7,
+      "specificity": 0.4
+    },
+    "human_scores": {
+      "structure_completeness": 1.2,
+      "keyword_coverage": 0.7,
+      "logical_coherence": 1.7,
+      "specificity": 0.4
+    },
+    "status": "scored",
+    "reviewed_at": "2026-08-14T07:09:13+00:00"
+  },
+  {
+    "review_id": "product_behavioral_02__3-4",
+    "question_id": "product_behavioral_02",
+    "score_band": "3-4",
+    "answer_text": "我们组好像遇到过类似的情况——在紧迫deadline下推动一个产品需求上线。我当时也算是产品方向上参与其中，大概做了一些风险沟通相关的事情，具体怎么推进的我记得不是很清楚，反正最后事情算是过去了。",
+    "ai_suggested_scores": {
+      "structure_completeness": 3.1,
+      "keyword_coverage": 3.6,
+      "logical_coherence": 3.3,
+      "specificity": 2.7
+    },
+    "human_scores": {
+      "structure_completeness": 3.1,
+      "keyword_coverage": 3.6,
+      "logical_coherence": 3.3,
+      "specificity": 2.8
+    },
+    "status": "scored",
+    "reviewed_at": "2026-08-14T07:09:22+00:00"
+  },
+  {
+    "review_id": "product_behavioral_02__5-6",
+    "question_id": "product_behavioral_02",
+    "score_band": "5-6",
+    "answer_text": "有一次我经历过这样的情况——在紧迫deadline下推动一个产品需求上线。当时我是团队里负责这块的人，带了5个同事一起做。我们大致分了下工，我主要盯deadline和需求取舍这两块，中间遇到一些阻碍，比如资源没到位，我们协调了一下，用了大概一个月把事情推完了，最后按计划完成了，没出什么大问题。",
+    "ai_suggested_scores": {
+      "structure_completeness": 4.8,
+      "keyword_coverage": 5.5,
+      "logical_coherence": 6.0,
+      "specificity": 4.7
+    },
+    "human_scores": {
+      "structure_completeness": 4.7,
+      "keyword_coverage": 5.5,
+      "logical_coherence": 6.9,
+      "specificity": 4.6
+    },
+    "status": "scored",
+    "reviewed_at": "2026-08-14T07:09:32+00:00"
+  },
+  {
+    "review_id": "product_behavioral_02__7-8",
+    "question_id": "product_behavioral_02",
+    "score_band": "7-8",
+    "answer_text": "去年我负责的一个项目里就遇到过这样的情况——在紧迫deadline下推动一个产品需求上线。当时背景是业务方要求比较紧，我作为主要负责人，带了4个同事一起推进，直接向部门负责人汇报。我先在需求取舍上做了梳理，再把deadline和跨团队协调拆成具体任务分给大家，过程中遇到了一个比较棘手的阻碍——核心资源临时被抽调，我重新协调了风险沟通相关的安排，自己也补上了一部分工作。最终在六周内完成了目标，相关指标比之前提升了12%。",
+    "ai_suggested_scores": {
+      "structure_completeness": 7.1,
+      "keyword_coverage": 7.0,
+      "logical_coherence": 7.1,
+      "specificity": 7.1
+    },
+    "human_scores": {
+      "structure_completeness": 7.1,
+      "keyword_coverage": 7.0,
+      "logical_coherence": 7.1,
+      "specificity": 7.2
+    },
+    "status": "scored",
+    "reviewed_at": "2026-08-14T07:09:42+00:00"
+  },
+  {
+    "review_id": "product_behavioral_02__9-10",
+    "question_id": "product_behavioral_02",
+    "score_band": "9-10",
+    "answer_text": "去年我负责的一个项目正好对应这样的场景——在紧迫deadline下推动一个产品需求上线。当时背景是时间紧、涉及多方协作，我是这个8人小组的负责人，向项目发起人同步进展。我先在deadline和按时交付上做了完整梳理，明确目标和验收标准，然后把跨团队协调拆解成具体任务分配给对应的同事，并建立了固定的进度同步机制跟踪风险。项目进行到一半时遇到了一个比较大的阻碍——抗压方面出现了意外情况，我评估后重新调整了优先级和分工，同时提前和相关方同步了风险和取舍方案，避免了被动。最终项目提前完成，核心指标比预期提升了28%，需求取舍也保持在健康水平。复盘下来，我觉得提前识别风险、及时调整分工比单纯埋头硬做更重要，这也是我在类似场景里持续在用的方法。",
+    "ai_suggested_scores": {
+      "structure_completeness": 9.1,
+      "keyword_coverage": 8.6,
+      "logical_coherence": 9.0,
+      "specificity": 8.7
+    },
+    "human_scores": {
+      "structure_completeness": 8.7,
+      "keyword_coverage": 9.1,
+      "logical_coherence": 9.0,
+      "specificity": 8.6
+    },
+    "status": "scored",
+    "reviewed_at": "2026-08-14T07:10:05+00:00"
+  },
+  {
+    "review_id": "marketing_behavioral_02__0-2",
+    "question_id": "marketing_behavioral_02",
+    "score_band": "0-2",
+    "answer_text": "这种情况我一般不会想太多，遇到了就顺其自然地处理一下。",
+    "ai_suggested_scores": {
+      "structure_completeness": 1.3,
+      "keyword_coverage": 1.6,
+      "logical_coherence": 1.3,
+      "specificity": 0.8
+    },
+    "human_scores": {
+      "structure_completeness": 1.3,
+      "keyword_coverage": 1.6,
+      "logical_coherence": 1.3,
+      "specificity": 0.8
+    },
+    "status": "scored",
+    "reviewed_at": "2026-08-14T07:10:14+00:00"
+  },
+  {
+    "review_id": "marketing_behavioral_02__3-4",
+    "question_id": "marketing_behavioral_02",
+    "score_band": "3-4",
+    "answer_text": "我们组好像遇到过类似的情况——在大促或发布会前紧急调整营销方案。我当时也算是市场营销方向上参与其中，大概做了一些情绪管理相关的事情，具体怎么推进的我记得不是很清楚，反正最后事情算是过去了。",
+    "ai_suggested_scores": {
+      "structure_completeness": 2.9,
+      "keyword_coverage": 3.6,
+      "logical_coherence": 2.9,
+      "specificity": 3.4
+    },
+    "human_scores": {
+      "structure_completeness": 2.9,
+      "keyword_coverage": 3.6,
+      "logical_coherence": 2.9,
+      "specificity": 3.4
+    },
+    "status": "scored",
+    "reviewed_at": "2026-08-14T07:10:31+00:00"
+  },
+  {
+    "review_id": "marketing_behavioral_02__5-6",
+    "question_id": "marketing_behavioral_02",
+    "score_band": "5-6",
+    "answer_text": "有一次我经历过这样的情况——在大促或发布会前紧急调整营销方案。当时我是团队里负责这块的人，带了4个同事一起做。我们大致分了下工，我主要盯复盘改进和资源协调这两块，中间遇到一些阻碍，比如资源没到位，我们协调了一下，用了大概两周把事情推完了，最后按计划完成了，没出什么大问题。",
+    "ai_suggested_scores": {
+      "structure_completeness": 5.1,
+      "keyword_coverage": 4.8,
+      "logical_coherence": 5.1,
+      "specificity": 5.8
+    },
+    "human_scores": {
+      "structure_completeness": 5.1,
+      "keyword_coverage": 4.7,
+      "logical_coherence": 5.1,
+      "specificity": 5.9
+    },
+    "status": "scored",
+    "reviewed_at": "2026-08-14T07:10:39+00:00"
+  },
+  {
+    "review_id": "marketing_behavioral_02__7-8",
+    "question_id": "marketing_behavioral_02",
+    "score_band": "7-8",
+    "answer_text": "去年我负责的一个项目里就遇到过这样的情况——在大促或发布会前紧急调整营销方案。当时背景是业务方要求比较紧，我作为主要负责人，带了2个同事一起推进，直接向部门负责人汇报。我先在紧急调整上做了梳理，再把复盘改进和资源协调拆成具体任务分给大家，过程中遇到了一个比较棘手的阻碍——核心资源临时被抽调，我重新协调了抗压相关的安排，自己也补上了一部分工作。最终在一周内完成了目标，相关指标比之前提升了30%。",
+    "ai_suggested_scores": {
+      "structure_completeness": 6.9,
+      "keyword_coverage": 7.7,
+      "logical_coherence": 7.0,
+      "specificity": 6.8
+    },
+    "human_scores": {
+      "structure_completeness": 6.9,
+      "keyword_coverage": 7.7,
+      "logical_coherence": 7.0,
+      "specificity": 6.8
+    },
+    "status": "scored",
+    "reviewed_at": "2026-08-14T07:10:50+00:00"
+  },
+  {
+    "review_id": "marketing_behavioral_02__9-10",
+    "question_id": "marketing_behavioral_02",
+    "score_band": "9-10",
+    "answer_text": "去年我负责的一个项目正好对应这样的场景——在大促或发布会前紧急调整营销方案。当时背景是时间紧、涉及多方协作，我是这个5人小组的负责人，向项目发起人同步进展。我先在资源协调和紧急调整上做了完整梳理，明确目标和验收标准，然后把复盘改进拆解成具体任务分配给对应的同事，并建立了固定的进度同步机制跟踪风险。项目进行到一半时遇到了一个比较大的阻碍——按时交付方面出现了意外情况，我评估后重新调整了优先级和分工，同时提前和相关方同步了风险和取舍方案，避免了被动。最终项目提前完成，核心指标比预期提升了30%，抗压也保持在健康水平。复盘下来，我觉得提前识别风险、及时调整分工比单纯埋头硬做更重要，这也是我在类似场景里持续在用的方法。",
+    "ai_suggested_scores": {
+      "structure_completeness": 9.8,
+      "keyword_coverage": 9.0,
+      "logical_coherence": 9.3,
+      "specificity": 9.8
+    },
+    "human_scores": {
+      "structure_completeness": 9.8,
+      "keyword_coverage": 9.0,
+      "logical_coherence": 9.3,
+      "specificity": 9.8
+    },
+    "status": "scored",
+    "reviewed_at": "2026-08-14T07:10:58+00:00"
   }
 ]

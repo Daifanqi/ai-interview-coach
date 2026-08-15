@@ -1,0 +1,31 @@
+# Local-only dependencies for ml/ scripts (data prep, splitting, training,
+# augmentation, baselines, error analysis). Kept separate from the
+# top-level requirements.txt on purpose — this is an experimental track,
+# not something the app needs at runtime. Installed fresh on Colab by
+# ml/colab_run.ipynb's first cell; also installable locally for
+# ml/self_test.py (torch/transformers/accelerate/sentencepiece run fine on
+# CPU for the tiny random-init smoke test — no GPU required for that part).
+
+# prepare_data.py / split_data.py / common.py / metrics.py
+scikit-learn>=1.4
+numpy>=1.26
+
+# train.py / learning_curve.py: transformer fine-tuning (xlm-roberta-base,
+# distilbert-base-multilingual-cased) via Trainer.
+torch>=2.2
+transformers>=4.40
+accelerate>=0.30
+sentencepiece>=0.2  # xlm-roberta-base's tokenizer is sentencepiece-based
+
+# baselines.py: reuses backend/scoring/baseline.py's embedding model, and
+# (optionally, --llm-baseline) the project's existing Groq client.
+sentence-transformers>=3.0
+groq>=1.6
+python-dotenv>=1.1
+
+# augment.py: back-translation via local Helsinki-NLP MarianMT models
+# (opus-mt-zh-en / opus-mt-en-zh), run through transformers -- torch/
+# transformers/sentencepiece above already cover the model+tokenizer
+# classes; sacremoses is MarianTokenizer's own extra dependency (its
+# pre/post-processing pipeline, separate from sentencepiece).
+sacremoses>=0.1

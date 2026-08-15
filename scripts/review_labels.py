@@ -1,9 +1,26 @@
-"""Interactive CLI tool for human review of the 150 candidate-answer labels.
+"""Interactive CLI tool for human review of the candidate-answer labels.
 
-Walks through data/labeled_answers_draft.json one answer at a time, showing
-the question, the full answer text, and the simplified calibration checklist
-from docs/scoring_calibration_checklist.md (keyword hit list + structure
-element list) so the reviewer does not have to count anything by hand.
+Walks through the candidate-answer drafts one answer at a time, showing the
+question, the full answer text, and (when available) the simplified
+calibration checklist from docs/scoring_calibration_checklist.md (keyword
+hit list + structure element list) so the reviewer does not have to count
+anything by hand.
+
+Two draft batches are loaded and reviewed as one combined queue:
+  - batch 1: data/labeled_answers_draft.json (150 items, questions sourced
+    from data/sample_questions.json). This batch is already fully reviewed;
+    its scored records in labeled_answers_human_reviewed.json are left
+    untouched and simply skipped on every run.
+  - batch 2: data/labeled_answers_draft_batch2.json (300 items, questions
+    sourced from data/question_bank.json). Its questions are not covered by
+    the calibration checklist doc (that doc only covers the original 30
+    sample questions), so the reviewer will see a "no calibration checklist
+    found" notice for these items — the question text, AI-suggested scores,
+    and reference_points are still shown to score against.
+
+Because (question_id, score_band) is unique within each batch and the two
+batches use disjoint question_id prefixes, both batches share a single
+review_id namespace and a single output file without collisions.
 
 The reviewer types four scores (0-10) per answer, or presses Enter on the
 first score to skip the item (it is saved with status "pending" and can be
@@ -39,9 +56,19 @@ from typing import Optional
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DRAFT_PATH = PROJECT_ROOT / "data" / "labeled_answers_draft.json"
+DRAFT_BATCH2_PATH = PROJECT_ROOT / "data" / "labeled_answers_draft_batch2.json"
 QUESTIONS_PATH = PROJECT_ROOT / "data" / "sample_questions.json"
+QUESTION_BANK_PATH = PROJECT_ROOT / "data" / "question_bank.json"
 CHECKLIST_PATH = PROJECT_ROOT / "docs" / "scoring_calibration_checklist.md"
 OUTPUT_PATH = PROJECT_ROOT / "data" / "labeled_answers_human_reviewed.json"
+
+# (draft file path, human-readable batch label) — reviewed as one combined
+# queue, see module docstring for why this is safe (disjoint question_id
+# prefixes between batches).
+DRAFT_BATCHES = [
+    (DRAFT_PATH, "batch1"),
+    (DRAFT_BATCH2_PATH, "batch2"),
+]
 
 # (field name in the saved record, human-readable prompt label)
 DIMENSIONS = [
@@ -105,6 +132,26 @@ def parse_checklist(path: Path) -> dict:
         }
 
     return checklist
+
+
+def load_draft_batches() -> list:
+    """Load every draft batch in DRAFT_BATCHES and concatenate them into one
+    list, tagging each entry with its source batch label (an in-memory-only
+    "_batch" key — build_record() below only copies named fields out of the
+    draft entry, so this tag never ends up in the saved review records).
+
+    A missing batch file is skipped with a warning rather than raising, so
+    the tool still works before batch 2 has been generated.
+    """
+    draft_list = []
+    for path, label in DRAFT_BATCHES:
+        if not path.exists():
+            print(f"Note: {path.relative_to(PROJECT_ROOT)} not found, skipping {label}.")
+            continue
+        for entry in load_json(path):
+            entry["_batch"] = label
+            draft_list.append(entry)
+    return draft_list
 
 
 def load_existing_reviews(path: Path) -> dict:
@@ -287,6 +334,21 @@ def print_summary(draft_list: list, review_map: dict, questions_by_id: dict) -> 
     for band in sorted(band_totals, key=lambda b: [int(x) for x in b.split("-")]):
         print(f"  {band}: {band_scored[band]}/{band_totals[band]} scored")
 
+    # Distribution by source batch.
+    batch_totals = Counter()
+    batch_scored = Counter()
+    for entry in draft_list:
+        batch = entry.get("_batch", "unknown")
+        batch_totals[batch] += 1
+        review_id = make_review_id(entry["question_id"], entry["score_band"])
+        if review_map.get(review_id, {}).get("status") == "scored":
+            batch_scored[batch] += 1
+
+    print()
+    print("By batch:")
+    for batch in sorted(batch_totals):
+        print(f"  {batch}: {batch_scored[batch]}/{batch_totals[batch]} scored")
+
     print()
     print(f"Progress saved to {OUTPUT_PATH.relative_to(PROJECT_ROOT)}")
 
@@ -382,9 +444,11 @@ def main() -> None:
                              "or 'question_id:score_band' if that question_id has multiple bands.")
     args = parser.parse_args()
 
-    draft_list = load_json(DRAFT_PATH)
-    questions = load_json(QUESTIONS_PATH)
-    questions_by_id = {q["question_id"]: q for q in questions}
+    draft_list = load_draft_batches()
+    # Merge question metadata from both sources; sample_questions.json (the
+    # original 30) takes priority in the unlikely event of an id collision.
+    questions_by_id = {q["question_id"]: q for q in load_json(QUESTION_BANK_PATH)}
+    questions_by_id.update({q["question_id"]: q for q in load_json(QUESTIONS_PATH)})
     checklist_by_id = parse_checklist(CHECKLIST_PATH)
 
     if args.reset or not OUTPUT_PATH.exists():
@@ -398,7 +462,9 @@ def main() -> None:
         return
 
     total = len(draft_list)
-    print(f"Loaded {total} candidate answers. "
+    batch_counts = Counter(entry.get("_batch", "unknown") for entry in draft_list)
+    batch_summary = ", ".join(f"{count} {label}" for label, count in sorted(batch_counts.items()))
+    print(f"Loaded {total} candidate answers ({batch_summary}). "
           f"{sum(1 for r in review_map.values() if r.get('status') == 'scored')} already scored, "
           f"{sum(1 for r in review_map.values() if r.get('status') == 'pending')} pending from a previous run.")
     print("Commands: Enter on the first score = skip this item (marked pending). "

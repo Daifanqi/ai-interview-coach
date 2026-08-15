@@ -560,3 +560,378 @@ embedding算余弦相似度，只要有一对相似度超过阈值就判定该�
 之前"因为上游失准而实质不可能触发"的保护机制现在开始正常生效。
 
 **归属：** 评分系统。
+
+## 30. 标注数据核对范围确认——第7周模型实验维持150条batch1，batch2扩充数据留待后续
+
+**背景：** 待人工核对的候选标注数据分两批草稿：batch1
+（`data/labeled_answers_draft.json`，150条，对应`sample_questions.json`
+里的30道通用题）和batch2（`data/labeled_answers_draft_batch2.json`，
+300条，对应`question_bank.json`里7个领域×3种题型共60道题），合计450条，
+统一核对进`data/labeled_answers_human_reviewed.json`，进度由
+`scripts/review_labels.py`跟踪。经过实际核对过程，决定当前阶段以已
+完成核对的部分为准，不再继续核对剩余部分。
+
+**实际完成数量：** 直接调用`scripts/review_labels.py`里
+`load_draft_batches()`/`load_existing_reviews()`/`make_review_id()`
+这几个函数（和交互式运行时`print_summary()`用的是同一套统计口径，
+`question_type`字段取自`question_bank.json`/`sample_questions.json`，
+不是从`question_id`前缀猜的）核对`labeled_answers_human_reviewed.json`
+得出，200条记录全部是`status: "scored"`，无`pending`残留：
+
+- 合计：200/450（44%）
+- batch1：150/150（**100%，全部核对完成**）
+- batch2：50/300（17%）
+
+**batch1（150条）按题型分布：** 三种题型均100%核对完成，均衡覆盖。
+
+| 题型 | 已核对/总数 |
+| --- | --- |
+| behavioral | 50/50 |
+| technical | 50/50 |
+| case_analysis | 50/50 |
+
+**batch1（150条）按分档分布：** 五档均100%完成，各30条（各占20%）。
+
+| 分档 | 已核对/总数 |
+| --- | --- |
+| 0-2 | 30/30 |
+| 3-4 | 30/30 |
+| 5-6 | 30/30 |
+| 7-8 | 30/30 |
+| 9-10 | 30/30 |
+
+**batch2（300条）按题型分布：** 只核对了behavioral题型的一半，
+technical、case_analysis两种题型**尚未开始**（0/100，各自）。
+
+| 题型 | 已核对/总数 |
+| --- | --- |
+| behavioral | 50/100 |
+| technical | 0/100 |
+| case_analysis | 0/100 |
+
+**batch2（300条）按分档分布：** 五档进度均匀（各占已核对behavioral
+题型的1/5），但相对300条总量每档只完成约17%。
+
+| 分档 | 已核对/总数 |
+| --- | --- |
+| 0-2 | 10/60 |
+| 3-4 | 10/60 |
+| 5-6 | 10/60 |
+| 7-8 | 10/60 |
+| 9-10 | 10/60 |
+
+**batch2 behavioral 50条在7个领域（`job_type`字段）内部的分布：**
+完成度不均，金融/设计/运营三个领域进度明显落后。
+
+| 领域 | 已核对/总数 |
+| --- | --- |
+| 技术 | 10/15 |
+| 产品 | 10/15 |
+| 市场营销 | 10/15 |
+| 设计 | 5/15 |
+| 咨询 | 5/15 |
+| 运营 | 5/15 |
+| 金融 | 5/10 |
+
+**跨batch合并统计（按题型，三大类）：**
+
+| 题型 | 已核对 |
+| --- | --- |
+| behavioral（batch1通用50 + batch2七领域50） | 100 |
+| technical（仅batch1通用） | 50 |
+| case_analysis（仅batch1通用） | 50 |
+
+**跨batch合并统计（按分档）：** 200条里每档恰好40条，完全均匀
+（各占20%）——这是batch1本身按档均分（每档30条）加上batch2已核对的
+50条behavioral题型答案也恰好每档10条，两者叠加后仍保持均匀，属巧合
+而非刻意控制的结果，不代表batch2整体核对进度是均衡的（见上面
+batch2单独的分档表，相对300条总量每档仍只完成约17%）。
+
+**结论：** 第7周的`ml/`小样本可行性实验只使用batch1的150条数据（三
+种题型各50条，均衡），不并入batch2已核对的50条behavioral数据。原因：
+
+1. batch1的150条全部来自`sample_questions.json`的30道通用校准题，
+   batch2的50条behavioral来自`question_bank.json`里7个领域的定向题目
+   ——两者是不同的数据源。若把这50条并入"behavioral"类别，会在同一
+   个题型标签下混入两种来源的回答，模型可能学到"数据来源"而非
+   "结构完整度"这个信号，构成分布混杂；
+2. 题型分布会从均衡的50/50/50变成100/50/50，与按"题型×档位"联合分层
+   的划分方案冲突，且technical、case_analysis两种题型完全没有batch2
+   的对应数据，behavioral单独扩容不构成有意义的跨领域验证。
+
+batch2的剩余核对工作（把300条候选全部审完，含technical、
+case_analysis两种题型，目前均为0/100）是一项独立的、更大规模的标注
+扩充任务，不属于第7周计划范围。待batch2三种题型的核对进度同步、
+不再是只有behavioral一种题型有数据时，再统一并入并另开一条决策记录
+说明入库理由；在此之前，`ml/`目录下的所有实验一律只读取batch1这
+150条，`data/labeled_answers_human_reviewed.json`里当前已核对的
+batch2的50条behavioral记录暂不使用。
+
+**归属：** 评分系统、数据标注。
+
+## 31. call_llm() 429限流修复改为按调用方分级等待，避免拖慢实时对话路径
+
+**背景：** [[20]]第2项风险提到scoring_judge.py的三层兜底链路（JSON解析
+失败→正则提取→长度关键词规则）缺专门测试覆盖，"API超时"等异常场景是
+待验证项之一。第7周在Colab上真实跑`ml/augment.py`对fold 2做批量回译
+增强时，从约第16个样本开始连续撞上Groq免费档429限流——原有
+`llm_client.call_llm()`的重试逻辑是固定1s/2s退避、最多3次快速重试，
+对"整个限流窗口已经打满"这种持续性限流完全无效，重试基本必然全部
+失败，被`ml/augment.py`当作翻译失败跳过（虽然会print，但Colab cell的
+输出本身不落盘，跳过记录容易随runtime一起丢失，无人察觉）。
+
+**决策：**
+
+1. `llm_client.call_llm()`新增`max_retry_wait_seconds`参数：遇到429时
+   解析Groq响应的`Retry-After`/`Retry-After-Ms`头，真实sleep建议的
+   冷却时间（而不是瞎猜1s/2s），但用这个参数给单次sleep封顶。默认值
+   2.0秒——`call_llm()`的主要调用方是`backend/conversation/engine.py`
+   的实时面试对话轮次生成，[[17]]和[[20]]都要求实时路径快速降级、
+   不能让候选人长时间等待，因此**默认值必须是实时安全的那一个**，
+   离线调用方显式传大值来"opt in"耐心等待，而不是默认值悄悄变慢、
+   影响到所有调用方（包括没打算改动的实时路径）。
+2. `ml/augment.py`的`default_translate()`显式传
+   `max_retry_wait_seconds=60.0`（对齐`llm_client._rate_limit_wait_seconds()`
+   内部已有的60秒护栏），离线批处理场景下真实等够Groq建议的冷却时间
+   再重试，这是决定要不要重试这批429样本的关键。
+3. `ml/augment.py`额外在每次真实Groq调用前加了约2.2秒的最小调用间隔
+   （对应约27次/分钟，低于免费档30 RPM），从源头上避免整批调用在几
+   分钟内打满限流窗口，而不是只靠重试事后补救。
+4. `ml/augment.py`的`main()`现在把每折的跳过样本id落盘成
+   `fold_{i}_train_augmented.skip_report.json`（哪怕0条跳过也写），
+   并在本次产生跳过、或后续复用一份带跳过记录的旧文件时打印醒目
+   警告——不再只依赖Colab cell的print输出，避免真实训练数据被静默
+   漏掉却无人发现。
+
+**范围澄清（避免混淆）：** `backend/conversation/scoring_judge.py`的
+追问评分调用**不经过**`llm_client.call_llm()`——它有独立的Groq client
+（`_get_judge_client()`），本来就是单次尝试、无重试循环、1秒超时，任何
+异常（含429）都会被外层`except Exception`直接捕获并降级到正则/长度
+规则兜底。本次改动完全没有触碰这条路径，此前也不存在"429导致长时间
+等待"的风险——这条路径的"快速降级优先于等待重试成功"([[20]]的原则)
+从一开始就是成立的。
+
+**对[[20]]第2项风险的回应（部分，非完全验证）：** 本次修复只覆盖了
+`call_llm()`调用链（供engine.py实时对话 + ml/augment.py离线批处理）下
+的**429限流场景**——新增了真实Retry-After等待+按调用方分级的等待
+上限，并用构造的fake异常做了单元验证（header解析正确性、封顶值按
+调用方生效）。[[20]]第2项风险本身针对的是`scoring_judge.py`的JSON
+schema兜底链路，待验证的具体场景（畸形JSON、字段缺失/类型错误、专门
+构造的API超时）**仍未覆盖**，不应把本次改动理解为该风险已经解决——
+scoring_judge.py本身完全没有改动。
+
+**归属：** 对话引擎（`llm_client.py`、`engine.py`）、ml/实验脚本
+（`ml/augment.py`）。
+
+## 32. ml/augment.py 回译改回本地 Helsinki-NLP MarianMT，放弃 Groq API 方案
+
+**背景：** `ml/augment.py`回译增强的原计划方案是本地跑 Helsinki-NLP
+MarianMT（opus-mt-zh-en / opus-mt-en-zh），完全离线、不依赖任何外部
+API。中途一度改为调用项目已有的Groq LLM client（[[19]]第1项、
+[[20]]第2项背景），图省事复用`backend/conversation/llm_client.py`
+现成的retry/timeout封装，避免另起一套翻译调用逻辑。
+
+这个改动在fold 0上跑通过（102/102成功，见`ml/augment_review.md`），
+但fold 2真实跑的时候连续撞上Groq免费档429限流（见[[31]]），修了
+按Retry-After真实等待+调用方分级封顶之后，又在验证过程中发现更根本
+的问题：Groq免费层除了每分钟请求数限制（RPM）外，还有**每日token
+配额（TPD）**，而这个配额是跟`backend/conversation/llm_client.py`的
+面试对话功能共用同一个模型（`llama-3.3-70b-versatile`）的——也就是说
+`ml/augment.py`批量跑回译（一折102条样本×2跳=204次调用）会跟真实
+面试对话抢同一份每日配额，一旦当天配额被批量任务耗尽，会直接影响到
+面试对话这个核心功能本身的可用性。这不是靠调整重试/限速参数能解决的
+问题（[[31]]的修复只解决了RPM这种"窗口性"限流，对TPD这种"每日耗尽后
+当天不会恢复"的限流无效），持续跑多折回译在免费层下不可持续。
+
+**决策：** 放弃Groq API方案，改回设计阶段的原始方案——本地跑
+Helsinki-NLP MarianMT：
+
+1. `ml/augment.py`的默认翻译器改为通过`transformers`直接加载
+   `Helsinki-NLP/opus-mt-zh-en`（中译英）和`Helsinki-NLP/opus-mt-en-zh`
+   （英译中）两个模型，`torch.cuda.is_available()`为真则用GPU，否则
+   用CPU，不再经过`backend/conversation/llm_client.py`/Groq。
+2. 同一批样本改为batch推理（`_marian_translate_batch()`/
+   `back_translate_batch()`），而不是逐条调用——本地模型没有外部
+   请求配额顾虑，batch化纯粹是为了跑得快，在Colab GPU上比逐条调用
+   快很多。
+3. 保留原有的所有安全机制：每折输出文件的幂等缓存检查、`--force`
+   强制覆盖、`fold_{i}_train_augmented.skip_report.json`跳过记录
+   （[[31]]之前那次修复加的）。本地模型基本不会失败，但仍然可能
+   OOM或加载失败（没网络下载权重、`sentencepiece`/`sacremoses`
+   环境缺失等）——遇到这些情况时同样记录被跳过的样本id，不能因为
+   "本地模型很少出错"就放松这条底线，OOM时先按子批折半重试以尽量
+   抢救数据，实在不行才整批标记为跳过。
+4. `ml/requirements.txt`新增`sacremoses`（MarianTokenizer的分词
+   依赖，torch/transformers/sentencepiece此前已经在依赖清单里，
+   为train.py的微调模型服务，直接复用）。
+5. `ml/baselines.py`里`--llm-baseline`可选项仍然调用Groq
+   （用途不同：零样本LLM baseline评分，不是回译增强），本次改动
+   不涉及，`groq`/`python-dotenv`依赖保留。
+
+**为什么这是更合适的方案：** 本地模型完全不受外部API限速/日配额
+影响，直接用Colab已经在付费/已经分配好的GPU算力，零额外成本——比
+"想办法把Groq请求控制在配额内"更符合项目一贯的"尽量免费"约束
+（[[19]]第2项TTS引擎选型也是同样的成本考量）。副作用是回译质量
+可能不如大模型翻译自然（MarianMT是专用翻译模型，不是通用LLM），
+`ml/augment_review.md`里针对fold 0（Groq版本）做的"未发现结构被
+改写"人工抽查结论**不能直接沿用到MarianMT版本**——本地模型跑完
+fold 0-4后需要重新抽查几条，确认回译质量仍然保留原有的结构完整度
+信号，这一点留给下一次实际有真实MarianMT回译数据时去做，本决策
+记录不代为下结论。
+
+**归属：** ml/实验脚本（`ml/augment.py`、`ml/requirements.txt`）。
+
+## 33. 第7周微调模型最终选择：distilbert-base-multilingual-cased，不使用数据增强；train.py新增最终模型训练模式
+
+**背景：** [[30]]确定第7周只用batch1的150条数据（5折交叉验证pool 128条
++封存测试集22条）。5折交叉验证跑完了四组组合：xlm-roberta-base（普通版
+/增强版）、distilbert-base-multilingual-cased（普通版/增强版）。
+
+**决策（模型选择）：** 最终模型定为
+`distilbert-base-multilingual-cased`，**不使用**`ml/augment.py`的回译
+数据增强。
+
+**理由（对比数字，均为5折验证集均值）：**
+
+1. distilbert全面优于xlm-roberta-base：mean val macro_f1 0.885 vs
+   0.770，mean val qwk 0.950 vs 0.929。
+2. `ml/train.py`的过拟合检测（`check_overfit_and_suggest()`，train-val
+   macro_f1差距>0.15阈值）在xlm-roberta-base上触发了警告，
+   distilbert-base-multilingual-cased没有触发——即模型本身的建议路径
+   （见`ml/train.py`模块docstring"Fallback... if xlm-roberta-base shows
+   clear overfitting"）也指向同一个结论。
+3. distilbert-base-multilingual-cased训练速度明显更快（6层 vs
+   xlm-roberta-base的12层，且模型整体更小），在Colab GPU时间有限的
+   前提下是额外的加分项，不是决定性理由。
+4. 数据增强对distilbert没有带来提升，反而三项指标都略微下降且波动
+   变大：macro_f1 0.885→0.878，qwk 0.950→0.942，within1_accuracy
+   0.985→0.977。因此最终模型不使用增强数据训练。
+
+**决策（新增train.py最终模型训练模式）：** 之前`ml/train.py`只支持5折
+交叉验证（每折在自己的val_ids上评估），没有"确定模型后，合并全部
+train+val数据重新训练一次、在封存测试集上出正式指标"这一步。本次给
+`ml/train.py`加了`--final`模式：
+
+1. `ml/common.py`新增`load_trainval_ids()`：返回不在`test.json`里的
+   全部约128个id（用"排除test_ids"算，不是直接并5折里某一折的
+   train_ids+val_ids，这样即使将来fold文件和test.json出现不一致也会
+   在下游校验里体现出来，而不是默默算错）。
+2. `ml/train.py`新增`train_final_model()`：只用`load_trainval_ids()`
+   算出的~128条数据训练，**没有**再切一份验证集出来做早停。训练全部
+   结束（`trainer.train()`跑完）之后，才对22条`test_ids`做**唯一一次**
+   `trainer.predict()`调用，用来算最终要写进报告的macro_f1、qwk、
+   within1_accuracy、exact_accuracy和混淆矩阵。函数一开始就校验
+   `trainval_ids`和`test_ids`没有交集，有重叠直接抛`ValueError`，不会
+   静默拿测试集数据参与训练——这是本次任务要求里"测试集绝不能以任何
+   形式参与训练或早停决策"的硬约束在代码层面的落地。`ml/self_test.py`
+   新增了针对这条guard的测试（构造故意重叠的id，断言必须抛异常）。
+3. 早停策略调整：因为没有验证集了，`--max-epochs`/`--patience`/
+   `--monitor`这几个CV模式的参数在`--final`模式下不生效，改成
+   `--final-epochs`固定训练轮数。默认值`DEFAULT_FINAL_EPOCHS=14`——
+   取自distilbert-base-multilingual-cased（不增强）5折交叉验证里各折
+   收敛所在epoch数区间（约10-18轮）的中位数附近，作为没有精确逐折
+   数字时的合理近似（当前Colab上那次CV跑的时候还没有记录逐折收敛
+   epoch，本地也没有同步那次跑的summary.json，所以只能用这个近似值）。
+   同时给`train_one_fold()`加了`best_epoch`字段（从
+   `trainer.state.log_history`里，找`eval_{monitor}`取到最大值那次的
+   epoch），`_write_summary()`里汇总出`mean_best_epoch`——以后重新跑
+   CV时，`--final-epochs`可以直接从新一次summary.json的
+   `mean_best_epoch`读，不用再靠这个近似值。`ml/colab_run.ipynb`新增
+   的步骤11会自动读取该字段（读不到就落回默认值）。
+4. `--final --augment`组合直接抛`NotImplementedError`：
+   `ml/augment.py`的回译数据是按每折的train_ids单独生成的
+   （`fold_{i}_train_augmented.json`），没有对应128条trainval全集的
+   增强文件，而且本决策定的最终模型本来就不用增强，这个组合超出当前
+   范围，不做即时支持。
+5. `ml/colab_run.ipynb`新增步骤11（"最终模型——合并train+val训练一次，
+   在封存测试集上评估一次"），原步骤11"拉取结果"顺延为步骤12。
+
+**范围：** `ml/train.py`（`train_final_model()`、`--final`/
+`--final-epochs`CLI、`train_one_fold()`的`best_epoch`记录）、
+`ml/common.py`（`load_trainval_ids()`）、`ml/self_test.py`
+（`test_train_final_smoke()`）、`ml/colab_run.ipynb`（新增步骤11）。
+
+## 34. 第7周最终模型封存测试集结果（[[33]]的`--final`模式实际跑出的正式数字）
+
+**内容：** [[33]]确定的最终模型（distilbert-base-multilingual-cased，不用
+增强数据，CV pool 128条train+val合并训练，`--final-epochs`固定14轮、无
+早停）已在Colab上用`ml/train.py --final`实际跑完，对22条封存测试集
+做了唯一一次`trainer.predict()`调用，正式结果：
+
+| 指标 | 数值 |
+| --- | --- |
+| exact_accuracy | 0.773 |
+| macro_f1 | 0.769 |
+| qwk | 0.936 |
+| within1_accuracy | 1.000 |
+
+对照：该模型5折交叉验证验证集均值为macro_f1=0.885、qwk=0.950
+（[[33]]已记录）。
+
+**解读：** 测试集的macro_f1/exact_accuracy明显低于CV验证集均值，但
+qwk（0.936 vs 0.950）和within1_accuracy（1.000）几乎没有跟着下降——
+22条测试样本里，预测档位全部落在真实档位±1档以内，没有偏离2档以上
+的错判。测试集n=22远小于CV验证集单折的25-26条（更远小于5折加权平均
+的等效样本量），本身方差就大，加上macro_f1对每个档位一视同仁地加权
+（22条样本平均分到5个档位后，某一档只错1-2条就会让该档F1大幅波动），
+这类差距在小样本下是预期内的正常波动，不足以单独作为"模型泛化能力
+不足"的证据。qwk和within1_accuracy这两个对"错多远"更敏感/更宽容的
+指标依然很高，且错判全部是相邻档位误判（未发现跨档2档以上的错误），
+三个信号一起看，更支持"模型的结构判断能力本身是稳定的，测试集
+exact_accuracy偏低主要是小样本方差，不是学到了错误的判断逻辑"这个
+结论，而不是"CV阶段被高估、真实能力更接近测试集数字"。
+
+**未验证/留待后续：** 22条样本量太小，这个解读本身也只是描述性归纳，
+不是统计显著性检验的结论——严格意义上不能排除小部分能力确实有所
+下降、只是被qwk/within1的宽容度掩盖了。后续若能扩充封存测试集规模
+（例如batch2核对完成后按同样分层方式重新划出更大的test集），应
+重新评估这个解读是否成立。
+
+**归属：** ml/实验脚本（`ml/train.py` `--final`模式的实际产出）、
+`docs/week7_finetuning_results.md`。
+
+## 35. 数据增强长度伪影逐样本深度诊断——放弃补做，原始数据已随Colab虚拟机重置丢失
+
+**背景：** `docs/week7_finetuning_results.md` 第7节原本定好了方法论要求：
+如果第5节"数据增强前后对比"的指标出现明显变化（不论变好变坏），要用
+`ml/error_analysis.py --compare-augmentation` 对distilbert普通版/增强版
+的`oof_predictions.json`（5折CV阶段对CV pool 128条的逐样本OOF预测）做
+一次逐样本级别的长度伪影交叉检查，排查回译增强是否让模型学到"更长=
+更完整"这种捷径而非真实结构信号（[[32]]背景：回译会让训练样本平均
+变长约23%）。第5节的实际结果确实触发了这个条件——distilbert增强版
+四项指标（macro_f1/qwk/within1_accuracy/exact_accuracy）相比普通版
+一致小幅下降。
+
+**问题：** 尝试执行这项诊断时发现，5折CV阶段生成的`oof_predictions.json`
+（distilbert普通版+增强版各一份）已经不在Colab虚拟机上——大概率是
+运行时被重置（切换运行时类型，或GPU每日额度用完导致虚拟机被替换）
+时丢失，当时没有同步保存到本地或Drive。目前唯一保留下来的是
+`ml/train.py --final`那一步的输出（[[34]]用的22条封存测试集预测），
+这份数据覆盖的是不同的样本集合（测试集，不是CV pool），无法替代
+丢失的OOF预测用于这项诊断。
+
+**决策：** 不为了补齐这一项诊断重新花Colab GPU时间重跑一次完整5折CV
+（distilbert普通版+增强版各5折，共10折）。理由：这项诊断本身是探索性
+排查线索，不是决定模型选择的必要依据（[[33]]的模型选择结论——distilbert
+优于xlm-roberta、增强对distilbert没有帮助——完全建立在已有的汇总指标
+上，不依赖这项逐样本诊断），重新训练10折的GPU时间成本，相对于补齐
+一项"就算做了也可能因样本量小而给出'不确定'结论"的诊断，边际收益
+不划算。
+
+`docs/week7_finetuning_results.md`第7节改为仅基于第5节已有的汇总指标
+给出结论：三项指标下降的量级（0.007-0.008）明显小于5折间本身的波动
+（普通版±0.054、增强版±0.075，均以macro_f1为参考），差距很可能落在
+噪声范围内，**不能确定下降是数据增强本身的负面影响还是随机波动**。
+文档中明确标注这是"深度诊断未做"，不能写成"已排查、未发现长度伪影
+证据"——两者含义完全不同，前者是问题悬而未决，后者是有证据支持的
+排除，绝不能把"没做"包装成"做了没发现"。
+
+**经验教训（面向后续，非当前立即行动项）：** 之后如果重新跑CV训练，
+`oof_predictions.json`这类中间产物应该在每折训练结束后立即同步一份到
+Drive或打包下载，不能只留在虚拟机本地文件系统里等训练全部结束后一次性
+打包——运行时中途被重置（额度耗尽、类型切换）是已经实际发生过的风险
+（这是本次丢失的直接原因），"全部跑完再打包"这个假设在长时间、跨多次
+Colab session的训练流程里不成立。
+
+**归属：** ml/实验脚本（`ml/error_analysis.py`、`ml/colab_run.ipynb`中间
+产物保存方式）、`docs/week7_finetuning_results.md` 第7节。

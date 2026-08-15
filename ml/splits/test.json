@@ -1,0 +1,29 @@
+{
+  "seed": 42,
+  "strategy": "joint_type_band",
+  "test_frac_target": 0.14,
+  "test_ids": [
+    "case_analysis_02__0-2",
+    "case_analysis_01__9-10",
+    "technical_07__3-4",
+    "behavioral_05__7-8",
+    "behavioral_09__9-10",
+    "case_analysis_01__3-4",
+    "behavioral_09__5-6",
+    "technical_07__5-6",
+    "case_analysis_04__3-4",
+    "behavioral_04__9-10",
+    "case_analysis_10__5-6",
+    "case_analysis_05__7-8",
+    "behavioral_01__7-8",
+    "case_analysis_02__5-6",
+    "case_analysis_09__9-10",
+    "technical_03__7-8",
+    "behavioral_09__0-2",
+    "behavioral_03__3-4",
+    "technical_03__0-2",
+    "technical_01__7-8",
+    "technical_07__9-10",
+    "technical_01__0-2"
+  ]
+}
