@@ -33,6 +33,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
+from backend.conversation import session_adapter
 from backend.diagnosis.difficulty import difficulty_badge_html, persona_tag_html
 from backend.diagnosis.matcher import ScenarioConfig, match_scenario, to_session_config
 from backend.diagnosis.questionnaire import QUESTIONNAIRE
@@ -195,6 +196,10 @@ def _finalize_triage() -> None:
         session = InterviewSession(config=to_session_config(scenario, language=get_language()))
         save_session(session)
         st.session_state["session_id"] = session.session_id
+        # Kept in-memory (not just session_id) so the interview stage can
+        # append qa_items onto this exact InterviewSession -- same row,
+        # updated via save_session()'s upsert, never a second INSERT.
+        st.session_state["interview_session"] = session
 
     st.session_state["onboarding_stage"] = "result"
     st.rerun()
@@ -248,10 +253,80 @@ def render_result_page() -> None:
 
         st.success(f"{t('session_saved_message')} ({t('session_id_label')}: {st.session_state['session_id']})")
 
+        st.write("")
+        if st.button(t("interview_start_button"), key="interview_start_button", type="primary"):
+            st.session_state["onboarding_stage"] = "interview"
+            st.rerun()
+
+
+def render_interview_page() -> None:
+    scenario: ScenarioConfig | None = st.session_state.get("scenario")
+    interview_session: InterviewSession | None = st.session_state.get("interview_session")
+    if scenario is None or interview_session is None:
+        # Defensive fallback, same reasoning as render_result_page()'s --
+        # normal navigation always sets both before switching to "interview".
+        st.session_state["onboarding_stage"] = "welcome"
+        st.rerun()
+        return
+
+    if "engine_session" not in st.session_state:
+        # First entry into this stage: kick off the engine and immediately
+        # run the priming exchange (decision #4) so the transcript already
+        # contains the opening line *and* the first real question before
+        # the candidate has to type anything.
+        opening_line, first_question, engine_session, progress = session_adapter.start(
+            scenario.persona, get_language()
+        )
+        st.session_state["engine_session"] = engine_session
+        st.session_state["interview_progress"] = progress
+        st.session_state["interview_transcript"] = [
+            {"role": "assistant", "content": opening_line},
+            {"role": "assistant", "content": first_question},
+        ]
+
+    with st.container(key="interview_container"):
+        st.markdown(f"### {t('interview_page_heading')}")
+
+        for turn in st.session_state["interview_transcript"]:
+            st.chat_message(turn["role"]).write(turn["content"])
+
+        if st.button(t("interview_end_button"), key="interview_end_button"):
+            session_adapter.end_interview(interview_session)
+            st.session_state["onboarding_stage"] = "interview_ended"
+            st.rerun()
+
+        answer = st.chat_input(t("interview_answer_placeholder"))
+        if answer:
+            st.session_state["interview_transcript"].append({"role": "user", "content": answer})
+            result, new_progress, should_end = session_adapter.submit_round(
+                answer,
+                st.session_state["engine_session"],
+                st.session_state["interview_progress"],
+                interview_session,
+            )
+            st.session_state["interview_progress"] = new_progress
+            if should_end:
+                # result.reply bleeds into a topic we're not asking (see
+                # session_adapter.submit_round()'s docstring) -- discard it,
+                # go straight to the end screen.
+                session_adapter.end_interview(interview_session)
+                st.session_state["onboarding_stage"] = "interview_ended"
+            else:
+                st.session_state["interview_transcript"].append({"role": "assistant", "content": result.reply})
+            st.rerun()
+
+
+def render_interview_ended_page() -> None:
+    with st.container(key="interview_ended_container"):
+        st.markdown(f"### {t('interview_ended_heading')}")
+        st.success(f"{t('interview_ended_message')} ({t('session_id_label')}: {st.session_state.get('session_id', '')})")
+
 
 _STAGE_RENDERERS = {
     "welcome": render_welcome_page,
     "triage": render_triage_page,
     "result": render_result_page,
+    "interview": render_interview_page,
+    "interview_ended": render_interview_ended_page,
 }
 _STAGE_RENDERERS[st.session_state["onboarding_stage"]]()

@@ -72,6 +72,13 @@ STRINGS: dict[str, dict[str, str]] = {
         "result_persona_label": "面试官人设",
         "session_saved_message": "本次匹配结果已保存",
         "session_id_label": "会话编号",
+        "interview_start_button": "开始面试",
+        # ---------- Interview (Week 9) ----------
+        "interview_page_heading": "模拟面试进行中",
+        "interview_end_button": "结束面试",
+        "interview_answer_placeholder": "输入你的回答……",
+        "interview_ended_heading": "面试已结束",
+        "interview_ended_message": "本轮问答记录已保存",
         # ---------- Interviewer personas (persona_tag_html label param) ----------
         "persona_friendly": "亲和型",
         "persona_technical": "技术挖掘型",
@@ -132,6 +139,13 @@ STRINGS: dict[str, dict[str, str]] = {
         "result_persona_label": "Interviewer Persona",
         "session_saved_message": "This matched scenario has been saved",
         "session_id_label": "Session ID",
+        "interview_start_button": "Start Interview",
+        # ---------- Interview (Week 9) ----------
+        "interview_page_heading": "Mock Interview In Progress",
+        "interview_end_button": "End Interview",
+        "interview_answer_placeholder": "Type your answer...",
+        "interview_ended_heading": "Interview Ended",
+        "interview_ended_message": "This session's Q&A record has been saved",
         # ---------- Interviewer personas (persona_tag_html label param) ----------
         "persona_friendly": "Friendly",
         "persona_technical": "Technical Prober",
