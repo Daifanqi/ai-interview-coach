@@ -125,6 +125,8 @@ def _deserialize_qa_item(data: dict) -> QAItem:
         question_source_id=data.get("question_source_id"),
         answer_text=data.get("answer_text", ""),
         realtime_feedback_score=data.get("realtime_feedback_score"),
+        content_feedback=data.get("content_feedback"),
+        expression_suggestions=data.get("expression_suggestions"),
         action_taken=TurnAction(data["action_taken"]) if data.get("action_taken") else None,
         audio_features=_deserialize_audio_features(data.get("audio_features")),
         timestamp=_parse_datetime(data.get("timestamp")),

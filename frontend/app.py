@@ -289,6 +289,20 @@ def render_interview_page() -> None:
 
         for turn in st.session_state["interview_transcript"]:
             st.chat_message(turn["role"]).write(turn["content"])
+            # Week 10 coach aside (decision #17 item 2): rendered in its own
+            # expander, visually separate from the chat bubbles above, since
+            # this is feedback about the candidate's last answer, not part
+            # of the interviewer's in-character dialogue. Only shown when
+            # generation actually produced something -- a silent skip on
+            # failure, never an error message (see realtime_feedback.py).
+            if turn.get("content_feedback") or turn.get("expression_suggestions"):
+                with st.expander(t("realtime_feedback_title"), expanded=True):
+                    if turn.get("content_feedback"):
+                        st.markdown(f"**{t('realtime_feedback_content_label')}:** {turn['content_feedback']}")
+                    if turn.get("expression_suggestions"):
+                        st.markdown(f"**{t('realtime_feedback_expression_label')}:**")
+                        for suggestion in turn["expression_suggestions"]:
+                            st.markdown(f"- {suggestion}")
 
         if st.button(t("interview_end_button"), key="interview_end_button"):
             session_adapter.end_interview(interview_session)
@@ -297,14 +311,20 @@ def render_interview_page() -> None:
 
         answer = st.chat_input(t("interview_answer_placeholder"))
         if answer:
-            st.session_state["interview_transcript"].append({"role": "user", "content": answer})
-            result, new_progress, should_end = session_adapter.submit_round(
+            result, new_progress, should_end, feedback = session_adapter.submit_round(
                 answer,
                 st.session_state["engine_session"],
                 st.session_state["interview_progress"],
                 interview_session,
             )
             st.session_state["interview_progress"] = new_progress
+
+            user_turn = {"role": "user", "content": answer}
+            if feedback.content_feedback or feedback.expression_suggestions:
+                user_turn["content_feedback"] = feedback.content_feedback
+                user_turn["expression_suggestions"] = feedback.expression_suggestions
+            st.session_state["interview_transcript"].append(user_turn)
+
             if should_end:
                 # result.reply bleeds into a topic we're not asking (see
                 # session_adapter.submit_round()'s docstring) -- discard it,

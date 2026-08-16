@@ -79,6 +79,10 @@ STRINGS: dict[str, dict[str, str]] = {
         "interview_answer_placeholder": "输入你的回答……",
         "interview_ended_heading": "面试已结束",
         "interview_ended_message": "本轮问答记录已保存",
+        # ---------- Realtime feedback (Week 10) ----------
+        "realtime_feedback_title": "💬 本轮反馈（可点击收起）",
+        "realtime_feedback_content_label": "内容反馈",
+        "realtime_feedback_expression_label": "表达建议",
         # ---------- Interviewer personas (persona_tag_html label param) ----------
         "persona_friendly": "亲和型",
         "persona_technical": "技术挖掘型",
@@ -146,6 +150,10 @@ STRINGS: dict[str, dict[str, str]] = {
         "interview_answer_placeholder": "Type your answer...",
         "interview_ended_heading": "Interview Ended",
         "interview_ended_message": "This session's Q&A record has been saved",
+        # ---------- Realtime feedback (Week 10) ----------
+        "realtime_feedback_title": "💬 Feedback on this round (click to collapse)",
+        "realtime_feedback_content_label": "Content feedback",
+        "realtime_feedback_expression_label": "Expression suggestions",
         # ---------- Interviewer personas (persona_tag_html label param) ----------
         "persona_friendly": "Friendly",
         "persona_technical": "Technical Prober",

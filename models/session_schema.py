@@ -126,6 +126,8 @@ class QAItem:
     question_source_id: Optional[str] = None  # corresponding question ID in the RAG question bank; usually None for follow-ups (generated on the fly)
     answer_text: str = ""
     realtime_feedback_score: Optional[float] = None  # lightweight real-time score, only used to drive follow-up decisions, not part of the final report
+    content_feedback: Optional[str] = None  # week 10: one-round coach aside on content/structure (decision #17 item 2a), shown to the candidate, never fabricated on generation failure
+    expression_suggestions: Optional[list[str]] = None  # week 10: 2-3 wording/grammar naturalization tips for this round (decision #17 item 2b), same never-fabricate rule as content_feedback
     action_taken: Optional[TurnAction] = None  # action the dialogue engine took after this turn
     audio_features: Optional[AudioFeatures] = None
     timestamp: datetime = field(default_factory=datetime.utcnow)

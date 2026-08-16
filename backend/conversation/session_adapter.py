@@ -18,10 +18,14 @@ filler acknowledgement turn. No QAItem is recorded for that priming
 exchange -- there is no real question/answer to log yet.
 
 submit_round() is the per-turn entry point after that: it calls
-engine.submit_answer(), turns the result into one QAItem appended to the
-caller's InterviewSession, saves immediately (decision #35's lesson: don't
-buffer up qa_items and lose them on a mid-interview crash), and tracks
-whether the interview should now end (MAX_TOPICS reached).
+engine.submit_answer(), then realtime_feedback.generate_feedback() for the
+week-10 coach-aside (decision #17 item 2 -- content/structure feedback +
+expression suggestions, generated synchronously so it can be saved on the
+same QAItem as the answer it's about), turns the result into one QAItem
+appended to the caller's InterviewSession, saves immediately (decision
+#35's lesson: don't buffer up qa_items and lose them on a mid-interview
+crash), and tracks whether the interview should now end (MAX_TOPICS
+reached).
 
 Turn-id bookkeeping
 --------------------
@@ -44,6 +48,7 @@ from datetime import datetime
 from backend.conversation import engine
 from backend.conversation.engine import EngineSession, TurnResult
 from backend.conversation.prompts import Language, Persona
+from backend.conversation.realtime_feedback import FeedbackResult, generate_feedback
 from backend.storage.db import save_session
 from models.session_schema import InterviewSession, QAItem, TurnAction
 
@@ -139,25 +144,34 @@ def submit_round(
     engine_session: EngineSession,
     progress: InterviewProgress,
     interview_session: InterviewSession,
-) -> tuple[TurnResult, InterviewProgress, bool]:
+) -> tuple[TurnResult, InterviewProgress, bool, FeedbackResult]:
     """
-    Process one candidate answer: run it through the engine, record it as a
-    QAItem on interview_session, persist immediately, and figure out
-    whether the interview should end now.
+    Process one candidate answer: run it through the engine, generate this
+    round's coach-aside feedback (week 10, decision #17 item 2), record
+    both as one QAItem on interview_session, persist immediately, and
+    figure out whether the interview should end now.
 
-    Returns (turn_result, updated_progress, interview_should_end).
+    Returns (turn_result, updated_progress, interview_should_end, feedback).
     When interview_should_end is True, turn_result.reply must NOT be shown
     to the candidate -- decide_next_action() already folded the transition
     into a new (MAX_TOPICS + 1)-th topic's opening question into that reply
     (see engine.py's module docstring), and this interview isn't asking
     that topic. The QAItem for the answer just given is still recorded
-    either way -- it's a real, completed answer.
+    either way -- it's a real, completed answer, feedback included.
+
+    `feedback` is generated for every call to this function -- there is no
+    priming-turn special case to handle here, since session_adapter.start()
+    runs the priming exchange itself and never calls submit_round() for it.
+    On a feedback-generation failure, feedback's fields are simply None
+    (see realtime_feedback.py's module docstring); this never blocks or
+    delays recording the answer itself.
     """
     topic_turn_id_for_this_answer = progress.current_topic_turn_id
     answered_main_question = progress.pending_question_is_main
     question_text = _last_assistant_message(engine_session)
 
     result = engine.submit_answer(answer, engine_session)
+    feedback = generate_feedback(question_text, answer, engine_session.language)
 
     qa_turn_id = topic_turn_id_for_this_answer if answered_main_question else str(uuid.uuid4())
     qa_parent_turn_id = None if answered_main_question else topic_turn_id_for_this_answer
@@ -167,6 +181,8 @@ def submit_round(
             parent_turn_id=qa_parent_turn_id,
             question_text=question_text,
             answer_text=answer,
+            content_feedback=feedback.content_feedback,
+            expression_suggestions=feedback.expression_suggestions,
             action_taken=result.action,
         )
     )
@@ -179,7 +195,7 @@ def submit_round(
             # opening question inside result.reply -- we're not asking it.
             # Leave topics_started/current_topic_turn_id as-is: there is no
             # next round for either to describe.
-            return result, progress, True
+            return result, progress, True, feedback
         new_progress = InterviewProgress(
             topics_started=topics_started,
             current_topic_turn_id=engine_session.follow_up_state.topic_turn_id,
@@ -192,7 +208,7 @@ def submit_round(
             pending_question_is_main=False,
         )
 
-    return result, new_progress, False
+    return result, new_progress, False, feedback
 
 
 def end_interview(interview_session: InterviewSession) -> None:
