@@ -1425,8 +1425,10 @@ key、无重复。新增`tests/test_session_adapter_report_wiring.py`（4个
 Streamlit渲染效果、趋势图是否好看、面试结束后的实际等待感受，都需要
 本地`streamlit run frontend/app.py`跑一次完整面试到结束页手动确认。
 
-**状态：** 已实现，`python -m py_compile`和字符串表检查已在沙盒里确认，
-`pytest tests/test_session_adapter_report_wiring.py`和前端页面实际效果
-待本地真实环境验证确认。
+**状态：** 已完成并通过本地真实环境验证——`pytest
+tests/test_session_adapter_report_wiring.py`全部通过，
+`streamlit run frontend/app.py`手动走完整面试流程确认结束页正确展示
+综合得分/AI高光时刻/逐题详情/语音摘要/趋势图。已提交（commit
+be12c39，`week15-wip`分支）并fast-forward合并进`main`，推送到GitHub。
 
 **归属：** 对话引擎、报告生成、前端交互、项目管理。
