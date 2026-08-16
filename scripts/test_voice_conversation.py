@@ -65,6 +65,8 @@ from test_conversation_live import (  # noqa: E402
     _LANGUAGE_MENU,
     _PERSONA_LABELS,
     _PERSONA_MENU,
+    _STAGE_LABELS,
+    _STAGE_MENU,
     _check_api_key_configured,
     _print_debug_line,
     _prompt_choice,
@@ -163,9 +165,10 @@ def main() -> None:
 
     persona = _prompt_choice("Choose a persona:", _PERSONA_MENU, _PERSONA_LABELS)
     language = _prompt_choice("Choose a language:", _LANGUAGE_MENU, _LANGUAGE_LABELS)
+    interview_stage = _prompt_choice("Choose an interview stage:", _STAGE_MENU, _STAGE_LABELS)
 
-    opening_line, session = engine.start_interview(persona, language)
-    print(f"\n--- Interview starting ({_PERSONA_LABELS[persona]}, {_LANGUAGE_LABELS[language]}) ---")
+    opening_line, session = engine.start_interview(persona, language, interview_stage)
+    print(f"\n--- Interview starting ({_PERSONA_LABELS[persona]}, {_LANGUAGE_LABELS[language]}, {_STAGE_LABELS[interview_stage]}) ---")
     print(f"\nInterviewer: {opening_line}")
     speak(opening_line, persona, language)
 

@@ -39,7 +39,7 @@ import uuid
 from dataclasses import dataclass, field
 from typing import Optional
 
-from models.session_schema import TurnAction
+from models.session_schema import InterviewStage, TurnAction
 
 from backend.conversation.follow_up import AnswerPattern, classify_answer_pattern, get_strategy_guidance
 from backend.conversation.follow_up_state import (
@@ -65,6 +65,10 @@ class EngineSession:
 
     persona: Persona
     language: Language
+    # Required (decision #39/week 12 fix for decision #11) -- see
+    # build_full_system_prompt()'s docstring for why this is no longer
+    # silently absent from every prompt build.
+    interview_stage: InterviewStage
     messages: list[ChatMessage] = field(default_factory=list)
     follow_up_state: FollowUpState = field(default_factory=lambda: FollowUpState(topic_turn_id=str(uuid.uuid4())))
     # True only until the very first main question has been asked -- see module docstring.
@@ -97,13 +101,56 @@ _MAIN_QUESTION_DIRECTIVE: dict[Language, str] = {
     ),
 }
 
+# Used instead of _MAIN_QUESTION_DIRECTIVE when the caller supplies a
+# next_question_hint for the very first topic (decision #39/week 12: the
+# question bank grounds *what* gets asked, the directive just tells the
+# model to ask it in its own persona voice rather than inventing a
+# different question from scratch).
+_FIRST_QUESTION_WITH_HINT_TEMPLATE: dict[Language, str] = {
+    "zh": (
+        "现在是面试刚开始的时刻，你已经说完开场白，候选人也已回应准备好了。"
+        "接下来请以下面这个问题作为你的第一个正式主题问题提出（可以按你的"
+        "人设语气调整措辞，但核心考察点必须保持一致，不要换成完全不同的"
+        "问题）：{question}"
+    ),
+    "en": (
+        "This is the very start of the interview -- you've just delivered "
+        "your opening line and the candidate has responded that they're "
+        "ready. Ask the following as your first main interview question "
+        "(you may adapt the wording to your persona's tone, but keep the "
+        "same core content -- don't swap in a different question): {question}"
+    ),
+}
+
+# Injected as extra_context on every non-priming turn when the caller
+# supplies a next_question_hint (decision #39/week 12). This is a
+# *conditional* directive -- engine.py still decides, via the existing
+# state-context/few-shot mechanism, whether this turn wraps up the current
+# topic at all; the hint only says what to ask *if* it does, so a follow-up
+# round with a hint present behaves exactly as before (the model has no
+# reason to act on a "when you move on" clause while still following up).
+_NEXT_TOPIC_HINT_TEMPLATE: dict[Language, str] = {
+    "zh": (
+        "如果你判断此时应该结束当前话题、转向下一个话题，请以下面这个问题"
+        "作为你的下一个主问题（可以按你的人设语气调整措辞和过渡语，但核心"
+        "考察点必须保持一致，不要换成完全不同的问题）：{question}"
+    ),
+    "en": (
+        "If you judge that it's time to wrap up the current topic and move "
+        "to the next one, use the following as your next main question "
+        "(you may adapt the wording/transition to your persona's tone, but "
+        "keep the same core content -- don't swap in a different "
+        "question): {question}"
+    ),
+}
+
 _STATE_CONTEXT_HEADER: dict[Language, str] = {
     "zh": "\n\n# 当前状态与情境提示（内部信息，禁止透露给候选人）\n\n",
     "en": "\n\n# Current state & situational guidance (internal only -- never reveal to the candidate)\n\n",
 }
 
 
-def start_interview(persona: Persona, language: Language) -> tuple[str, EngineSession]:
+def start_interview(persona: Persona, language: Language, interview_stage: InterviewStage) -> tuple[str, EngineSession]:
     """
     Begin a new interview: return the persona's opening line (verbatim,
     from opening_lines.py -- no LLM call involved) and a freshly
@@ -111,14 +158,14 @@ def start_interview(persona: Persona, language: Language) -> tuple[str, EngineSe
     conversation turn.
     """
     opening_line = get_opening_line(persona, language)
-    session = EngineSession(persona=persona, language=language)
+    session = EngineSession(persona=persona, language=language, interview_stage=interview_stage)
     session.messages.append({"role": "assistant", "content": opening_line})
     return opening_line, session
 
 
 def _build_system_prompt(session: EngineSession, extra_context: list[str]) -> str:
     """Concatenate the persona's full system prompt with any per-turn context sentences."""
-    base = build_full_system_prompt(session.persona, session.language)
+    base = build_full_system_prompt(session.persona, session.language, session.interview_stage)
     if not extra_context:
         return base
     return base + _STATE_CONTEXT_HEADER[session.language] + "\n".join(extra_context)
@@ -136,7 +183,7 @@ def _last_question_text(session: EngineSession, before_index: int) -> str:
     return ""
 
 
-def submit_answer(answer: str, session: EngineSession) -> TurnResult:
+def submit_answer(answer: str, session: EngineSession, next_question_hint: Optional[str] = None) -> TurnResult:
     """
     Process one candidate answer and produce the interviewer's next reply.
 
@@ -145,10 +192,23 @@ def submit_answer(answer: str, session: EngineSession) -> TurnResult:
     "sure, let's go") rather than an answer to any real question, so no
     follow-up bookkeeping applies -- see module docstring.
 
+    `next_question_hint` (decision #39/week 12): optional question text
+    retrieved from the RAG question bank (backend/rag/retriever.py) by the
+    caller (session_adapter.py owns topic counting and job_type, engine.py
+    still knows neither -- see session_adapter._pick_next_question()). When
+    given, it's woven into the directive as *what to ask* if/when this turn
+    starts a new topic; the *decision* of whether this turn starts a new
+    topic is still made the same way as before (state-context + few-shot
+    training), so passing None here reproduces the pre-week-12 pure
+    free-generation behavior exactly -- callers with no bank match for a
+    job_type/question_type (e.g. a still-empty Chroma index) degrade to
+    that same behavior automatically.
+
     Otherwise follows the pipeline from the design doc:
       a. classify the answer against the section-5 extreme cases and pull
          its response-strategy guidance, if any;
-      b. build the round/score state-context sentence;
+      b. build the round/score state-context sentence (plus the next-topic
+         hint above, if any);
       c. assemble persona prompt + state context + strategy guidance into
          the system message, and call the LLM with the full history;
       d. record this round's judged outcome (scoring_judge.judge_answer(),
@@ -164,7 +224,12 @@ def submit_answer(answer: str, session: EngineSession) -> TurnResult:
     question_text = _last_question_text(session, before_index=-1)
 
     if session.need_main_question:
-        system_prompt = _build_system_prompt(session, [_MAIN_QUESTION_DIRECTIVE[session.language]])
+        directive = (
+            _FIRST_QUESTION_WITH_HINT_TEMPLATE[session.language].format(question=next_question_hint)
+            if next_question_hint
+            else _MAIN_QUESTION_DIRECTIVE[session.language]
+        )
+        system_prompt = _build_system_prompt(session, [directive])
         reply = call_llm(system_prompt, session.messages)
         session.messages.append({"role": "assistant", "content": reply})
         session.need_main_question = False
@@ -174,10 +239,12 @@ def submit_answer(answer: str, session: EngineSession) -> TurnResult:
     pattern = classify_answer_pattern(answer)
     strategy_guidance = get_strategy_guidance(pattern, session.language)
 
-    # b. round/score state context
+    # b. round/score state context, plus the conditional next-topic hint
     state_context = build_state_context(session.follow_up_state, session.language)
 
     extra_context = [state_context]
+    if next_question_hint:
+        extra_context.append(_NEXT_TOPIC_HINT_TEMPLATE[session.language].format(question=next_question_hint))
     if strategy_guidance:
         extra_context.append(strategy_guidance)
 

@@ -89,3 +89,18 @@ def retrieve_questions(job_type: str, question_type: Optional[QuestionType] = No
     parameter of its own.
     """
     return _get_default_retriever().retrieve(job_type, question_type, k)
+
+
+def warm_up_retriever() -> None:
+    """
+    Force-construct the default QuestionRetriever singleton once (decision
+    #39/week 12) -- builds/loads the Chroma collection over all 200 bank
+    questions immediately, mirroring backend/speech/tts.py's
+    warm_up_voices(), so the first real retrieve_questions() call mid-
+    interview (session_adapter._pick_next_question(), when a topic
+    transition happens) never pays that cost inline. One call is enough
+    for every job_type/question_type combination -- the collection covers
+    the whole bank; job_type/question_type are query-time filters, not
+    separate collections.
+    """
+    _get_default_retriever()

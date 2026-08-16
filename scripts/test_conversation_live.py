@@ -32,6 +32,7 @@ from dotenv import load_dotenv  # noqa: E402
 
 from backend.conversation import engine  # noqa: E402
 from backend.conversation.prompts import Language, Persona  # noqa: E402
+from models.session_schema import InterviewStage  # noqa: E402
 
 _PERSONA_MENU: list[tuple[str, Persona]] = [
     ("1", Persona.FRIENDLY),
@@ -51,6 +52,21 @@ _LANGUAGE_MENU: list[tuple[str, Language]] = [
 _LANGUAGE_LABELS: dict[Language, str] = {
     "zh": "Chinese (中文)",
     "en": "English",
+}
+
+# decision #39/week 12: engine.start_interview() now requires an
+# interview_stage, so this manual test script needs a way to pick one too.
+_STAGE_MENU: list[tuple[str, InterviewStage]] = [
+    ("1", InterviewStage.HR_SCREEN),
+    ("2", InterviewStage.TECH_ROUND_1),
+    ("3", InterviewStage.TECH_ROUND_2),
+    ("4", InterviewStage.FINAL),
+]
+_STAGE_LABELS: dict[InterviewStage, str] = {
+    InterviewStage.HR_SCREEN: "HR screen (HR初筛)",
+    InterviewStage.TECH_ROUND_1: "Technical round 1 (技术面①)",
+    InterviewStage.TECH_ROUND_2: "Technical round 2 (技术面②)",
+    InterviewStage.FINAL: "Final round (终面)",
 }
 
 _EXIT_COMMANDS = {"exit", "quit", "q", "退出"}
@@ -97,9 +113,10 @@ def main() -> None:
 
     persona = _prompt_choice("Choose a persona:", _PERSONA_MENU, _PERSONA_LABELS)
     language = _prompt_choice("Choose a language:", _LANGUAGE_MENU, _LANGUAGE_LABELS)
+    interview_stage = _prompt_choice("Choose an interview stage:", _STAGE_MENU, _STAGE_LABELS)
 
-    opening_line, session = engine.start_interview(persona, language)
-    print(f"\n--- Interview starting ({_PERSONA_LABELS[persona]}, {_LANGUAGE_LABELS[language]}) ---")
+    opening_line, session = engine.start_interview(persona, language, interview_stage)
+    print(f"\n--- Interview starting ({_PERSONA_LABELS[persona]}, {_LANGUAGE_LABELS[language]}, {_STAGE_LABELS[interview_stage]}) ---")
     print(f"\nInterviewer: {opening_line}")
     print(f"\n(Type your answers below. Type one of {sorted(_EXIT_COMMANDS)} to quit.)")
 

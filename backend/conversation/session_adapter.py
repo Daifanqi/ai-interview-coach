@@ -41,6 +41,8 @@ reset.
 """
 from __future__ import annotations
 
+import logging
+import random
 import uuid
 from dataclasses import dataclass
 from datetime import datetime
@@ -50,17 +52,22 @@ from backend.conversation import engine
 from backend.conversation.engine import EngineSession, TurnResult
 from backend.conversation.prompts import Language, Persona
 from backend.conversation.realtime_feedback import FeedbackResult, generate_feedback
+from backend.rag.retriever import retrieve_questions
 from backend.storage.db import save_session
+from models.question_schema import Question, QuestionType
 from models.session_schema import (
     AudioFeatures,
     FillerFeatures,
     InterviewSession,
+    InterviewStage,
     PauseFeatures,
     QAItem,
     SpeechRateFeatures,
     TurnAction,
     VolumeFeatures,
 )
+
+logger = logging.getLogger(__name__)
 
 if TYPE_CHECKING:
     # Only needed for the type hint below -- kept out of the real import list
@@ -103,6 +110,56 @@ _PRIMING_ACK: dict[Language, str] = {
 # follow-up-facing signal that already drives FollowUpState, just also
 # persisted onto the QAItem instead of staying engine-internal.
 _JUDGED_LEVEL_TO_SCORE: dict[str, float] = {"high": 1.0, "low": 0.0}
+
+# Rotation of question_type across an interview's main topics (decision
+# #39/week 12). With MAX_TOPICS=3 this asks exactly one behavioral, one
+# technical, and one case_analysis question per interview -- a deliberately
+# well-rounded shape rather than 3 random draws that could land all on one
+# type. Indexed by (topic_number - 1) % len(...), so it still cycles
+# sensibly if MAX_TOPICS is ever raised.
+_TOPIC_QUESTION_TYPE_ROTATION: list[QuestionType] = ["behavioral", "technical", "case_analysis"]
+
+# How many top candidates to draw from before picking one at random (see
+# _pick_next_question()) -- keeps repeated interviews for the same job_type
+# from asking the identical 3 questions every time.
+_CANDIDATE_POOL_SIZE = 5
+
+
+def _pick_next_question(job_type: str, topic_number: int) -> Optional[Question]:
+    """
+    Best-effort retrieval of the question that should ground the upcoming
+    `topic_number`-th main topic (1-indexed), rotating through the bank's
+    three question types per _TOPIC_QUESTION_TYPE_ROTATION.
+
+    retriever.py's own docstring notes "most relevant" is computed against
+    a synthetic per-(job_type, question_type) query, not real per-question
+    differentiation -- so among the several equally-plausible top matches,
+    picking uniformly at random (rather than always the #1 result) is what
+    keeps repeat interviews for the same job_type from being identical,
+    without contradicting how "relevance" was ever meant to work here.
+
+    Returns None on any retrieval failure (Chroma index not buildable,
+    embedding-model hiccup, or genuinely no bank match for this
+    job_type/question_type) -- callers must treat that as "fall back to
+    free generation for this topic" rather than an error, the same
+    "optional enhancement degrades silently" rule this project already
+    applies to TTS (backend/speech/tts.py) and realtime feedback
+    (realtime_feedback.py).
+    """
+    question_type = _TOPIC_QUESTION_TYPE_ROTATION[(topic_number - 1) % len(_TOPIC_QUESTION_TYPE_ROTATION)]
+    try:
+        candidates = retrieve_questions(job_type, question_type=question_type, k=_CANDIDATE_POOL_SIZE)
+    except Exception:
+        logger.warning(
+            "RAG question retrieval failed for job_type=%r, question_type=%r; falling back to free generation.",
+            job_type,
+            question_type,
+            exc_info=True,
+        )
+        return None
+    if not candidates:
+        return None
+    return random.choice(candidates)
 
 
 def _speech_analysis_to_audio_features(analysis: "SpeechAnalysis") -> AudioFeatures:
@@ -163,6 +220,13 @@ class InterviewProgress:
         *next* submitted answer belongs to -- either directly (if that
         answer responds to the main question itself) or as the parent to
         record on a follow-up QAItem.
+    current_topic_question_id: the RAG question bank id (decision #39/week
+        12) that grounded the current topic's main question, or None if no
+        bank match was found and the topic was freely generated instead.
+        Mirrors current_topic_turn_id's lifecycle exactly -- set once when
+        the topic starts, carried forward through that topic's follow-ups,
+        and only used (as QAItem.question_source_id) on the main-question
+        QAItem itself, never on a follow-up.
     pending_question_is_main: True when the next answer responds to a fresh
         main question rather than a follow-up -- decides whether the next
         QAItem is a new topic root (fresh turn_id, no parent) or a follow-up
@@ -171,6 +235,7 @@ class InterviewProgress:
 
     topics_started: int
     current_topic_turn_id: str
+    current_topic_question_id: Optional[str]
     pending_question_is_main: bool
 
 
@@ -182,11 +247,22 @@ def _last_assistant_message(engine_session: EngineSession) -> str:
     return ""
 
 
-def start(interviewer_persona: str, language: Language) -> tuple[str, str, EngineSession, InterviewProgress]:
+def start(
+    interviewer_persona: str,
+    language: Language,
+    job_type: str,
+    interview_stage: InterviewStage,
+) -> tuple[str, str, EngineSession, InterviewProgress]:
     """
     Begin an interview: resolve the persona, start the EngineSession, and
     run the priming exchange so the very first thing the candidate needs to
     respond to is a real question (decision #4).
+
+    `job_type`/`interview_stage` (decision #39/week 12, both previously
+    missing from this call entirely -- see engine.EngineSession's
+    interview_stage field and this module's _pick_next_question()): the
+    first topic's question is retrieved from the RAG bank for `job_type`
+    before the priming call, same as every later topic in submit_round().
 
     Returns (opening_line, first_question, engine_session, progress) -- both
     opening_line and first_question are meant to be shown as interviewer
@@ -194,11 +270,17 @@ def start(interviewer_persona: str, language: Language) -> tuple[str, str, Engin
     answer is engine-internal only and is never surfaced.
     """
     persona = resolve_persona(interviewer_persona)
-    opening_line, engine_session = engine.start_interview(persona, language)
-    priming_result = engine.submit_answer(_PRIMING_ACK[language], engine_session)
+    opening_line, engine_session = engine.start_interview(persona, language, interview_stage)
+    first_question = _pick_next_question(job_type, topic_number=1)
+    priming_result = engine.submit_answer(
+        _PRIMING_ACK[language],
+        engine_session,
+        next_question_hint=first_question.question_text if first_question else None,
+    )
     progress = InterviewProgress(
         topics_started=1,
         current_topic_turn_id=engine_session.follow_up_state.topic_turn_id,
+        current_topic_question_id=first_question.question_id if first_question else None,
         pending_question_is_main=True,
     )
     return opening_line, priming_result.reply, engine_session, progress
@@ -225,6 +307,20 @@ def submit_round(
     =None rather than a fabricated one (same "never force-fill" rule
     AudioFeatures' own docstring calls for).
 
+    RAG question bank grounding (decision #39/week 12): before calling the
+    engine, this pre-fetches a candidate question for the *next* topic in
+    case this round's answer is the one that wraps up the current topic --
+    see engine.submit_answer()'s next_question_hint param for why that has
+    to happen speculatively, before we know this round's outcome. When this
+    round does turn out to end the topic (result.action ==
+    NEXT_QUESTION), that candidate's question_id becomes the new
+    current_topic_question_id, which the *following* submit_round() call
+    will attach to the new topic's QAItem as question_source_id. No
+    candidate is fetched once topics_started already reached MAX_TOPICS,
+    since any further topic the engine free-generates from here is the
+    (MAX_TOPICS + 1)-th bleed-through question this function discards below
+    anyway (see that branch) -- fetching one would just be wasted retrieval.
+
     Returns (turn_result, updated_progress, interview_should_end, feedback).
     When interview_should_end is True, turn_result.reply must NOT be shown
     to the candidate -- decide_next_action() already folded the transition
@@ -241,20 +337,28 @@ def submit_round(
     delays recording the answer itself.
     """
     topic_turn_id_for_this_answer = progress.current_topic_turn_id
+    topic_question_id_for_this_answer = progress.current_topic_question_id
     answered_main_question = progress.pending_question_is_main
     question_text = _last_assistant_message(engine_session)
 
-    result = engine.submit_answer(answer, engine_session)
+    next_question = None
+    if interview_session.config is not None and progress.topics_started < MAX_TOPICS:
+        next_question = _pick_next_question(interview_session.config.job_type, progress.topics_started + 1)
+    next_question_hint = next_question.question_text if next_question else None
+
+    result = engine.submit_answer(answer, engine_session, next_question_hint=next_question_hint)
     feedback = generate_feedback(question_text, answer, engine_session.language)
     audio_features = _speech_analysis_to_audio_features(speech_analysis) if speech_analysis is not None else None
 
     qa_turn_id = topic_turn_id_for_this_answer if answered_main_question else str(uuid.uuid4())
     qa_parent_turn_id = None if answered_main_question else topic_turn_id_for_this_answer
+    qa_question_source_id = topic_question_id_for_this_answer if answered_main_question else None
     interview_session.qa_items.append(
         QAItem(
             turn_id=qa_turn_id,
             parent_turn_id=qa_parent_turn_id,
             question_text=question_text,
+            question_source_id=qa_question_source_id,
             answer_text=answer,
             realtime_feedback_score=_JUDGED_LEVEL_TO_SCORE.get(result.judged_level),
             content_feedback=feedback.content_feedback,
@@ -276,12 +380,14 @@ def submit_round(
         new_progress = InterviewProgress(
             topics_started=topics_started,
             current_topic_turn_id=engine_session.follow_up_state.topic_turn_id,
+            current_topic_question_id=next_question.question_id if next_question else None,
             pending_question_is_main=True,
         )
     else:  # FOLLOW_UP
         new_progress = InterviewProgress(
             topics_started=progress.topics_started,
             current_topic_turn_id=progress.current_topic_turn_id,
+            current_topic_question_id=progress.current_topic_question_id,
             pending_question_is_main=False,
         )
 

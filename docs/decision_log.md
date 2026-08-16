@@ -1092,13 +1092,69 @@ realtime_feedback、语音相关代码）目前没有单元测试覆盖。
 - 第8周：分诊流程UI改造（已完成）
 - 第9周：对话引擎接入面试页面（已完成）
 - 第10周：实时反馈闭环（已完成）
-- 第11周：语音接入（ASR+TTS，含决策#21音质优化顺带处理）
-- 第12周：RAG题库接入引擎（含`interview_stage`参数补齐）
+- 第11周：语音接入（ASR+TTS，含决策#21音质优化顺带处理）（已完成，另见
+  语音接入后的两项跟进：播放条样式、开局对话/打字默认弹窗）
+- 第12周：RAG题库接入引擎（含`interview_stage`参数补齐）（已完成，见
+  决策#40）
 - 第13周：复盘报告后端
 - 第14周：用户登录体系
 - 第15周：报告页面+进度追踪页面
 - 第16周：精度债务优化+整合联调/部署/文档收尾（含测试覆盖债务）
 
 **状态：** 计划已定案，从第11周起按此执行。
+
+## 40. 第12周RAG题库接入引擎上线，`interview_stage`缺口一并修复
+
+**内容：** 按决策#39的安排，把`backend/rag/retriever.py`的检索能力接进了
+`backend/conversation/engine.py`的提问逻辑，同时补齐了决策#11要求但
+`build_full_system_prompt()`此前从未真正接受的`interview_stage`参数。
+
+**架构取舍——为什么是"提示词层注入候选问题"而不是"代码层强制替换"：**
+`engine.submit_answer()`原有设计是每轮一次LLM调用，模型自己根据
+`state_context`判断本轮是继续追问（FOLLOW_UP）还是收尾转下一话题
+（NEXT_QUESTION），转话题时的新问题也是在同一次回复里由模型自由生成、
+折叠进过渡语的——没有一个"新话题开始"的独立代码钩子可以拦截替换。为了
+不推翻这个已经跑通、由few-shot示例调教出的自然对话流程，`engine.py`
+新增了`next_question_hint`参数：`session_adapter.py`在每轮真正调用引擎
+*之前*，会预先按话题轮转（第1话题behavioral/第2话题technical/第3话题
+case_analysis，从题库5个候选里随机抽1个，避免同一岗位每次面试都问一模
+一样的3道题）取一个候选问题，作为"如果你判断该转话题了，请用这个问题"
+的条件性指令注入prompt——模型是否真的用上、是否需要转话题，仍由原有
+机制决定，取不到候选（题库无匹配、检索报错）时`next_question_hint`为
+`None`，行为与接入前完全一致，这是刻意维持的向后兼容路径，不是遗漏。
+
+`interview_stage`修复：`build_full_system_prompt()`新增必填的
+`interview_stage`参数，为HR初筛/技术面①/技术面②/终面各写了一句情境提示
+（语气/追问深度的定性描述，不重写persona本身的语气规则），拼进system
+prompt末尾。`EngineSession`相应新增`interview_stage`字段，
+`session_adapter.start()`/前端调用点改为传入
+`interview_session.config.interview_stage`（原来根本没传）。
+
+**`question_source_id`补齐：** `InterviewProgress`新增
+`current_topic_question_id`字段，与已有的`current_topic_turn_id`同生命
+周期（话题开始时设置、追问轮次原样携带、下一话题开始时刷新），
+`submit_round()`据此把每个主问题QAItem的`question_source_id`设为真实
+题库id，追问QAItem保持`None`（决策#39里"顺带解决"的两个字段缺口之一，
+另一个`realtime_feedback_score`早已在第9-10周填值，这次复查确认没有
+遗漏）。
+
+**验证：** `python -m py_compile`全量通过；新增
+`tests/test_session_adapter_rag.py`（真实检索、话题轮转、随机性、检索
+失败降级共6个用例）；新增`scripts/smoke_test_week12.py`，用真实Groq
+API + 真实Chroma索引跑完整3话题面试，断言每个主问题的`question_source_id`
+命中题库真实条目、追问条目为`None`、`save_session()`/`load_session()`
+往返后字段不丢，测试session用完即删。这两项因为需要`chromadb`/
+`sentence-transformers`/`groq`等依赖，在受限的沙盒桥接环境里跑不了，
+留给有完整依赖的本地环境执行确认。
+
+**顺手验证：** 复查确认`data/question_bank.json`的`job_type`取值
+（技术/产品/市场营销/运营/设计/咨询/金融）与`questionnaire.py`的
+`JOB_TYPES`完全一致，200题在7岗位×3题型的每个组合下都有9-10条，检索
+不会出现"某岗位某题型无题可用"的空档。
+
+**状态：** 已完成，等待本地真实环境跑`scripts/smoke_test_week12.py`和
+`pytest tests/test_session_adapter_rag.py`做最终确认。
+
+**归属：** 对话引擎、RAG检索、前端交互。
 
 **归属：** 跨模块（RAG检索、用户身份、对话引擎、前端交互、项目管理）。

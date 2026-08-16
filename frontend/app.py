@@ -64,7 +64,21 @@ def _warm_up_voices() -> None:
     tts.warm_up_voices()
 
 
+@st.cache_resource
+def _warm_up_question_bank() -> None:
+    """
+    Pre-build/load the RAG question-bank Chroma index once per server
+    process (decision #39/week 12), mirroring _warm_up_voices() above --
+    otherwise the first candidate to reach a real topic transition
+    mid-interview pays the "embed all 200 bank questions" cost inline.
+    """
+    from backend.rag.retriever import warm_up_retriever
+
+    warm_up_retriever()
+
+
 _warm_up_voices()
+_warm_up_question_bank()
 
 # ---------- Theme injection ----------
 # Usage per theme.css's own header comment: read the file once at the very
@@ -357,7 +371,9 @@ def render_interview_page() -> None:
         # the candidate has to type anything. Each assistant line's audio is
         # synthesized once here and cached on the transcript entry itself,
         # rather than re-synthesized on every rerun's render pass.
-        opening_line, first_question, engine_session, progress = session_adapter.start(scenario.persona, language)
+        opening_line, first_question, engine_session, progress = session_adapter.start(
+            scenario.persona, language, interview_session.config.job_type, interview_session.config.interview_stage
+        )
         st.session_state["engine_session"] = engine_session
         st.session_state["interview_progress"] = progress
         st.session_state["interview_transcript"] = [
