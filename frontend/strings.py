@@ -82,6 +82,21 @@ STRINGS: dict[str, dict[str, str]] = {
         # ---------- Voice input/output (Week 11) ----------
         "interview_audio_label": "或者，录音回答",
         "interview_voice_asr_error": "语音识别失败，可以直接打字回答。",
+        # ---------- Interview input-mode preference dialog (Week 11 followup) ----------
+        # Shown once, right before the interview starts. Only sets an
+        # initial default -- both text and voice input stay available every
+        # round afterward (decision #39 is unchanged; this doesn't lock the
+        # session to one mode).
+        "interview_mode_dialog_title": "对话方式",
+        "interview_mode_dialog_body": (
+            "接下来的模拟面试，你想怎么回答？这只是帮你设置一个默认方式，"
+            "面试过程中随时可以自由切换文字或语音。"
+        ),
+        "interview_mode_voice_button": "🎙️ 语音对话",
+        "interview_mode_text_button": "⌨️ 打字回答",
+        "interview_voice_expander_label": "🎙️ 改用语音回答",
+        "interview_mode_hint_voice": "默认：语音对话 · 你也可以随时打字回答",
+        "interview_mode_hint_text": "默认：打字回答 · 你也可以随时展开语音回答",
         # ---------- Realtime feedback (Week 10) ----------
         "realtime_feedback_title": "💬 本轮反馈（可点击收起）",
         "realtime_feedback_content_label": "内容反馈",
@@ -156,6 +171,17 @@ STRINGS: dict[str, dict[str, str]] = {
         # ---------- Voice input/output (Week 11) ----------
         "interview_audio_label": "Or, record your answer",
         "interview_voice_asr_error": "Speech recognition failed -- feel free to just type your answer instead.",
+        # ---------- Interview input-mode preference dialog (Week 11 followup) ----------
+        "interview_mode_dialog_title": "How would you like to answer?",
+        "interview_mode_dialog_body": (
+            "This just sets a default for the mock interview -- you can "
+            "freely switch between typing and talking at any point."
+        ),
+        "interview_mode_voice_button": "🎙️ Talk",
+        "interview_mode_text_button": "⌨️ Type",
+        "interview_voice_expander_label": "🎙️ Switch to voice",
+        "interview_mode_hint_voice": "Default: voice -- you can type anytime too",
+        "interview_mode_hint_text": "Default: typing -- you can expand voice input anytime",
         # ---------- Realtime feedback (Week 10) ----------
         "realtime_feedback_title": "💬 Feedback on this round (click to collapse)",
         "realtime_feedback_content_label": "Content feedback",

@@ -297,6 +297,39 @@ def _synthesize_reply_audio(text: str, persona, language: str) -> bytes | None:
         return None
 
 
+def _render_input_mode_dialog() -> None:
+    # Asked once, right before the interview starts (user-requested followup
+    # to week 11 voice integration). This sets only an initial *default* --
+    # decision #39's "never a forced either/or" still holds every round;
+    # both st.chat_input and st.audio_input stay reachable afterward no
+    # matter which button is picked here (see render_interview_page()'s
+    # input section, which reads preferred_input_mode just to decide
+    # whether the voice recorder starts expanded or tucked in an expander).
+    @st.dialog(t("interview_mode_dialog_title"))
+    def _ask() -> None:
+        st.write(t("interview_mode_dialog_body"))
+        col_voice, col_text = st.columns(2)
+        with col_voice:
+            if st.button(
+                t("interview_mode_voice_button"),
+                key="interview_mode_voice_button",
+                type="primary",
+                use_container_width=True,
+            ):
+                st.session_state["preferred_input_mode"] = "voice"
+                st.rerun()
+        with col_text:
+            if st.button(
+                t("interview_mode_text_button"),
+                key="interview_mode_text_button",
+                use_container_width=True,
+            ):
+                st.session_state["preferred_input_mode"] = "text"
+                st.rerun()
+
+    _ask()
+
+
 def render_interview_page() -> None:
     scenario: ScenarioConfig | None = st.session_state.get("scenario")
     interview_session: InterviewSession | None = st.session_state.get("interview_session")
@@ -305,6 +338,13 @@ def render_interview_page() -> None:
         # normal navigation always sets both before switching to "interview".
         st.session_state["onboarding_stage"] = "welcome"
         st.rerun()
+        return
+
+    if "preferred_input_mode" not in st.session_state:
+        # Blocks the rest of this page behind the modal until answered --
+        # nothing below (engine start, transcript, inputs) needs to render
+        # while the dialog is still up.
+        _render_input_mode_dialog()
         return
 
     persona = session_adapter.resolve_persona(scenario.persona)
@@ -412,14 +452,30 @@ def render_interview_page() -> None:
             st.session_state["onboarding_stage"] = "interview_ended"
             st.rerun()
 
-        # Voice input: always visible alongside typed input, never a forced
-        # either/or (decision #39/week 11 design decision #1). The widget's
-        # key carries a generation counter so it resets to empty right after
-        # each processed recording -- st.audio_input has no .clear() of its
-        # own, and would otherwise keep re-returning the same bytes on every
-        # later rerun and get reprocessed as a "new" answer.
+        # Voice input: always reachable alongside typed input, never a forced
+        # either/or (decision #39/week 11 design decision #1) -- the
+        # pre-interview dialog above only sets which one is the *visible
+        # default* here. "voice" keeps the recorder directly on the page
+        # (unchanged from before); "text" tucks it behind a collapsed
+        # expander so the page reads as typing-first, one click away from
+        # switching to voice. Either way st.chat_input below is always live.
+        st.caption(
+            t("interview_mode_hint_voice")
+            if st.session_state["preferred_input_mode"] == "voice"
+            else t("interview_mode_hint_text")
+        )
+
+        # The widget's key carries a generation counter so it resets to
+        # empty right after each processed recording -- st.audio_input has
+        # no .clear() of its own, and would otherwise keep re-returning the
+        # same bytes on every later rerun and get reprocessed as a "new"
+        # answer.
         audio_key = f"interview_audio_input_{st.session_state['audio_input_generation']}"
-        audio_value = st.audio_input(t("interview_audio_label"), key=audio_key)
+        if st.session_state["preferred_input_mode"] == "voice":
+            audio_value = st.audio_input(t("interview_audio_label"), key=audio_key)
+        else:
+            with st.expander(t("interview_voice_expander_label"), expanded=False):
+                audio_value = st.audio_input(t("interview_audio_label"), key=audio_key)
 
         if audio_value is not None:
             st.session_state["audio_input_generation"] += 1
