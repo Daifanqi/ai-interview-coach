@@ -1343,7 +1343,13 @@ session创建代码改为传入真实`user_id`"——原本只有这一句路线
 环境跑不出来，需要本地`streamlit run frontend/app.py`手动走一遍登录
 注册流程确认。**
 
-**状态：** 已实现，`user_db.py`后端逻辑已在沙盒里验证通过，前端UI流程
-待本地真实环境手动验证确认。
+**状态：** 已完成并通过本地真实环境验证——`pytest tests/test_user_db.py`
+全部通过，`streamlit run frontend/app.py`手动走查注册/登录/退出登录/
+真实面试流程下`user_id`落库均正常。已提交（commit cc02589，
+`week14-wip`分支）并fast-forward合并进`main`，推送到GitHub。过程中
+再次踩到device_bash沙盒`.git/index.lock`残留的老问题（这次甚至一度让
+`week14-wip`和`main`指向同一提交、看起来像提交丢失），排查后确认是
+锁文件问题而非数据丢失——本地磁盘上的文件内容全程完好，删除残留锁文件、
+换回真实Terminal提交后一切正常。
 
 **归属：** 用户身份、存储层、前端交互。
