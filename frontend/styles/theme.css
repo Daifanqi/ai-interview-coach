@@ -56,8 +56,11 @@ section[data-testid="stSidebar"] {
 }
 
 /* ---------- 通用卡片容器（题干 / 反馈区块） ----------
-   用法：st.markdown('<div class="coach-card">...</div>', unsafe_allow_html=True) */
-.coach-card {
+   用法：st.markdown('<div class="coach-card">...</div>', unsafe_allow_html=True)
+   .st-key-result_coach_card 对应 render_result_page() 里的
+   st.container(key="result_coach_card")，同一套卡片视觉。 */
+.coach-card,
+.st-key-result_coach_card {
     background-color: #FFFFFF;
     border: 1px solid var(--coach-border);
     border-radius: var(--coach-radius);
@@ -128,4 +131,31 @@ h1, h2, h3 {
 div[data-testid="stAlertContentInfo"] { color: var(--coach-text); }
 div[data-baseweb="notification"] {
     border-radius: var(--coach-radius) !important;
+}
+
+/* ---------- 分诊流程页面路由过渡效果（Week 8：开场页/分诊对话页/结果页
+   切换时的轻量渐入效果）。目标选择器用 st.container(key=...) 生成的
+   `st-key-<key>` class，见 frontend/app.py 的 onboarding_*_container。 ---------- */
+@keyframes onboardingFadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.st-key-onboarding_welcome_container,
+.st-key-onboarding_triage_container,
+.st-key-onboarding_result_container {
+    animation: onboardingFadeIn 0.45s ease-out;
+}
+
+/* ---------- 结果揭晓页：加大标题排版，强化"揭晓感" ---------- */
+.result-reveal-heading {
+    font-size: 2.1em;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 0.1em;
+    color: var(--coach-text);
+}
+.result-reveal-subtitle {
+    text-align: center;
+    color: var(--coach-text-muted);
+    margin-bottom: 1.5em;
 }

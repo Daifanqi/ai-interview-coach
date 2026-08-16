@@ -25,9 +25,21 @@ STRINGS: dict[str, dict[str, str]] = {
         # ---------- App shell ----------
         "app_title": "智能面试教练",
         "app_subtitle": "三步为你匹配专属模拟面试场景",
-        "sidebar_language_label": "语言",
         "lang_name_zh": "中文",
         "lang_name_en": "English",
+        # ---------- Onboarding (welcome page, Week 8) ----------
+        "onboarding_welcome_title": "欢迎来到智能面试教练",
+        "onboarding_welcome_body": (
+            "接下来我们会用三个小问题了解你的面试场景，然后为你匹配专属的"
+            "AI面试官和难度。先花几秒钟设置一下你的语言和界面风格吧。"
+        ),
+        "onboarding_language_label": "选择语言",
+        "onboarding_font_label": "选择界面风格",
+        "onboarding_font_friendly_name": "亲和圆润",
+        "onboarding_font_friendly_desc": "温暖轻松的视觉风格，圆润字体，适合放松准备面试。",
+        "onboarding_font_professional_name": "专业简洁",
+        "onboarding_font_professional_desc": "沉稳克制的衬线字体，更贴近正式面试场合的氛围。",
+        "onboarding_start_button": "开始",
         # ---------- Questionnaire ----------
         "q_job_type_label": "你应聘的岗位类型是？",
         "q_experience_label": "你的经验水平是？",
@@ -47,10 +59,13 @@ STRINGS: dict[str, dict[str, str]] = {
         "opt_stage_tech1": "技术面①",
         "opt_stage_tech2": "技术面②",
         "opt_stage_final": "终面",
-        "submit_button": "生成我的面试场景",
-        "form_incomplete_warning": "请完成全部三项选择后再提交",
+        "triage_page_heading": "了解你的面试场景",
+        "triage_progress_prefix": "问题",
+        "triage_next_button": "下一题",
+        "triage_finish_button": "完成",
         # ---------- Result ----------
         "result_heading": "匹配结果",
+        "result_subtitle": "这是根据你的分诊回答匹配到的专属面试场景",
         "result_job_type_label": "岗位类型",
         "result_stage_label": "面试阶段",
         "result_difficulty_label": "难度",
@@ -68,9 +83,23 @@ STRINGS: dict[str, dict[str, str]] = {
         # ---------- App shell ----------
         "app_title": "AI Interview Coach",
         "app_subtitle": "Three questions to match your mock interview scenario",
-        "sidebar_language_label": "Language",
         "lang_name_zh": "中文",
         "lang_name_en": "English",
+        # ---------- Onboarding (welcome page, Week 8) ----------
+        "onboarding_welcome_title": "Welcome to AI Interview Coach",
+        "onboarding_welcome_body": (
+            "We'll ask three quick questions to understand your interview "
+            "scenario, then match you with a dedicated AI interviewer and "
+            "difficulty level. First, take a few seconds to set your "
+            "language and interface style."
+        ),
+        "onboarding_language_label": "Choose your language",
+        "onboarding_font_label": "Choose an interface style",
+        "onboarding_font_friendly_name": "Warm & Rounded",
+        "onboarding_font_friendly_desc": "A warm, relaxed look with rounded type -- good for easing into practice.",
+        "onboarding_font_professional_name": "Professional & Serious",
+        "onboarding_font_professional_desc": "A composed serif look closer to the tone of a formal interview.",
+        "onboarding_start_button": "Get Started",
         # ---------- Questionnaire ----------
         "q_job_type_label": "What type of role are you interviewing for?",
         "q_experience_label": "What is your experience level?",
@@ -90,10 +119,13 @@ STRINGS: dict[str, dict[str, str]] = {
         "opt_stage_tech1": "Technical Round 1",
         "opt_stage_tech2": "Technical Round 2",
         "opt_stage_final": "Final Round",
-        "submit_button": "Match My Interview Scenario",
-        "form_incomplete_warning": "Please answer all three questions before submitting",
+        "triage_page_heading": "Let's Understand Your Interview Scenario",
+        "triage_progress_prefix": "Question",
+        "triage_next_button": "Next",
+        "triage_finish_button": "Finish",
         # ---------- Result ----------
         "result_heading": "Your Matched Scenario",
+        "result_subtitle": "Based on your triage answers, here's the scenario we matched you with",
         "result_job_type_label": "Job Type",
         "result_stage_label": "Interview Stage",
         "result_difficulty_label": "Difficulty",
