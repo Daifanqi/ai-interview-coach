@@ -10,17 +10,20 @@ proper-noun/tool-name regex signal (_count_proper_noun_markers()) on top of
 the existing marker-density + reference-point-similarity blend, but left
 _SPECIFICITY_MARKER_WEIGHT and _EXPECTED_MARKER_DENSITY at their original
 reasoned-but-unvalidated placeholder values (0.5 / 0.5). This script
-re-picks both against the same 150 human-reviewed records decision 29 used,
-the same way decision 29 did: embed each record once, then grid-search the
-two parameters purely arithmetically (cheap -- no re-embedding per grid
-point) and print the MAE / tolerance-accuracy surface so a combination can
-be picked with reasoning (is it a plateau or a knife-edge single-point
-peak? decision 29 explicitly checked this before committing to its own
-threshold) rather than blindly taking the single best cell.
+re-picks both against every human-reviewed record decision 29 used plus
+whatever has been added since (see the QUESTION_BANK_PATH note below --
+this file originally assumed 150 records and crashed on a real run once
+the dataset had grown to 200), the same way decision 29 did: embed each
+record once, then grid-search the two parameters purely arithmetically
+(cheap -- no re-embedding per grid point) and print the MAE /
+tolerance-accuracy surface so a combination can be picked with reasoning
+(is it a plateau or a knife-edge single-point peak? decision 29 explicitly
+checked this before committing to its own threshold) rather than blindly
+taking the single best cell.
 
 Caveat this script does NOT resolve on its own (state honestly, don't
 gloss over it): both this grid search and decision 29's original one tune
-against the same 150 records evaluate_baseline.py's accuracy numbers are
+against the same records evaluate_baseline.py's accuracy numbers are
 reported on -- there is no held-out split. A combination that looks best
 here is at least partly fit to this exact dataset, not proven to
 generalize. Treat the result as a reasoned improvement over the untuned
@@ -56,6 +59,14 @@ from models.question_schema import load_questions_from_json  # noqa: E402
 
 LABELED_ANSWERS_PATH = PROJECT_ROOT / "data" / "labeled_answers_human_reviewed.json"
 QUESTIONS_PATH = PROJECT_ROOT / "data" / "sample_questions.json"
+# data/labeled_answers_human_reviewed.json grew from 150 to 200 scored records at some point
+# after decisions 27/29's evaluations were run, without evaluate_baseline.py (or this script)
+# being updated to match -- the extra 50 records use job-type-prefixed question_ids (e.g.
+# "tech_behavioral_01") that only exist in the 200-question RAG bank, not in the original
+# 30-question sample set. Caught for real when this script crashed with a KeyError on a real
+# run (see docs/decision_log.md decision 45); fixed the same way in both scripts by merging
+# both question sources (no question_id overlap between them).
+QUESTION_BANK_PATH = PROJECT_ROOT / "data" / "question_bank.json"
 
 # Coarse grid -- wide enough to see whether the current 0.5/0.5 starting
 # point sits near a plateau or far from one. Narrow/refine around the best
@@ -89,6 +100,7 @@ def precompute_signals() -> list[dict]:
     can't be improved (or hurt) by this calibration either way.
     """
     questions = {q.question_id: q for q in load_questions_from_json(QUESTIONS_PATH)}
+    questions.update({q.question_id: q for q in load_questions_from_json(QUESTION_BANK_PATH)})
     records = load_labeled_answers()
     signals: list[dict] = []
     skipped_empty = 0

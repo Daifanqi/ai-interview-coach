@@ -1604,8 +1604,46 @@ manual推演时没有发现的真实缺陷：
 "沙盒里的手工验证不能替代用户本地真实`pytest`"这条原则，这次是它
 真正生效、抓到真实bug的一次例子，不是走过场。
 
-**状态：** 代码已完成并修复了真实`pytest`跑出的上述2个bug，等待用户
-本地重新验证：(a) `pytest tests/`确认91个用例全部通过（不再是
+**7. 跑`scripts/calibrate_specificity.py`时发现的第三个问题——这个是
+本周之前就存在的既有缺口，不是本周代码引入的：** 91个测试用例全部
+通过后，跑`scripts/calibrate_specificity.py`时炸了：
+`KeyError: 'tech_behavioral_01'`。排查后发现（用沙盒里的Python直接
+读取三份数据文件核对）：`data/labeled_answers_human_reviewed.json`
+里`status=="scored"`的记录数已经是200条，而不是决策#27/29评估时的
+150条——多出来的50条用的是`tech_behavioral_01`、`product_behavioral_01`
+等带岗位前缀的`question_id`，这些ID只存在于`data/question_bank.json`
+（决策#24/25的200题RAG题库）里，不在`data/sample_questions.json`
+（原始30题集，决策#27/29评估一直用的题源）里。也就是说标注数据集在
+决策#30之后的某个时间点已经从150条扩充到了200条（且新增的50条已经
+标了`status:"scored"`，不是决策#30当时说的"batch2留待后续"那批还没
+审核的数据——看起来是另一次独立的扩充，决策日志里没有单独记录这次
+扩充本身），但`scripts/evaluate_baseline.py`（以及本周新写的
+`calibrate_specificity.py`，抄的是它的模式）从来没有跟着更新去读
+`question_bank.json`这第二个题源，一直只读`sample_questions.json`。
+这意味着即使不算本周的改动，现在直接重跑`scripts/evaluate_baseline.py`
+本身也会用同样的`KeyError`崩溃——`results/baseline_accuracy.md`里
+"150条"这个数字已经是过时快照，不是这份数据当前的真实状态。这不是
+本周引入的bug，是本周第一次真正touchpoint到这条代码路径时才暴露出来
+的既有缺口。
+
+**修复：** `evaluate_baseline.py`和`calibrate_specificity.py`都改成
+从`sample_questions.json`和`question_bank.json`两个文件合并加载题目
+（确认过两边`question_id`没有重复，合并是安全的），新增
+`load_all_questions()`辅助函数（`evaluate_baseline.py`）/直接在
+`precompute_signals()`里合并（`calibrate_specificity.py`），两个脚本
+顶部文档字符串也更新为不再硬编码"150条"这个过时数字。
+
+**验证：** 这三份数据文件（`sample_questions.json`/
+`question_bank.json`/`labeled_answers_human_reviewed.json`）我在沙盒里
+直接用Python读取核对过：两个题源`question_id`确认无重复；50条"缺失"
+记录的`question_id`确认全部能在`question_bank.json`里找到；合并后
+200条`scored`记录的`question_id`确认全部有对应题目，不会再有
+`KeyError`。但合并后重跑`score_answer()`本身（需要真实embedding模型）
+没法在沙盒里验证，需要用户本地重新跑一次这两个脚本确认真正跑通。
+
+**状态：** 代码已完成并修复了真实`pytest`跑出的2个bug、外加真实运行
+`calibrate_specificity.py`时暴露的1个既有数据/脚本不同步缺口，等待
+用户本地重新验证：(a) `pytest tests/`确认91个用例全部通过（不再是
 88通过/3失败）；(b) 依次跑`scripts/calibrate_specificity.py`→手动更新
 `baseline.py`两个常量→`scripts/evaluate_baseline.py`确认具体性维度
 准确率提升，更新`results/baseline_accuracy.md`；(c)

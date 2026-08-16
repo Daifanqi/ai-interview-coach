@@ -1,8 +1,8 @@
 """
 Baseline scoring accuracy evaluation.
 
-Runs backend/scoring/baseline.py's score_answer() over all 150
-human-reviewed labels in data/labeled_answers_human_reviewed.json and
+Runs backend/scoring/baseline.py's score_answer() over every human-reviewed
+label (status == "scored") in data/labeled_answers_human_reviewed.json and
 compares the four raw dimension scores it produces against each record's
 human_scores, to answer the question docs/decision_log.md decision 23
 left open: how close is the baseline's (still-uncalibrated, see
@@ -10,6 +10,16 @@ baseline.py's module docstring) scoring heuristic to human judgment, and
 are the two decision-22 protective mechanisms (specificity floor,
 keyword-stuffing warning) firing at a sane rate on real data rather than
 never firing or firing on nearly everything.
+
+Question lookups are resolved against BOTH data/sample_questions.json
+(the original 30-question set decisions 23/27/29 were evaluated against)
+and data/question_bank.json (the 200-question job-type-segmented RAG bank,
+decisions 24/25) -- week 16 (decision 45) found the labeled-answers file
+had grown from 150 to 200 scored records without evaluate_baseline.py
+being updated to match, so the extra 50 records (job-type-prefixed
+question_ids like "tech_behavioral_01", only present in question_bank.json)
+crashed with a KeyError until this was fixed. The two question sources
+have no question_id overlap, so a plain dict merge is safe.
 
 Usage:
     python scripts/evaluate_baseline.py
@@ -33,6 +43,7 @@ from models.question_schema import load_questions_from_json  # noqa: E402
 
 LABELED_ANSWERS_PATH = PROJECT_ROOT / "data" / "labeled_answers_human_reviewed.json"
 QUESTIONS_PATH = PROJECT_ROOT / "data" / "sample_questions.json"
+QUESTION_BANK_PATH = PROJECT_ROOT / "data" / "question_bank.json"
 OUTPUT_PATH = PROJECT_ROOT / "results" / "baseline_accuracy.md"
 
 DIMENSIONS = ("structure_completeness", "keyword_coverage", "logical_coherence", "specificity")
@@ -84,9 +95,17 @@ def load_labeled_answers() -> list[dict]:
     return scored
 
 
+def load_all_questions() -> dict:
+    """Merge data/sample_questions.json (the original 30) and data/question_bank.json (the 200-question
+    job-type-segmented RAG bank) into one question_id -> Question lookup -- see module docstring."""
+    questions = {q.question_id: q for q in load_questions_from_json(QUESTIONS_PATH)}
+    questions.update({q.question_id: q for q in load_questions_from_json(QUESTION_BANK_PATH)})
+    return questions
+
+
 def evaluate() -> list[dict]:
     """Run baseline scoring on every labeled answer, pairing it with the human scores and protective-mechanism flags."""
-    questions = {q.question_id: q for q in load_questions_from_json(QUESTIONS_PATH)}
+    questions = load_all_questions()
     records = load_labeled_answers()
 
     evaluated = []
