@@ -81,12 +81,19 @@ def test_compute_speech_rate_mixed_language_picks_majority_metric():
 
 
 def test_classify_speech_rate_buckets_slow_normal_fast():
-    assert classify_speech_rate("cpm", 100.0) == "slow"  # below 180
-    assert classify_speech_rate("cpm", 220.0) == "normal"  # between 180-260
-    assert classify_speech_rate("cpm", 300.0) == "fast"  # above 260
-    assert classify_speech_rate("wpm", 80.0) == "slow"
-    assert classify_speech_rate("wpm", 120.0) == "normal"
-    assert classify_speech_rate("wpm", 180.0) == "fast"
+    # Deliberately reads the real band edges from features.py rather than hardcoding literal
+    # values -- decision #46 (week 16) recalibrated the cpm band against real recordings, and a
+    # version of this test that hardcoded numbers assuming the old (180, 260) band silently
+    # started asserting the wrong thing once that band moved to (230, 330). Testing "just inside
+    # / just outside each edge" relative to whatever the band currently is keeps this test correct
+    # across future recalibrations too.
+    from backend.speech.features import _RATE_BANDS
+
+    for metric in ("cpm", "wpm"):
+        slow_max, fast_min = _RATE_BANDS[metric]
+        assert classify_speech_rate(metric, slow_max - 1) == "slow"
+        assert classify_speech_rate(metric, (slow_max + fast_min) / 2) == "normal"
+        assert classify_speech_rate(metric, fast_min + 1) == "fast"
 
 
 # ---------------------------------------------------------------------------

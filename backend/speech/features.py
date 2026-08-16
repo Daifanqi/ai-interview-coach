@@ -48,11 +48,32 @@ _ENGLISH_SYLLABLES_PER_WORD = 1.3  # spec 2.2's empirical constant for the SRI f
 RateMetric = Literal["cpm", "wpm"]
 RateLabel = Literal["slow", "normal", "fast"]
 
-# Empirical starting points from spec section 2.2's reference table -- spec
-# section 4 flags these as needing recalibration against real candidate
-# recordings once available; see docs/decision_log.md.
+# cpm recalibrated week 16 (docs/decision_log.md decision #46) against real
+# recordings via scripts/calibrate_speech_features.py -- the original
+# (180.0, 260.0) was spec section 2.2's reference-table guess, flagged since
+# decision #20 as needing real-recording recalibration. Three real
+# recordings of the same ~200-character Chinese passage, read at
+# deliberately slow/normal/fast pace by one speaker, measured 294/298/366
+# cpm respectively -- ALL of them landed above the old fast_min of 260,
+# including the deliberately slow one. That's a real signal the old band's
+# ceiling was set too low, not that this speaker reads unusually fast.
+# Shifted the band up to (230.0, 330.0): slow_max keeps meaningful headroom
+# below the lowest real measurement (294) so genuinely slow/hesitant
+# speech still registers as "slow"; fast_min sits just below the
+# deliberately-fast measurement (366) so it's still caught as "fast" while
+# the two more moderate-paced readings (294, 298) fall inside "normal".
+#
+# Caveat, stated plainly rather than glossed over: this is one speaker's 3
+# readings of one fixed passage, not a multi-speaker validated band --
+# there is no claim this generalizes to every candidate's natural pace.
+# Treated as a real-data-informed correction of an unvalidated guess, not
+# a finished calibration; revisit if/when recordings from other speakers
+# become available. wpm was NOT recalibrated -- only one real English
+# recording came in (109 wpm, landed in the existing "normal" band with no
+# surprise), not enough spread to say anything about the band edges, so it
+# stays at spec section 2.2's original (100.0, 150.0) guess.
 _RATE_BANDS: dict[RateMetric, tuple[float, float]] = {
-    "cpm": (180.0, 260.0),  # < slow_max is slow, > fast_min is fast, between is normal
+    "cpm": (230.0, 330.0),  # < slow_max is slow, > fast_min is fast, between is normal
     "wpm": (100.0, 150.0),
 }
 
