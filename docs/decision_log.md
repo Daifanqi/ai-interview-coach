@@ -73,12 +73,14 @@ questions." The difficulty score and the persona's rigor are intentionally
 orthogonal axes; the apparent mismatch (strict persona, moderate difficulty)
 is accepted as correct, not treated as a bug to reconcile.
 
-**How to apply:** Not yet scheduled -- deferred to when interviewer persona
-prompts are actually written. When that work happens, the `终面` persona
-prompt must be written around "broader coverage + deeper follow-ups," and
-must not be written as "ask harder/more advanced questions." No change is
-needed to `difficulty.py` or `matcher.py` for this decision; it only
-constrains future prompt-writing.
+**How to apply:** **Status: 已完成.** `backend/conversation/prompts/strict_zh.py`
+(written in weeks 3-4) already follows this decision -- its `严格型` prompt is
+framed around "broader coverage + deeper follow-ups" (更深入的追问和更全面
+的考察维度), not "ask harder/more advanced questions." No change was needed
+to `difficulty.py` or `matcher.py` for this decision; it only constrained
+prompt-writing, and that prompt-writing is done. (This status line was
+updated during the week-10 completeness review that produced decision #39 --
+the constraint itself and the reasoning above are unchanged.)
 
 **Scope:** Future interviewer persona prompt design (not implemented in
 this pass).
@@ -1032,3 +1034,71 @@ good"回答技术项目问题）能准确识别"未回应问题"，但对部分�
 **状态：** 计划已定案，从新第11周起按此执行。
 
 **归属：** 跨模块（语音处理、前端交互、项目管理）。
+
+## 39. 完整性复查发现两项架构级缺口（RAG题库未接入、用户身份缺失），插入
+两周，总周期调整为16周
+
+**内容：** 第10周完成后进行了一次全面的项目完整性复查（扫描全部39个.py
+文件的调用链、决策日志逐条核查、README及5份docs文档的关键词扫描），除
+已发现并处理的语音接入缺口（见决策#38）外，还发现两项分量更重的架构级
+缺口：
+
+1. RAG题库检索系统（`backend/rag/`，含决策#24/#25规划的7岗位×3题型×200
+   题库）从未被`backend/conversation/engine.py`调用——面试问题完全由LLM
+   自由生成，题库基础设施建成但零使用。这个缺口还会连锁阻塞原计划中
+   "复盘报告后端"这一周：`baseline.score_answer()`需要携带
+   `question_type`/`job_type`/`keyword_clusters`/`reference_points`的
+   `Question`对象，而现有QAItem不携带这些信息，报告后端在RAG接入之前
+   实际无法开工。
+2. `InterviewSession.user_id`字段全项目从未被赋值（始终为空字符串），
+   项目没有任何用户身份识别机制。这会阻塞原计划中"报告页面+进度追踪
+   页面"这一周的"进度趋势图"功能——没有办法区分不同用户的历史session。
+
+另外核查还发现几项较小的缺口：决策#21（TTS音质优化）未排期；决策#20的
+5项待验证风险中，第2/3/5项（Groq结构化输出容错专项测试、中文声线真人
+盲听、VAD对填充词实际影响）既未排期也未被正式确认为backlog，处于中间
+状态；决策#11要求对话引擎必须使用`interview_stage`参数，但
+`backend/conversation/prompts`的`build_full_system_prompt()`至今只接受
+persona和language，目前"能用"是因为严格型人设与终面阶段恰好一一对应的
+巧合，不是真正实现；`QAItem.question_source_id`（RAG关联字段）和
+`realtime_feedback_score`（追问决策的数值信号）两个字段定义了但从未被
+实际写入，永远为None；决策#12的"如何应用"文字仍停留在"未排期"的旧状态，
+但`backend/conversation/prompts/strict_zh.py`实际已经落实了该决策的
+要求，是记录滞后而非功能缺口；第9-11周新增模块（session_adapter、
+realtime_feedback、语音相关代码）目前没有单元测试覆盖。
+
+**决策：** 在语音接入周之后插入两个新周次：
+
+- 新增一周：RAG题库接入引擎——把`backend/rag/`检索能力接入`engine.py`
+  的问题生成逻辑，同时顺手解决`interview_stage`未被实际使用的问题
+  （同一批代码改动范围）
+- 再新增一周（插在原"复盘报告后端"之后、原"报告页面+进度追踪"之前）：
+  用户登录体系——新建用户表、注册登录页面，把现有session创建代码（分诊
+  落库、面试环节）改为传入真实`user_id`
+
+原定后续几周依次顺延两位。总周期从14周（插入语音接入后的周期）调整为
+16周（第8-16周）。
+
+**较小缺口的处理方式：** 决策#21（TTS音质优化）并入语音接入周（该周本
+就涉及TTS代码）顺手处理；决策#20第2/3/5项正式确认为backlog（不排入
+第8-16周），性质与决策#30一致——已知、暂不处理，非遗漏；
+`interview_stage`问题并入新增的RAG接入周一起解决；
+`QAItem.realtime_feedback_score`字段的填值缺失现在顺手修复
+（`question_source_id`会随RAG接入自然解决）；决策#12状态文字更新为
+"已完成"；测试覆盖债务记入最后一周"整合联调"范围。
+
+**最终第8-16周完整安排：**
+
+- 第8周：分诊流程UI改造（已完成）
+- 第9周：对话引擎接入面试页面（已完成）
+- 第10周：实时反馈闭环（已完成）
+- 第11周：语音接入（ASR+TTS，含决策#21音质优化顺带处理）
+- 第12周：RAG题库接入引擎（含`interview_stage`参数补齐）
+- 第13周：复盘报告后端
+- 第14周：用户登录体系
+- 第15周：报告页面+进度追踪页面
+- 第16周：精度债务优化+整合联调/部署/文档收尾（含测试覆盖债务）
+
+**状态：** 计划已定案，从第11周起按此执行。
+
+**归属：** 跨模块（RAG检索、用户身份、对话引擎、前端交互、项目管理）。

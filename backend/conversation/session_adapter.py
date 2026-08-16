@@ -80,6 +80,12 @@ _PRIMING_ACK: dict[Language, str] = {
     "en": "Sure, I'm ready -- let's go.",
 }
 
+# Maps engine.TurnResult.judged_level (scoring_judge.judge_answer()'s HIGH/LOW
+# gate) onto QAItem.realtime_feedback_score's float range -- the same
+# follow-up-facing signal that already drives FollowUpState, just also
+# persisted onto the QAItem instead of staying engine-internal.
+_JUDGED_LEVEL_TO_SCORE: dict[str, float] = {"high": 1.0, "low": 0.0}
+
 
 def resolve_persona(interviewer_persona: str) -> Persona:
     """Map SessionConfig.interviewer_persona (triage's Chinese label) to engine.Persona."""
@@ -181,6 +187,7 @@ def submit_round(
             parent_turn_id=qa_parent_turn_id,
             question_text=question_text,
             answer_text=answer,
+            realtime_feedback_score=_JUDGED_LEVEL_TO_SCORE.get(result.judged_level),
             content_feedback=feedback.content_feedback,
             expression_suggestions=feedback.expression_suggestions,
             action_taken=result.action,

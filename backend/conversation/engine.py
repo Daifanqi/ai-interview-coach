@@ -45,6 +45,7 @@ from backend.conversation.follow_up import AnswerPattern, classify_answer_patter
 from backend.conversation.follow_up_state import (
     FollowUpState,
     FollowUpStrategy,
+    Score,
     build_state_context,
     decide_next_action,
 )
@@ -75,11 +76,12 @@ class TurnResult:
     """What submit_answer() hands back: the reply text plus the bookkeeping decision behind it."""
 
     reply: str
-    # Both fields below are None on the priming turn (need_main_question was
+    # All fields below are None on the priming turn (need_main_question was
     # True this call) -- there is no answer to classify/score yet at that point.
     pattern: Optional[AnswerPattern]
     action: Optional[TurnAction]
     strategy: Optional[FollowUpStrategy]
+    judged_level: Optional[Score] = None  # scoring_judge.judge_answer()'s HIGH/LOW gate for this answer
 
 
 _MAIN_QUESTION_DIRECTIVE: dict[Language, str] = {
@@ -196,4 +198,6 @@ def submit_answer(answer: str, session: EngineSession) -> TurnResult:
     if decision.action == TurnAction.NEXT_QUESTION:
         session.follow_up_state = FollowUpState(topic_turn_id=str(uuid.uuid4()))
 
-    return TurnResult(reply=reply, pattern=pattern, action=decision.action, strategy=decision.strategy)
+    return TurnResult(
+        reply=reply, pattern=pattern, action=decision.action, strategy=decision.strategy, judged_level=judged.level
+    )
