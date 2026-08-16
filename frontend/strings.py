@@ -79,6 +79,22 @@ STRINGS: dict[str, dict[str, str]] = {
         "interview_answer_placeholder": "输入你的回答……",
         "interview_ended_heading": "面试已结束",
         "interview_ended_message": "本轮问答记录已保存",
+        # ---------- Review report (Week 15) ----------
+        # Shown on the interview_ended page once a report was generated
+        # (see backend/conversation/session_adapter.py's end_interview()).
+        "report_page_heading": "复盘报告",
+        "report_overall_score_label": "综合得分",
+        "report_no_scoreable_topics_message": "本次面试还没有完整回答过一道主问题，暂时无法生成打分。",
+        "report_ai_highlight_title": "🌟 AI高光时刻",
+        "report_topics_heading": "逐题详情",
+        "report_dimension_structure": "结构完整性",
+        "report_dimension_keyword": "关键词覆盖",
+        "report_dimension_logical": "逻辑连贯性",
+        "report_dimension_specificity": "具体程度",
+        "report_voice_summary_title": "🎙️ 语音表现",
+        "report_text_corrections_title": "✏️ 表达纠正建议",
+        "report_trend_title": "📈 进步趋势",
+        "report_trend_empty_message": "这是你第一次留下面试记录，多来几次就能看到自己的进步曲线啦。",
         # ---------- Voice input/output (Week 11) ----------
         "interview_audio_label": "或者，录音回答",
         "interview_voice_asr_error": "语音识别失败，可以直接打字回答。",
@@ -193,6 +209,24 @@ STRINGS: dict[str, dict[str, str]] = {
         "interview_answer_placeholder": "Type your answer...",
         "interview_ended_heading": "Interview Ended",
         "interview_ended_message": "This session's Q&A record has been saved",
+        # ---------- Review report (Week 15) ----------
+        "report_page_heading": "Review Report",
+        "report_overall_score_label": "Overall Score",
+        "report_no_scoreable_topics_message": (
+            "You haven't fully answered a main question yet this session, so there's nothing to score yet."
+        ),
+        "report_ai_highlight_title": "🌟 AI Highlight Moment",
+        "report_topics_heading": "Question-by-Question Breakdown",
+        "report_dimension_structure": "Structural Completeness",
+        "report_dimension_keyword": "Keyword Coverage",
+        "report_dimension_logical": "Logical Coherence",
+        "report_dimension_specificity": "Specificity",
+        "report_voice_summary_title": "🎙️ Voice Performance",
+        "report_text_corrections_title": "✏️ Wording Suggestions",
+        "report_trend_title": "📈 Progress Over Time",
+        "report_trend_empty_message": (
+            "This is your first recorded interview -- come back after a few more to see your progress trend."
+        ),
         # ---------- Voice input/output (Week 11) ----------
         "interview_audio_label": "Or, record your answer",
         "interview_voice_asr_error": "Speech recognition failed -- feel free to just type your answer instead.",

@@ -169,6 +169,18 @@ div[data-testid="stAudio"] audio {
     filter: sepia(18%) saturate(90%) hue-rotate(-8deg) brightness(0.98);
 }
 
+/* ---------- 复盘报告页卡片（Week 15）复用 .coach-card 视觉，用属性选择器
+   一次性覆盖每个 st.container(key="report_*") 生成的 st-key-report_* 容器，
+   不用像 .st-key-result_coach_card 那样逐个 key 单独列。 ---------- */
+[class*="st-key-report_"] {
+    background-color: #FFFFFF;
+    border: 1px solid var(--coach-border);
+    border-radius: var(--coach-radius);
+    padding: 1.5em 1.75em;
+    box-shadow: 0 2px 10px rgba(74, 59, 49, 0.06);
+    margin-bottom: 1em;
+}
+
 /* ---------- 结果揭晓页：加大标题排版，强化"揭晓感" ---------- */
 .result-reveal-heading {
     font-size: 2.1em;

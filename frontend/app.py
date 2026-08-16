@@ -27,6 +27,7 @@ import sys
 import tempfile
 from pathlib import Path
 
+import pandas as pd
 import streamlit as st
 
 # Project root (parent of this frontend/ dir) must be on sys.path so
@@ -46,7 +47,7 @@ from backend.speech.transcribe import transcribe_audio
 from backend.storage.db import save_session
 from backend.storage.user_db import InvalidCredentialsError, UsernameTakenError, authenticate_user, create_user
 from frontend.strings import PERSONA_LABEL_KEYS, get_language, set_language, t
-from models.session_schema import InterviewSession
+from models.session_schema import DimensionScoreDetail, InterviewSession, ReviewReport
 
 logger = logging.getLogger(__name__)
 
@@ -628,10 +629,111 @@ def render_interview_page() -> None:
             _process_answer(answer)
 
 
+def _render_dimension_detail(label: str, dimension: DimensionScoreDetail) -> None:
+    """
+    One dimension's score/explanation/sentence-highlights (week 15,
+    surfacing week 13's backend/scoring/report.py Highlight data for the
+    first time). explanation is prose baseline.py generates in Chinese only
+    regardless of session language (a pre-existing gap this week doesn't
+    fix, not something week 15 introduces) -- everything else here is
+    localized normally.
+    """
+    st.markdown(f"**{label}：** {dimension.score:.1f}/10")
+    st.caption(dimension.explanation)
+    for highlight in dimension.highlights:
+        icon = "✅" if highlight.polarity == "positive" else "⚠️"
+        st.markdown(f"{icon} “{highlight.sentence_text}” — {highlight.reason}")
+
+
+def _render_trend_chart(report: ReviewReport) -> None:
+    """
+    Cross-session score trend (decision #10/#39, week 13's history_trend +
+    week 15's chart). Uses st.line_chart (backed by streamlit's own bundled
+    pandas dependency) rather than a custom Altair chart -- this project
+    avoids adding dependencies it can't verify are installed in the real
+    environment where nothing else needs Altair (decision #44), same
+    reasoning as decision #43's stdlib-only password hashing.
+
+    Only includes *today's* point when this session actually produced a
+    real score (report.detailed_scores non-empty) -- otherwise a 0.0
+    "today" point would visually read as a real bad score and distort the
+    trend line, when it actually just means nothing was scoreable this
+    session (see render_interview_ended_page()'s own empty-score handling).
+    """
+    points = [{"date": tp.session_date, "score": tp.overall_score} for tp in report.history_trend]
+    if report.detailed_scores:
+        points.append({"date": report.generated_at, "score": report.overall_score})
+
+    if len(points) < 2:
+        # First-ever scored session (or a history-less account) -- a
+        # single-point line chart has nothing useful to show.
+        st.caption(t("report_trend_empty_message"))
+        return
+
+    trend_df = pd.DataFrame(points).sort_values("date")
+    st.line_chart(trend_df, x="date", y="score", use_container_width=True)
+
+
+def _render_review_report(interview_session: InterviewSession, report: ReviewReport) -> None:
+    with st.container(key="report_overview_card"):
+        st.markdown(f"## {t('report_page_heading')}")
+        if report.detailed_scores:
+            st.metric(t("report_overall_score_label"), f"{report.overall_score:.1f} / 10")
+        else:
+            # Interview ended (e.g. the manual "end interview" button) before
+            # any main topic was fully answered -- nothing to score yet, so
+            # showing "0.0/10" would misleadingly read as a real bad score.
+            st.caption(t("report_no_scoreable_topics_message"))
+
+    if report.highlight_turn_id and report.highlight_reason:
+        with st.container(key="report_highlight_card"):
+            st.markdown(f"#### {t('report_ai_highlight_title')}")
+            highlight_detail = report.detailed_scores.get(report.highlight_turn_id)
+            if highlight_detail:
+                st.markdown(f"**{highlight_detail.question_text}**")
+            st.write(report.highlight_reason)
+
+    if report.detailed_scores:
+        with st.container(key="report_topics_card"):
+            st.markdown(f"#### {t('report_topics_heading')}")
+            for detail in report.detailed_scores.values():
+                with st.expander(f"{detail.question_text}　·　{detail.overall_score:.1f}/10"):
+                    _render_dimension_detail(t("report_dimension_structure"), detail.structure_completeness)
+                    _render_dimension_detail(t("report_dimension_keyword"), detail.keyword_coverage)
+                    _render_dimension_detail(t("report_dimension_logical"), detail.logical_coherence)
+                    _render_dimension_detail(t("report_dimension_specificity"), detail.specificity)
+
+    with st.container(key="report_voice_card"):
+        st.markdown(f"#### {t('report_voice_summary_title')}")
+        st.write(report.voice_summary)
+
+    if report.text_correction_suggestions:
+        with st.container(key="report_corrections_card"):
+            st.markdown(f"#### {t('report_text_corrections_title')}")
+            for suggestion in report.text_correction_suggestions:
+                st.markdown(f"- {suggestion}")
+
+    with st.container(key="report_trend_card"):
+        st.markdown(f"#### {t('report_trend_title')}")
+        _render_trend_chart(report)
+
+
 def render_interview_ended_page() -> None:
     with st.container(key="interview_ended_container"):
         st.markdown(f"### {t('interview_ended_heading')}")
         st.success(f"{t('interview_ended_message')} ({t('session_id_label')}: {st.session_state.get('session_id', '')})")
+
+    interview_session: InterviewSession | None = st.session_state.get("interview_session")
+    report = interview_session.report if interview_session is not None else None
+    if interview_session is None or report is None:
+        # Either report generation failed (session_adapter.end_interview()'s
+        # try/except leaves interview_session.report as None on any
+        # unexpected error) or this page was somehow reached in an odd
+        # state -- fall back to just the confirmation above rather than
+        # crashing the page.
+        return
+
+    _render_review_report(interview_session, report)
 
 
 _STAGE_RENDERERS = {

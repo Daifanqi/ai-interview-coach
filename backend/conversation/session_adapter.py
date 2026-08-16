@@ -53,6 +53,7 @@ from backend.conversation.engine import EngineSession, TurnResult
 from backend.conversation.prompts import Language, Persona
 from backend.conversation.realtime_feedback import FeedbackResult, generate_feedback
 from backend.rag.retriever import retrieve_questions
+from backend.report.generator import generate_review_report
 from backend.storage.db import save_session
 from models.question_schema import Question, QuestionType
 from models.session_schema import (
@@ -396,9 +397,30 @@ def submit_round(
 
 def end_interview(interview_session: InterviewSession) -> None:
     """
-    Mark the interview as ended and persist it. Both end triggers (decision
-    #3's MAX_TOPICS cutoff and the candidate's manual "end interview"
-    button) funnel through this single call.
+    Mark the interview as ended, generate its review report, and persist
+    both. Both end triggers (decision #3's MAX_TOPICS cutoff and the
+    candidate's manual "end interview" button) funnel through this single
+    call.
+
+    Week 15 (decision #44): generate_review_report() (week 13, decision
+    #42) is wired in here -- decision #42 deliberately deferred that wiring
+    until there was a report page to consume it; frontend/app.py's
+    render_interview_ended_page() is that page now. Wrapped in try/except
+    so a scoring/highlight-pick failure degrades to interview_session.report
+    staying None (the interview itself still ends and saves correctly) --
+    the same "optional enhancement never takes down the core flow" rule
+    this project already applies to TTS/ASR/realtime feedback, extended
+    here even though report generation isn't really "optional" from the
+    candidate's point of view, because by the time this runs the interview
+    is already over and there is nothing left to protect except this save.
     """
     interview_session.ended_at = datetime.utcnow()
+    try:
+        interview_session.report = generate_review_report(interview_session)
+    except Exception:
+        logger.exception(
+            "generate_review_report() failed while ending session %s; ending without a report",
+            interview_session.session_id,
+        )
+        interview_session.report = None
     save_session(interview_session)
