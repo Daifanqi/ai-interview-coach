@@ -146,6 +146,29 @@ div[data-baseweb="notification"] {
     animation: onboardingFadeIn 0.45s ease-out;
 }
 
+/* ---------- 面试官语音回复播放条（Week 11 语音接入）
+   原生 <audio controls> 在跨浏览器下可定制空间有限（无法整体重绘按钮/
+   进度条），这里只做"外层包裹"级别的融入：圆角暖色容器 + 轻微滤镜让灰
+   阶控件条贴近主题色，不做自绘播放器（避免不同浏览器表现不一致）。
+   播放控件本身保持系统默认可见 —— 这是自动播放失败时唯一的手动播放
+   入口，不能隐藏。 ---------- */
+div[data-testid="stAudio"] {
+    background-color: var(--coach-bg-secondary);
+    border: 1px solid var(--coach-border);
+    border-radius: var(--coach-radius);
+    padding: 6px 10px;
+    margin: 0.35em 0 0.85em 0;
+}
+div[data-testid="stAudio"] audio {
+    display: block;
+    width: 100%;
+    height: 34px;
+    border-radius: 999px;
+    /* 系统播放控件本身是灰阶，滤镜让它整体偏暖，融入卡片背景，而不是
+       生硬地悬浮在暖色卡片上。 */
+    filter: sepia(18%) saturate(90%) hue-rotate(-8deg) brightness(0.98);
+}
+
 /* ---------- 结果揭晓页：加大标题排版，强化"揭晓感" ---------- */
 .result-reveal-heading {
     font-size: 2.1em;
