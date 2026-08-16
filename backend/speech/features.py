@@ -68,13 +68,25 @@ RateLabel = Literal["slow", "normal", "fast"]
 # there is no claim this generalizes to every candidate's natural pace.
 # Treated as a real-data-informed correction of an unvalidated guess, not
 # a finished calibration; revisit if/when recordings from other speakers
-# become available. wpm was NOT recalibrated -- only one real English
-# recording came in (109 wpm, landed in the existing "normal" band with no
-# surprise), not enough spread to say anything about the band edges, so it
-# stays at spec section 2.2's original (100.0, 150.0) guess.
+# become available.
+#
+# wpm recalibrated in a follow-up to decision #46 once 3 more real English
+# recordings came in (same passage, same slow/normal/fast intent as the
+# Chinese set): 184/181/187 wpm, all above the old fast_min of 150 -- same
+# pattern as cpm. Unlike cpm though, the three readings did NOT spread out
+# much by intended pace (a 6-wpm span, vs cpm's ~70-cpm span), so there is
+# no real "fast" outlier to anchor fast_min against the way 366 anchored
+# cpm's. Shifted to (140.0, 200.0): slow_max=140 is informed by real data
+# (the one earlier free-form English recording measured 109 wpm, clearly
+# slower than the scripted cluster, and stays "slow" under this band);
+# fast_min=200 is NOT data-anchored the same way -- it's a placeholder
+# guess sitting comfortably above the observed cluster's max (187) with no
+# real "this is what fast English sounds like" measurement behind it yet.
+# Revisit fast_min specifically once a recording that was actually
+# delivered fast (not just intended to be) is available.
 _RATE_BANDS: dict[RateMetric, tuple[float, float]] = {
     "cpm": (230.0, 330.0),  # < slow_max is slow, > fast_min is fast, between is normal
-    "wpm": (100.0, 150.0),
+    "wpm": (140.0, 200.0),
 }
 
 

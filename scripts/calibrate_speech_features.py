@@ -44,6 +44,7 @@ if str(PROJECT_ROOT) not in sys.path:
 
 from backend.speech.features import (  # noqa: E402
     PAUSE_THRESHOLD_SECONDS,
+    _RATE_BANDS,
     classify_speech_rate,
     compute_pause_features,
     compute_speech_rate,
@@ -116,7 +117,15 @@ def main() -> None:
             f"{rate.primary_value:.0f} | {label} | {pauses.count} | {pauses.longest_seconds:.2f} |"
         )
 
-    print(f"\nCurrent bands: cpm=(180, 260), wpm=(100, 150), pause_threshold={PAUSE_THRESHOLD_SECONDS}s\n")
+    # Reads the live constants from features.py rather than hardcoding literal numbers here --
+    # an earlier version of this script printed a hardcoded "cpm=(180, 260)" string that silently
+    # went stale the moment decision #46 recalibrated the real constant to (230, 330), even though
+    # classify_speech_rate() itself (called above) was already using the correct live value the
+    # whole time. Caught on the real second run of this script after that recalibration.
+    print(
+        f"\nCurrent bands: cpm={_RATE_BANDS['cpm']}, wpm={_RATE_BANDS['wpm']}, "
+        f"pause_threshold={PAUSE_THRESHOLD_SECONDS}s\n"
+    )
 
     for metric_name, values in (("cpm", cpm_values), ("wpm", wpm_values)):
         if len(values) < 2:
