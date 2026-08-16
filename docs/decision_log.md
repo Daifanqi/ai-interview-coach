@@ -1641,16 +1641,42 @@ manual推演时没有发现的真实缺陷：
 `KeyError`。但合并后重跑`score_answer()`本身（需要真实embedding模型）
 没法在沙盒里验证，需要用户本地重新跑一次这两个脚本确认真正跑通。
 
+**8. 网格搜索真实跑通，参数已定：** 修好第7项的题库合并问题后，用户
+本地重新跑了`scripts/calibrate_specificity.py`，对全部200条记录（而
+不是原来假设的150条）成功跑通网格搜索。结果：当前值
+（weight=0.5/density=0.5）MAE=2.26、±1准确率38%、±2准确率53%；网格
+搜索前10组合全部集中在weight∈{0.30, 0.35}，MAE都在最优值2.06的0.05
+以内（决策#29式的"平台"而非孤立尖峰），且一旦weight降到0.30，density
+从0.3到1.0几乎不影响结果（因为此时marker_signal只占combined分数的
+30%权重，具体在哪饱和影响就小了）。最终选定
+`_SPECIFICITY_MARKER_WEIGHT=0.30`、`_SPECIFICITY_REF_WEIGHT=0.70`
+（原来都是0.5），`_EXPECTED_MARKER_DENSITY`维持0.5不变——网格里
+0.30/0.50这组MAE=2.07，只比整体最优的2.06（0.30/1.00，网格边界值）
+差0.01，选择留在平台内部而不是跳到网格边界值，避免对没测试过的更大
+density区间做外推。三个常量已写回`baseline.py`，代码里的注释记录了
+完整的网格搜索结果和选择理由。
+
+**验证：** 网格搜索本身已经在用户本地真实跑通（见上）。写回
+`baseline.py`后的代码改动我在沙盒里做了`py_compile`语法检查，但常量
+改动后的实际打分效果（具体性维度MAE是否真的从2.26降到~2.07附近）
+还需要用户本地重跑`scripts/evaluate_baseline.py`用全部200条数据生成
+新的`results/baseline_accuracy.md`才能最终确认——网格搜索脚本是用
+预先算好的信号做纯算术复现`_score_specificity()`的计算，理论上和
+真正调用`score_answer()`应该一致，但"理论上一致"不等于"已经验证一致"，
+这一步不能跳过。
+
 **状态：** 代码已完成并修复了真实`pytest`跑出的2个bug、外加真实运行
-`calibrate_specificity.py`时暴露的1个既有数据/脚本不同步缺口，等待
-用户本地重新验证：(a) `pytest tests/`确认91个用例全部通过（不再是
-88通过/3失败）；(b) 依次跑`scripts/calibrate_specificity.py`→手动更新
-`baseline.py`两个常量→`scripts/evaluate_baseline.py`确认具体性维度
-准确率提升，更新`results/baseline_accuracy.md`；(c)
-`docker build -t ai-interview-coach .`确认镜像能构建成功（可选，本地
-venv方式验证也可以）；(d) 语速/停顿真实录音校准本周暂不执行，待用户
-提供录音后用`scripts/calibrate_speech_features.py`实际校准，记为本周
-唯一遗留到下一次交互处理的子项。全部验证通过后再提交合并推送，收尾
-整个8-16周计划。
+`calibrate_specificity.py`时暴露的1个既有数据/脚本不同步缺口，网格
+搜索已在用户本地真实跑通并据此把最终参数写回了`baseline.py`。剩余
+待用户本地验证：(a) 重跑`pytest tests/`确认改动常量后91个用例仍然
+全部通过；(b) 跑`scripts/evaluate_baseline.py`确认具体性维度整体
+MAE/准确率相比之前（2.26/38%/53%）确实提升，更新
+`results/baseline_accuracy.md`；(c)
+`docker build -t ai-interview-coach .`确认镜像能构建成功（可选，未
+安装Docker的话本地venv方式验证也可以，用户本地目前没装Docker）；(d)
+语速/停顿真实录音校准本周暂不执行，待用户提供录音后用
+`scripts/calibrate_speech_features.py`实际校准，记为本周唯一遗留到
+下一次交互处理的子项。全部验证通过后再提交合并推送，收尾整个8-16周
+计划。
 
 **归属：** 评分系统、语音分析、测试基础设施、部署与文档、项目管理。

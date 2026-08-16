@@ -550,15 +550,25 @@ def _count_proper_noun_markers(text: str) -> int:
 
 
 # Marker density (matches per sentence) at which the marker signal saturates to 1.0.
-# Reasoned-but-unvalidated starting point for the widened marker list above --
-# scripts/calibrate_specificity.py grid-searches this alongside
-# _SPECIFICITY_MARKER_WEIGHT against the 150 human-reviewed records the same
-# way decision #29 grid-searched _KEYWORD_SIMILARITY_THRESHOLD; the values
-# below are placeholders pending that run (see decision #45).
+#
+# Values below picked by scripts/calibrate_specificity.py's grid search
+# against all 200 human-reviewed records (decision #45, week 16), the same
+# way decision #29 grid-searched _KEYWORD_SIMILARITY_THRESHOLD. Real run:
+# MAE dropped from 2.26 (the old untuned 0.5/0.5) to 2.07 at
+# weight=0.30/density=0.50 (+/-1 accuracy 38%->40%, +/-2 53%->57%). The top
+# 10 grid cells all clustered at weight in {0.30, 0.35} with MAE within
+# 0.05 of the single best (2.06, at weight=0.30/density=1.00) regardless of
+# density -- a real plateau, not a knife-edge peak, and density barely
+# moved the result at all once weight dropped to 0.30 (marker_signal
+# contributes only 30% of the combined score at that weight, so exactly
+# where it saturates matters much less). Kept density at its original 0.5
+# rather than jumping to the grid's edge value (1.00) that scored a hair
+# better, since 0.5 sits solidly inside the plateau and an edge-of-grid
+# value risks extrapolating past what was actually tested.
 _EXPECTED_MARKER_DENSITY = 0.5
 
-_SPECIFICITY_MARKER_WEIGHT = 0.5
-_SPECIFICITY_REF_WEIGHT = 0.5
+_SPECIFICITY_MARKER_WEIGHT = 0.30
+_SPECIFICITY_REF_WEIGHT = 0.70
 
 # Rubric 3.4's 0-2 band is literally defined by "没有任何可验证的具体信息" (zero
 # verifiable concrete detail) -- so zero detail markers must hard-cap the
