@@ -22,6 +22,8 @@ from typing import Optional
 
 from models.session_schema import (
     AudioFeatures,
+    DimensionHighlight,
+    DimensionScoreDetail,
     ExperienceLevel,
     FillerFeatures,
     InterviewSession,
@@ -32,6 +34,7 @@ from models.session_schema import (
     ScoreDimensions,
     SessionConfig,
     SpeechRateFeatures,
+    TopicScoreDetail,
     TrendPoint,
     TurnAction,
     VolumeFeatures,
@@ -102,6 +105,58 @@ def load_session(session_id: str, db_path: Path | str = DEFAULT_DB_PATH) -> Opti
     return _deserialize_session(json.loads(row[0]))
 
 
+def list_sessions_by_user(
+    user_id: str,
+    db_path: Path | str = DEFAULT_DB_PATH,
+    *,
+    exclude_session_id: Optional[str] = None,
+    limit: Optional[int] = None,
+) -> list[InterviewSession]:
+    """
+    Load a user's past sessions, most-recent-first as they come out of SQL,
+    reordered to chronological (oldest-first) before returning -- the
+    natural order for backend/report/generator.py's history_trend list
+    (decision #10/#39, week 13).
+
+    `exclude_session_id` lets a caller building a report for session X ask
+    for "this user's OTHER past sessions" in one query, without first
+    loading every session and filtering in Python. `limit` is applied in
+    SQL (most-recent N), mirroring the user_id/created_at columns' own
+    stated purpose (see this module's docstring): cheap lookups without
+    deserializing every row.
+
+    Sessions with no report at all (e.g. abandoned mid-interview, or ended
+    before week 13's report generation ever ran) are still returned here --
+    filtering to "only sessions with a finished report" is the caller's
+    job (see generator.py's history-trend builder), since not every
+    list_sessions_by_user caller necessarily wants that filter.
+
+    Note (decision #39): `user_id` is "" for every session until week 14's
+    login system lands, so calling this with user_id="" currently buckets
+    together every session ever recorded, not one person's history -- that
+    is expected pre-week-14 behavior, not a bug in this function.
+    """
+    query = "SELECT data FROM sessions WHERE user_id = ?"
+    params: list = [user_id]
+    if exclude_session_id is not None:
+        query += " AND session_id != ?"
+        params.append(exclude_session_id)
+    query += " ORDER BY created_at DESC"
+    if limit is not None:
+        query += " LIMIT ?"
+        params.append(limit)
+
+    conn = _get_connection(db_path)
+    try:
+        rows = conn.execute(query, params).fetchall()
+    finally:
+        conn.close()
+
+    sessions = [_deserialize_session(json.loads(row[0])) for row in rows]
+    sessions.reverse()  # DESC (most-recent-first) -> chronological (oldest-first)
+    return sessions
+
+
 # ---------------------------------------------------------------------------
 # Deserialization helpers: JSON dict -> dataclass tree, mirroring
 # models/session_schema.py field-for-field. Every dataclass gets its own
@@ -150,6 +205,35 @@ def _deserialize_qa_item(data: dict) -> QAItem:
     )
 
 
+def _deserialize_dimension_highlight(data: dict) -> DimensionHighlight:
+    return DimensionHighlight(
+        sentence_index=data["sentence_index"],
+        sentence_text=data["sentence_text"],
+        polarity=data["polarity"],
+        reason=data["reason"],
+    )
+
+
+def _deserialize_dimension_score_detail(data: dict) -> DimensionScoreDetail:
+    return DimensionScoreDetail(
+        score=data["score"],
+        explanation=data["explanation"],
+        highlights=[_deserialize_dimension_highlight(h) for h in data.get("highlights", [])],
+    )
+
+
+def _deserialize_topic_score_detail(data: dict) -> TopicScoreDetail:
+    return TopicScoreDetail(
+        question_id=data["question_id"],
+        question_text=data["question_text"],
+        structure_completeness=_deserialize_dimension_score_detail(data["structure_completeness"]),
+        keyword_coverage=_deserialize_dimension_score_detail(data["keyword_coverage"]),
+        logical_coherence=_deserialize_dimension_score_detail(data["logical_coherence"]),
+        specificity=_deserialize_dimension_score_detail(data["specificity"]),
+        overall_score=data["overall_score"],
+    )
+
+
 def _deserialize_review_report(data: Optional[dict]) -> Optional[ReviewReport]:
     if data is None:
         return None
@@ -172,6 +256,10 @@ def _deserialize_review_report(data: Optional[dict]) -> Optional[ReviewReport]:
             )
             for tp in data.get("history_trend", [])
         ],
+        detailed_scores={
+            turn_id: _deserialize_topic_score_detail(detail)
+            for turn_id, detail in data.get("detailed_scores", {}).items()
+        },
         generated_at=_parse_datetime(data.get("generated_at")),
     )
 

@@ -79,3 +79,49 @@ def load_questions_from_json(path: str | Path) -> list[Question]:
     with open(path, encoding="utf-8") as f:
         raw_list = json.load(f)
     return [_parse_question(raw) for raw in raw_list]
+
+
+# ---------------------------------------------------------------------------
+# question_id -> Question lookup (decision #39/week 13)
+#
+# backend/report/generator.py needs to score a finished interview's main-
+# topic answers, which means turning QAItem.question_source_id (decision
+# #39/week 12) back into the Question that was actually asked -- for its
+# keyword_clusters/reference_points/question_type, which
+# backend/scoring/baseline.py's score_answer_report() requires. This lives
+# here rather than in backend/rag/retriever.py -- which already builds an
+# equivalent id -> Question dict internally for its own hydration step --
+# so that report generation doesn't have to import chromadb (retriever.py's
+# module-level dependency, via backend/rag/vector_store.py) just to look up
+# a question by id; this lookup only ever touches the plain JSON file.
+#
+# DEFAULT_QUESTION_BANK_PATH is intentionally duplicated from
+# backend/rag/vector_store.py's constant of the same name/value rather than
+# imported from there, for the same import-weight reason.
+# ---------------------------------------------------------------------------
+
+_PROJECT_ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_QUESTION_BANK_PATH = _PROJECT_ROOT / "data" / "question_bank.json"
+
+_question_index_cache: dict[str, dict[str, Question]] = {}
+
+
+def _get_question_index(path: str | Path) -> dict[str, Question]:
+    """Lazily load and cache a question_id -> Question index for `path`, keyed by the resolved path
+    string so distinct question-bank files (e.g. question_bank.json vs. sample_questions.json) never
+    collide in the cache."""
+    key = str(Path(path).resolve())
+    if key not in _question_index_cache:
+        _question_index_cache[key] = {q.question_id: q for q in load_questions_from_json(path)}
+    return _question_index_cache[key]
+
+
+def get_question_by_id(question_id: str, path: str | Path = DEFAULT_QUESTION_BANK_PATH) -> Optional[Question]:
+    """
+    Look up one Question by id, or None if `question_id` isn't in `path`
+    (e.g. it came from a different question bank than the one passed here,
+    or the id is stale/malformed) -- callers must treat this as "can't
+    score this turn" rather than an error, since a live interview session
+    is not proof the question bank hasn't changed since it was recorded.
+    """
+    return _get_question_index(path).get(question_id)

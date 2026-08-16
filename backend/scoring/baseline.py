@@ -45,7 +45,7 @@ from dataclasses import asdict
 import numpy as np
 
 from backend.scoring.embedding import cosine_similarity, embed_texts
-from backend.scoring.report import DimensionScore, ScoreReport, build_score_report
+from backend.scoring.report import DimensionScore, Highlight, ScoreReport, build_score_report
 from models.question_schema import Question, QuestionType
 
 # ---------------------------------------------------------------------------
@@ -228,10 +228,24 @@ def _score_structure_completeness(
     # sides are L2-normalized, so a plain matmul is the cosine similarity.
     sims = element_embeddings @ substantive_embeddings.T
     max_sim_per_element = sims.max(axis=1)
+    best_sentence_per_element = sims.argmax(axis=1)  # index into substantive_idx/substantive_embeddings
     present = max_sim_per_element >= _ELEMENT_PRESENCE_THRESHOLD
     present_count = int(present.sum())
     present_labels = [elements[i][0] for i in range(total) if present[i]]
     missing_labels = [elements[i][0] for i in range(total) if not present[i]]
+
+    # One positive highlight per present element, pointing at the sentence
+    # that matched it best (week 13, decision #14 item 2 / #39).
+    highlights = [
+        Highlight(
+            sentence_index=(sent_idx := substantive_idx[best_sentence_per_element[i]]),
+            sentence_text=sentences[sent_idx],
+            polarity="positive",
+            reason=f"体现了{label}中的「{elements[i][0]}」要素",
+        )
+        for i in range(total)
+        if present[i]
+    ]
 
     ratio = present_count / total
     score, band = _ratio_to_band(ratio)
@@ -248,7 +262,7 @@ def _score_structure_completeness(
     else:
         detail = f"识别到 {present_count}/{total} 个{label}（缺失：{'、'.join(missing_labels) if missing_labels else '无'}）"
 
-    return DimensionScore(score=score, explanation=f"{detail}，对应{band}分档。")
+    return DimensionScore(score=score, explanation=f"{detail}，对应{band}分档。", highlights=highlights)
 
 
 # ---------------------------------------------------------------------------
@@ -315,13 +329,26 @@ def _score_keyword_coverage(
 
     cluster_term_embeddings = _get_keyword_cluster_term_embeddings(question)
     hit_labels: list[str] = []
+    highlights: list[Highlight] = []
+    _MAX_KEYWORD_HIGHLIGHTS = 5  # mirrors hit_preview's own display cap below
     for cluster, term_embeddings in zip(clusters, cluster_term_embeddings):
         # (sentences x cluster terms) cosine similarity matrix -- both sides
         # are L2-normalized, so a plain matmul is the cosine similarity.
         sims = sentence_embeddings @ term_embeddings.T
-        max_sim = float(sims.max())
+        per_sentence_max = sims.max(axis=1)  # best term-match per sentence
+        max_sim = float(per_sentence_max.max())
         if max_sim >= _KEYWORD_SIMILARITY_THRESHOLD:
             hit_labels.append(cluster.canonical)
+            if len(highlights) < _MAX_KEYWORD_HIGHLIGHTS:
+                best_sentence_idx = int(per_sentence_max.argmax())
+                highlights.append(
+                    Highlight(
+                        sentence_index=best_sentence_idx,
+                        sentence_text=sentences[best_sentence_idx],
+                        polarity="positive",
+                        reason=f"命中关键词簇「{cluster.canonical}」",
+                    )
+                )
 
     ratio = len(hit_labels) / total
     score, band = _ratio_to_band(ratio)
@@ -334,7 +361,7 @@ def _score_keyword_coverage(
         f"对应{band}分档（docs/scoring_rubric.md 第3.2节覆盖率区间，"
         f"相似度阈值{_KEYWORD_SIMILARITY_THRESHOLD}）。"
     )
-    return DimensionScore(score=score, explanation=explanation)
+    return DimensionScore(score=score, explanation=explanation, highlights=highlights)
 
 
 # ---------------------------------------------------------------------------
@@ -420,13 +447,28 @@ def _score_logical_coherence(
     )
     score, band = _ratio_to_band(combined)
 
+    # One negative highlight at the single weakest adjacent-sentence
+    # transition (week 13) -- the sentence AFTER the weakest transition is
+    # the one that reads as the "jump", since it's the one that fails to
+    # follow naturally from what came before it.
+    weakest_transition_idx = int(np.argmin(adjacent_sims))
+    jump_sentence_idx = weakest_transition_idx + 1
+    highlights = [
+        Highlight(
+            sentence_index=jump_sentence_idx,
+            sentence_text=sentences[jump_sentence_idx],
+            polarity="negative",
+            reason="与上一句的衔接是全文中最弱的一处，读起来像是逻辑跳跃",
+        )
+    ]
+
     explanation = (
         f"句间语义衔接信号 {adjacency_signal:.2f}（相邻句平均相似度 {mean_adjacent_sim:.2f}，"
         f"最弱一处转折相似度 {min_adjacent_sim:.2f}），"
         f"命中逻辑连接词 {len(connector_hits)} 个，与参考要点相似度 {avg_ref_sim:.2f}，"
         f"综合对应{band}分档。"
     )
-    return DimensionScore(score=score, explanation=explanation)
+    return DimensionScore(score=score, explanation=explanation, highlights=highlights)
 
 
 # ---------------------------------------------------------------------------
@@ -463,6 +505,19 @@ _SPECIFICITY_REF_WEIGHT = 0.5
 _ZERO_MARKER_SIGNAL_CAP = 0.2
 
 
+_MAX_SPECIFICITY_HIGHLIGHTS = 3
+
+
+def _count_sentence_markers(sentence: str) -> int:
+    """Per-sentence version of the digit/detail-marker count below, used only to pick which
+    sentences to highlight (week 13) -- the whole-answer counts driving the actual score stay
+    as they were, computed over `answer` directly."""
+    digit_hits = len(_DIGIT_PATTERN.findall(sentence))
+    lowered = sentence.lower()
+    word_hits = sum(1 for w in _DETAIL_MARKER_WORDS if w in lowered)
+    return digit_hits + word_hits
+
+
 def _score_specificity(
     answer: str,
     sentences: list[str],
@@ -486,11 +541,27 @@ def _score_specificity(
         combined = min(combined, _ZERO_MARKER_SIGNAL_CAP)
     score, band = _ratio_to_band(combined)
 
+    # Positive highlights on the top sentences by marker density (week 13) --
+    # only sentences that actually contain a marker are eligible, so a
+    # zero-detail answer correctly gets zero highlights here.
+    per_sentence_counts = [_count_sentence_markers(s) for s in sentences]
+    ranked_idx = sorted(range(len(sentences)), key=lambda i: per_sentence_counts[i], reverse=True)
+    highlights = [
+        Highlight(
+            sentence_index=i,
+            sentence_text=sentences[i],
+            polarity="positive",
+            reason=f"包含 {per_sentence_counts[i]} 处具体细节标记（数字/数据/具体用词）",
+        )
+        for i in ranked_idx[:_MAX_SPECIFICITY_HIGHLIGHTS]
+        if per_sentence_counts[i] > 0
+    ]
+
     explanation = (
         f"具体细节标记 {marker_count} 处（数字 {digit_hits} 处，细节用词 {word_hits} 处），"
         f"与参考要点的语义相似度 {avg_ref_sim:.2f}，综合对应{band}分档。"
     )
-    return DimensionScore(score=score, explanation=explanation)
+    return DimensionScore(score=score, explanation=explanation, highlights=highlights)
 
 
 # ---------------------------------------------------------------------------

@@ -41,9 +41,10 @@ def test_score_answer_shape_and_ranges(questions):
 
     for dim in _DIMENSIONS:
         assert dim in result
-        assert set(result[dim].keys()) == {"score", "explanation"}
+        assert set(result[dim].keys()) == {"score", "explanation", "highlights"}
         assert 0.0 <= result[dim]["score"] <= 10.0
         assert isinstance(result[dim]["explanation"], str) and result[dim]["explanation"]
+        assert isinstance(result[dim]["highlights"], list)
 
     assert 0.0 <= result["overall_score"] <= 10.0
     assert isinstance(result["score_ceiling_applied"], bool)
@@ -152,3 +153,54 @@ def test_score_answer_works_across_question_types(questions, question_id, answer
     assert result["question_type"] == question.question_type
     for dim in _DIMENSIONS:
         assert 0.0 <= result[dim]["score"] <= 10.0
+
+
+def test_detailed_answer_produces_real_sentence_highlights(questions):
+    """Week 13 (decision #14 item 2 / #39): a real multi-sentence answer with known synonym-cluster
+    hits (same answer as test_keyword_coverage_detects_synonym_cluster_hits) should carry real
+    Highlight entries pointing at real sentences from the answer, not just prose explanations."""
+    question = questions["behavioral_01"]
+    answer = (
+        "这次经历很好地体现了我的领导力。项目一开始我先做了目标拆解，把大目标拆成几个子任务，"
+        "然后给每个人做了分工。过程中我也做了跨团队沟通，协调了另一个小组的资源。"
+        "最终项目按期交付，也算是达成了目标。"
+    )
+    result = score_answer(answer, question)
+    sentence_count = len(_split_sentences_for_test(answer))
+
+    # keyword_coverage and logical_coherence always produce highlights whenever there's at
+    # least one cluster hit / at least two sentences (both true here, see
+    # test_keyword_coverage_detects_synonym_cluster_hits for the cluster-hit guarantee).
+    for dim in ("keyword_coverage", "specificity", "structure_completeness"):
+        highlights = result[dim]["highlights"]
+        assert isinstance(highlights, list)
+        for h in highlights:
+            assert isinstance(h["sentence_index"], int)
+            assert 0 <= h["sentence_index"] < sentence_count
+            assert h["sentence_text"]
+            assert h["polarity"] in ("positive", "negative")
+            assert h["reason"]
+    assert len(result["keyword_coverage"]["highlights"]) > 0
+
+    # logical_coherence always emits exactly one highlight (the weakest transition) for a
+    # multi-sentence answer, and it must be negative by construction.
+    coherence_highlights = result["logical_coherence"]["highlights"]
+    assert len(coherence_highlights) == 1
+    assert coherence_highlights[0]["sentence_index"] < sentence_count
+    assert coherence_highlights[0]["polarity"] == "negative"
+
+
+def test_empty_answer_has_no_highlights(questions):
+    """An empty answer can't drive any real sentence highlight in any dimension."""
+    question = questions["technical_01"]
+    result = score_answer("   ", question)
+    for dim in _DIMENSIONS:
+        assert result[dim]["highlights"] == []
+
+
+def _split_sentences_for_test(text: str) -> list[str]:
+    """Local re-import of baseline.py's own sentence splitter, so this test can validate
+    sentence_index bounds without duplicating the splitting regex."""
+    from backend.scoring.baseline import _split_sentences
+
+    return _split_sentences(text)

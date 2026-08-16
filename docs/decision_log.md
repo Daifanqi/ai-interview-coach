@@ -1197,3 +1197,90 @@ tests/test_session_adapter_rag.py`6/6通过，`scripts/smoke_test_week12.py`
 **归属：** 对话引擎、外部API依赖管理。
 
 **归属：** 跨模块（RAG检索、用户身份、对话引擎、前端交互、项目管理）。
+
+## 42. 第13周复盘报告后端上线：逐句高亮、AI高光时刻、跨会话趋势
+
+**内容：** 按决策#39第13周的安排，一次性做完了"复盘报告后端"的完整范围
+（用户在范围确认时选择"全部做"），具体包括四块：
+
+1. **单题打分聚合**：只对有真实`question_source_id`的主问题QAItem调用
+   现成的`score_answer_report()`打分，追问（`question_source_id`为
+   `None`，第12周就是这么设计的——追问是模型现场生成，不在题库里）直接
+   跳过，不报错。
+2. **逐句高亮结构化数据**（决策#14第2项/决策#39点名的缺口）：
+   `backend/scoring/report.py`新增`Highlight`（`sentence_index` /
+   `sentence_text` / `polarity` / `reason`）数据类，`DimensionScore`新增
+   `highlights`字段；`backend/scoring/baseline.py`四个评分子函数各自补上
+   了产出高亮的逻辑——结构完整性对每个命中的STAR/问题-方案-权衡-结论/
+   案例五环节要素，定位其相似度最高的那句话；关键词覆盖对每个命中的关键
+   词簇同理定位最佳匹配句（各上限5条，与原有`hit_preview`展示上限一致）；
+   逻辑连贯性固定给出1条负向高亮，定位全文中相邻句相似度最低的那一处转折
+   （"读起来像逻辑跳跃"的具体位置，而不只是一个分数）；具体性新增按句
+   统计数字/细节用词密度，取密度最高的最多3句给正向高亮。`sentence_index`
+   对应的是`baseline.py`自己的`_split_sentences()`切句结果里的位置，不是
+   原始文本的字符偏移——这样前端只要用同一个切句函数重新切一次答案文本，
+   就能直接用下标定位，不需要这里额外维护字符偏移量。
+3. **AI高光时刻**（决策#9的主观判断+理由）：新建`backend/report/`包，
+   `highlight_picker.py`照搬`scoring_judge.py`的调用模式（独立Groq
+   client、小模型、严格超时、JSON schema、正则兜底），但兜底层做了改动
+   ——`scoring_judge`的兜底是"没有真实答案时用规则硬猜一个"，这里的兜底
+   则是"选综合分最高的一轮"，是一个真实、可以站得住脚的事实兜底，不是编造
+   的主观判断，所以`highlight_turn_id`只要`detailed_scores`不为空就一定
+   会有值，不会因为Groq调用失败就整体开天窗。
+4. **跨会话分数趋势**（决策#10）：`backend/storage/db.py`新增
+   `list_sessions_by_user()`，按`created_at`取某用户的历史session（可选
+   排除当前session、可选limit），返回顺序reorder成按时间正序，供
+   `history_trend`直接使用；只统计`report`不为`None`的历史session，
+   首次面试或历史session都还没打分时自然是空列表（前端空列表兜底展示不
+   在本周范围内，决策#39里已经明确排除）。
+
+**为什么`voice_summary`/`text_correction_suggestions`不新增LLM调用：**
+决策#41记录了这个项目的Groq TPM额度本身就偏紧，报告生成虽然不在面试
+实时链路上、没有延迟压力，但一次报告生成如果要对整场转写做一次
+prose-生成调用，消耗的token量本身仍是这份共享额度的真实开销，在没有
+具体场景需要"模板写不出来的文字"之前不值得多花。所以`voice_summary`是
+纯模板拼接（跨轮次汇总填充词/停顿次数，无语音数据时走既定兜底文案）；
+`text_correction_suggestions`是对第10周`realtime_feedback.py`已经生成
+过的`expression_suggestions`做去重聚合（上限5条），不是新调用。
+
+**为什么没有把`generate_review_report()`接进
+`session_adapter.end_interview()`：** 决策#39已经把本周范围限定为
+"后端和测试"，报告页面排在第15周——现在接入意味着面试结束流程会多一次
+（或几次）同步的打分+Groq调用，在还没有报告页面消费这份数据、也没有真实
+体验反馈之前，没有必要让这个成本落到面试流程本身。`generate_review_report()`
+现在是一个独立、可以单独调用/单独测的函数，留给第15周决定怎么接。
+
+**新增/修改文件：** `backend/scoring/report.py`（`Highlight`类、
+`DimensionScore.highlights`）、`backend/scoring/baseline.py`（四个评分
+子函数补高亮逻辑）、`models/session_schema.py`（`DimensionHighlight`/
+`DimensionScoreDetail`/`TopicScoreDetail`三个独立持久化孪生类、
+`ReviewReport.detailed_scores`字段）、`backend/storage/db.py`
+（`list_sessions_by_user()`、`detailed_scores`反序列化）、
+`models/question_schema.py`（`get_question_by_id()`，`question_id`到
+`Question`的查找，供报告生成把`question_source_id`换回真实题目）、新建
+`backend/report/generator.py`（`generate_review_report()`主入口）、新建
+`backend/report/highlight_picker.py`（AI高光时刻选取）。
+
+**验证：** `python -m py_compile`全量通过；更新
+`tests/test_baseline_scoring.py`（`{"score","explanation"}`键集断言改为
+`{"score","explanation","highlights"}`，新增高亮内容/负向转折点/空答案
+零高亮三个专项用例）；新增`tests/test_highlight_picker.py`（6个用例，全部
+用`unittest.mock.patch`模拟Groq client，覆盖LLM正常返回/返回非法
+turn_id/JSON解析失败走正则兜底/调用异常兜底/空`detailed_scores`五条
+路径，不依赖真实网络）；新增`tests/test_report_generator.py`（monkeypatch
+掉`get_question_by_id`/`list_sessions_by_user`/`pick_highlight`，用真实
+`score_answer_report()`跑`data/sample_questions.json`，覆盖只打分主问题
+跳过追问、题库id失效不崩溃、文本纠正建议去重截断、语音摘要中英文兜底文案
+等场景）；新增`scripts/smoke_test_week13.py`，用`data/question_bank.json`
+真实"技术"岗位题目+真实Groq API跑完整`generate_review_report()`，断言
+高亮数据非空、`save_session()`/`load_session()`往返后`detailed_scores`
+（含高亮）不丢、第二个session能出现在第一个session的`history_trend`里，
+测试用完清库。后两项（`test_highlight_picker.py`不依赖网络已可在沙盒里
+跑通语法检查，但`test_report_generator.py`需要真实embedding模型、
+`smoke_test_week13.py`还需要真实Groq API）留给有完整依赖的本地环境执行
+确认。
+
+**状态：** 已实现，等待本地真实环境跑`pytest`和`smoke_test_week13.py`
+确认。
+
+**归属：** 打分引擎、存储层、报告生成（新模块）、项目管理。

@@ -20,9 +20,14 @@ independent of the (heavier, model-dependent) scoring heuristics.
 """
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from typing import Literal
 
 from models.question_schema import Question, QuestionType
+
+# Whether a highlighted sentence helped ("positive") or hurt ("negative") its
+# dimension's score -- see Highlight below.
+HighlightPolarity = Literal["positive", "negative"]
 
 # ---------------------------------------------------------------------------
 # Dimension weights (docs/scoring_rubric.md section 4)
@@ -81,11 +86,35 @@ CROSS_QUESTION_TYPE_CAVEAT = (
 
 
 @dataclass
+class Highlight:
+    """
+    One sentence from the answer that materially influenced a dimension's
+    score (decision #14 item 2 / decision #39, week 13) -- the structured
+    "which sentences influenced the score" data the prose-only explanation
+    string couldn't carry on its own.
+
+    sentence_index is this sentence's position in the same sentence split
+    backend/scoring/baseline.py's _split_sentences(answer) produces for this
+    answer -- a caller that re-splits the same raw answer text with that
+    function can index straight into it to locate/highlight the sentence,
+    without this module needing to carry character offsets into the
+    original (possibly differently-whitespaced) raw text.
+    """
+
+    sentence_index: int
+    sentence_text: str
+    polarity: HighlightPolarity  # "positive": this sentence helped the score; "negative": it hurt the score
+    reason: str  # short human-readable note on why this sentence was picked
+
+
+@dataclass
 class DimensionScore:
-    """One dimension's result: a 0-10 score (5 bands per docs/scoring_rubric.md) plus a human-readable explanation."""
+    """One dimension's result: a 0-10 score (5 bands per docs/scoring_rubric.md), a human-readable
+    explanation, and (week 13) the specific sentences that drove the score -- see Highlight above."""
 
     score: float
     explanation: str
+    highlights: list[Highlight] = field(default_factory=list)
 
 
 @dataclass

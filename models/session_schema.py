@@ -222,6 +222,56 @@ class TrendPoint:
 
 
 # ---------------------------------------------------------------------------
+# Detailed per-topic scoring (decision #39/week 13): the richer, sentence-
+# level twin behind ReviewReport.per_answer_scores' flat ScoreDimensions
+# summary. Independent dataclasses mirroring backend/scoring/report.py's
+# Highlight/DimensionScore field-for-field, converted via
+# backend/report/generator.py -- same "leaf module, zero backend imports"
+# pattern as AudioFeatures' own sub-structures above (see module docstring).
+# ---------------------------------------------------------------------------
+
+
+@dataclass
+class DimensionHighlight:
+    """Mirrors backend/scoring/report.py's Highlight field-for-field."""
+
+    sentence_index: int
+    sentence_text: str
+    polarity: Literal["positive", "negative"]  # "positive": this sentence helped the score; "negative": it hurt it
+    reason: str
+
+
+@dataclass
+class DimensionScoreDetail:
+    """Mirrors backend/scoring/report.py's DimensionScore field-for-field, highlights included."""
+
+    score: float
+    explanation: str
+    highlights: list[DimensionHighlight] = field(default_factory=list)
+
+
+@dataclass
+class TopicScoreDetail:
+    """
+    One scored main-topic answer within a session's review report.
+
+    Keyed into ReviewReport.detailed_scores by QAItem.turn_id, the same key
+    convention as per_answer_scores -- per_answer_scores is the flat summary
+    used for cross-session trend math, detailed_scores is the full
+    per-dimension explanation + sentence-highlight breakdown for that same
+    turn, for a frontend to render "why this score" alongside the number.
+    """
+
+    question_id: str
+    question_text: str
+    structure_completeness: DimensionScoreDetail
+    keyword_coverage: DimensionScoreDetail
+    logical_coherence: DimensionScoreDetail
+    specificity: DimensionScoreDetail
+    overall_score: float
+
+
+# ---------------------------------------------------------------------------
 # Review report: final output of the review report generation module
 # ---------------------------------------------------------------------------
 
@@ -232,6 +282,11 @@ class ReviewReport:
     The review report for a single session.
 
     - per_answer_scores is keyed by turn_id, giving four-dimension scores per question.
+    - detailed_scores (week 13) is the richer per-topic twin of
+      per_answer_scores -- see TopicScoreDetail above -- keyed the same way,
+      but only ever containing main-topic turns that could actually be
+      scored (see backend/report/generator.py's scope notes for what gets
+      skipped and why).
     - voice_summary should hold the agreed fallback copy (e.g. "no voice data
       captured this time") when voice analysis fails or the interview was
       text-only, rather than being left empty or raising an error.
@@ -248,6 +303,7 @@ class ReviewReport:
     highlight_turn_id: Optional[str]  # turn_id of the highlighted moment
     highlight_reason: Optional[str] = None  # AI-provided reason for the highlight (decision 9: subjective judgment + rationale)
     history_trend: list[TrendPoint] = field(default_factory=list)
+    detailed_scores: dict[str, TopicScoreDetail] = field(default_factory=dict)  # key: QAItem.turn_id (week 13)
     generated_at: datetime = field(default_factory=datetime.utcnow)
 
 
