@@ -1432,3 +1432,146 @@ tests/test_session_adapter_report_wiring.py`全部通过，
 be12c39，`week15-wip`分支）并fast-forward合并进`main`，推送到GitHub。
 
 **归属：** 对话引擎、报告生成、前端交互、项目管理。
+
+## 45. 第16周（最后一周）：具体性维度精度优化 + 语速/停顿真实录音校准
+（工具已备好，待录音）+ 测试覆盖债务 + 部署文档化 + README/架构收尾
+
+**内容：** 按决策#39锁定的最终安排，第16周是整个8-16周计划的最后一周，
+范围是决策#36定的"精度债务优化+整合联调/部署/文档收尾（含测试覆盖
+债务）"。开工前和用户确认了两个原计划里没有细化的点：(1)
+语速/停顿阈值校准需要真实候选人录音，我这边（云端沙盒+设备桥接）拿不到，
+用户选择"提供几段录音"，本周先把校准工具准备好，实际校准等录音到位后
+再做；(2) "部署"对于一个简历项目做到什么程度，用户选择"文档化部署步骤"
+（本地运行说明+Dockerfile），不做真正的云端上线（我这边没有Streamlit
+Cloud账号/secrets访问权限，真要上线也得用户自己在网站上操作）。
+
+**1. 具体性维度精度优化（`backend/scoring/baseline.py`）：** 决策#27的
+评估结果显示具体性是四个维度里误差第二大的（MAE 2.27，±1准确率36%，
+仅次于当时的关键词覆盖率）。但和决策#29对关键词覆盖率的修法（精确匹配
+换成语义相似度匹配）不同，具体性本质上是个词法/模式属性——"有没有数字、
+有没有具体工具名、有没有时间跨度"——而不是话题相似度，embedding模型
+天然不擅长判断"这段话具不具体"，所以这次没有换匹配方式，而是：(a)
+扩充`_DETAIL_MARKER_WORDS`固定词表，补上原来完全没覆盖的时间跨度
+（"三个月""半年"等口语化时间说法，原来只认数字）、量化词（"多个""翻了
+一倍"等不含数字的规模表达）、产品/规模指标（"日活""转化率""留存率"等
+技术/案例分析题常见但原词表没有的词）；(b) 新增
+`_count_proper_noun_markers()`：正则匹配文本里的大写开头英文单词（如
+"Kafka""Redis""React"），作为"提到了具体工具/产品名"这个词表永远列不全
+的信号的补充。开发过程中发现一个真实的正则坑：最初用`\b[A-Z][a-zA-Z]
+{1,}\b`，但Python正则的`\b`把所有Unicode"单词字符"都算在内，而中文汉字
+在Unicode模式下也是`\w`，导致"用Kafka做异步"这种工具名紧贴中文、中间
+没有空格的（技术类回答里的常态）完全匹配不到——`\b`在"用"和"K"之间根本
+不存在边界。改用`(?<![A-Za-z])[A-Z][a-zA-Z]{1,}(?![A-Za-z])`（只对
+拉丁字母做环视判断，不依赖`\b`）修复，用真实用例手工验证过（"用Kafka做
+消息队列，配合Redis做缓存"能正确识别出两个专名，"这次经历很好地体现了
+我的领导力"不误触发）。权重/密度常量（`_SPECIFICITY_MARKER_WEIGHT`/
+`_EXPECTED_MARKER_DENSITY`，目前仍是未校准的0.5/0.5占位值）本身没有动，
+留给下面的校准脚本处理。
+
+新增`scripts/calibrate_specificity.py`：仿照决策#29关键词阈值网格搜索
+的方法，对150条人工核对数据预先算好每条记录的原始信号（不用每个网格点
+都重新跑一次embedding，只跑一次embedding、之后网格搜索纯算术运算，
+省时间），网格搜索`_SPECIFICITY_MARKER_WEIGHT`（0.30-0.70）和
+`_EXPECTED_MARKER_DENSITY`（0.3-1.0）两个参数的组合，输出MAE/容差准确率
+最优的前10组合，并像决策#29一样检查"最优点附近是不是一片平台而不是
+孤立尖峰"。脚本注释里诚实标注了一个决策#29的搜索本身也没解决的问题：
+这次网格搜索和`evaluate_baseline.py`报告准确率用的是同一批150条数据，
+没有单独的留出集，网格搜索选出的组合是在这份数据上调出来的最优，不能
+证明真正泛化——只能算是相对未调参的0.5/0.5起点的合理改进，不是最终
+验证过的答案，留待`data/labeled_answers_draft_batch2.json`（决策#30里
+还没审核的扩充数据）之后可以拿来做真正的样本外验证。
+
+这一项需要本地真实embedding模型环境才能跑，我这边验证不了，需要用户
+本地依次跑：`python scripts/calibrate_specificity.py`（看推荐的权重/
+密度组合）→手动把选定的值写回`baseline.py`的两个常量→
+`python scripts/evaluate_baseline.py`重新生成`results/
+baseline_accuracy.md`确认具体性维度MAE/准确率相比现在（2.27/36%）确实
+提升，参照决策#29的before/after对比表格格式。
+
+**2. 语速/停顿阈值真实录音校准（工具就绪，待用户提供录音）：**
+`backend/speech/features.py`里的CPM/WPM区间（中文180-260、英文100-150）
+和300ms停顿阈值从第4周就是经验值，决策#20第4项早就标注"需要用真实
+候选人录音样本重新校准"，但到现在语音功能接上快5周了还没做——原因就是
+需要真实录音数据，我这边始终拿不到。新增`scripts/
+calibrate_speech_features.py`：接收一个录音文件夹路径，对每个文件跑
+`transcribe_audio()`+`compute_speech_rate()`/`compute_pause_features()`，
+输出每个文件的实测CPM/WPM/停顿数据、当前阈值下会被打上什么标签，并按
+分位数（p25/p75）给出一个"朴素建议"区间——特意没有做成正式的网格搜索
+（不像具体性校准那样有150条人工标注分数可以拟合），因为这些录音没有
+"候选人自己觉得这段语速是慢/正常/快"的标签，本质上是给人（用户+我）
+参考真实分布做判断，不是纯数字优化，脚本注释里也明确说了这一点，避免
+给人"这是自动校准"的错觉。这一项本周不会真正执行校准——等用户提供的
+录音到位后再实际跑这个脚本、看数据、更新常量，记为本周遗留到录音到手
+之后处理的收尾工作，不算本周"已完成"范围。
+
+**3. 测试覆盖债务：** 决策#39提到第9-11周新增模块
+（`session_adapter`、`realtime_feedback`、语音相关代码）零测试覆盖，
+记入最后一周处理。这周补了两个新测试文件：`tests/
+test_speech_features.py`（`backend/speech/features.py`的纯函数部分——
+语速识别、停顿检测、填充词检测，用手写的`Word`时间戳列表构造，不需要
+真实音频文件也不需要faster-whisper模型本身跑起来，只需要`Word`
+dataclass；`compute_volume_features()`因为要读真实WAV波形没有覆盖，
+继续沿用人工真实录音走查验证）；`tests/test_realtime_feedback.py`
+（`_truncate_answer()`/`_parse_json_response()`两个纯逻辑函数直接测试，
+`generate_feedback()`的成功/失败分支用`unittest.mock.patch`模拟掉
+`_call_groq_feedback()`，和`tests/test_session_adapter_report_wiring.py`
+第15周的做法一致）。`tests/test_baseline_scoring.py`也补了两个用例
+覆盖新增的专名识别信号和扩充后的词表。这些新测试文件的源码逻辑我逐行
+在沙盒里手工推演过（模拟`compute_pause_features()`/
+`compute_filler_features()`的内部计算过程确认断言数值正确），但受限于
+沙盒缺少`faster-whisper`/`soundfile`/`groq`这些依赖（和第12-15周的
+`session_adapter`系列测试一样的老问题——模块顶层就导入了这些真实依赖，
+连import都过不了），没法在这边真正跑`pytest`验证，需要用户本地
+`pytest tests/`确认全部通过。（本周没有再单独补`session_adapter.py`
+更多的测试用例——它已有的`test_session_adapter_rag.py`+
+`test_session_adapter_report_wiring.py`覆盖了RAG选题和报告接入两条主要
+分支逻辑，`submit_round()`本身更适合用真实API走查而不是继续堆mock。）
+
+**4. 部署文档化：** 新增`Dockerfile`（`python:3.11-slim`基础镜像，装
+`libsndfile1`/`ffmpeg`/`build-essential`三个系统依赖满足
+`soundfile`/`faster-whisper`/部分ML依赖的编译需求，分层让依赖安装和
+代码变更分开缓存）、`.dockerignore`（排除`.git`、`data/piper_voices`、
+`data/chroma_question_bank`、`ml/`等不该打进镜像的内容）、`docs/
+deployment.md`（环境变量说明、本地venv运行步骤、Docker运行步骤含
+`-v`挂载`data/`目录避免语音模型/向量索引每次重新下载重建的原因、
+"为什么不做真正云端上线"的说明——项目license本身是PolyForm
+Noncommercial非商业限制，加上真要上线需要有人负责持有云平台账号/
+`GROQ_API_KEY`密钥托管/线上服务的可用性和滥用风险，这些是运营决策，
+不该被这个仓库本身替用户做掉）。这一项没有引入任何需要用户本地环境
+验证的东西——`Dockerfile`/`docker-compose`风格的文件本身在我沙盒里没有
+Docker环境可以`docker build`验证，需要用户本地或有Docker的机器上
+`docker build -t ai-interview-coach .`确认能构建成功，我这边只能保证
+语法和内容的合理性，不能实测构建。
+
+**5. README重写：** 原`README.md`一直只有一行占位文字`# ai-interview-
+coach`，对一个准备放进简历的项目来说是个明显缺口。重写为完整项目
+说明：功能概述（六个环节：分诊→面试→语音→实时反馈→复盘报告→账号
+体系）、Mermaid架构图（前端→对话引擎/RAG/语音/评分/报告/存储→Groq，
+各模块用中文注释里已有的模块划分直接映射）、技术栈选型表（每项都标注
+"为什么"并链接回对应的决策编号）、快速上手（链接到新的`docs/
+deployment.md`）、测试运行说明（诚实列出哪些用`pytest`覆盖、哪些只能
+靠真实API冒烟测试/人工走查，不假装测试覆盖率是100%）、评分准确率说明
+（链接`results/baseline_accuracy.md`，明确说这是"如实追踪的数字，不是
+营销宣传"）、License说明（决策#28的PolyForm Noncommercial，非OSI认证
+"开源"）、项目日志入口（链接`docs/decision_log.md`）。
+
+**验证：** 本周所有代码改动（`baseline.py`的正则/词表改动、两个新
+calibrate脚本、两个新测试文件）都需要用户本地真实环境（`sentence-
+transformers`/`faster-whisper`/`groq`/`pytest`）才能真正跑通验证，我
+这边只能做到：手工验证了`_count_proper_noun_markers()`用到的正则表达式
+本身在纯Python环境（无需任何项目依赖）下对几个真实/边界用例的行为
+符合预期（包括发现并修复了`\b`在CJK文本里失效的那个坑）；`README.md`/
+`docs/deployment.md`的Markdown/Mermaid语法本身检查过没有明显错误。
+
+**状态：** 代码已完成，等待用户本地验证：(a)
+`pytest tests/`确认新增两个测试文件+`test_baseline_scoring.py`新增
+用例全部通过；(b) 依次跑`scripts/calibrate_specificity.py`→手动更新
+`baseline.py`两个常量→`scripts/evaluate_baseline.py`确认具体性维度
+准确率提升，更新`results/baseline_accuracy.md`；(c)
+`docker build -t ai-interview-coach .`确认镜像能构建成功（可选，本地
+venv方式验证也可以）；(d) 语速/停顿真实录音校准本周暂不执行，待用户
+提供录音后用`scripts/calibrate_speech_features.py`实际校准，记为本周
+唯一遗留到下一次交互处理的子项。全部验证通过后再提交合并推送，收尾
+整个8-16周计划。
+
+**归属：** 评分系统、语音分析、测试基础设施、部署与文档、项目管理。

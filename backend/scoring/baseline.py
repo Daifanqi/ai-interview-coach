@@ -480,14 +480,69 @@ def _score_logical_coherence(
 # first pass of this list had (that omission under-counted answers that
 # were concrete via role/method descriptions rather than digits, e.g.
 # "给每个人做了分工" -- found via the KEYWORD_RICH probe during development).
+#
+# Week 16 (docs/decision_log.md decision #45) expansion: decision #27's
+# accuracy evaluation flagged specificity as the second-worst dimension
+# (MAE 2.27, +/-1 accuracy 36%) after keyword_coverage, which decision #29
+# fixed by moving off exact lexical matching entirely. Specificity can't
+# take the same "switch to embeddings" fix -- concreteness genuinely *is*
+# a lexical/pattern property (a digit, a named tool, a time span), not a
+# topical-similarity one an embedding model captures well -- so this
+# round's fix instead (a) widens the fixed word list to cover categories
+# the original list missed (time spans, quantifiers, scale/growth
+# metrics) and (b) adds a regex-based signal for proper nouns (tool/
+# product names like "Kafka"/"React"), which no fixed word list can ever
+# enumerate. See _count_proper_noun_markers() below.
 _DETAIL_MARKER_WORDS = (
     "具体", "数据", "指标", "比如", "例如", "百分比", "占比", "小时", "分钟",
     "第一", "第二", "大概", "约", "结果显示", "同比", "环比", "提升了", "降低了",
     "分工", "流程", "机制", "方法", "工具",
+    # Time spans / scheduling (rubric 3.4's "时间" category was previously
+    # only covered by bare digits, missing spelled-out spans like "三个月").
+    "年", "月", "周", "季度", "天", "小时后", "半年", "两周", "三个月", "一年",
+    # Quantifiers that convey scale without a literal digit.
+    "多个", "几个", "若干", "一半", "三分之一", "四分之一", "翻了一倍", "成倍",
+    # Scale / growth / product metrics common in technical and case-analysis answers.
+    "用户量", "日活", "月活", "转化率", "留存率", "点击率", "版本", "迭代",
+    "上线", "灰度", "复盘",
     "specifically", "for example", "e.g.", "data", "metric", "percent",
+    "weeks", "months", "version", "users", "conversion", "iteration",
 )
 _DIGIT_PATTERN = re.compile(r"\d")
+
+# Standalone capitalized English tokens (2+ letters) as a proxy for named
+# tools/products/technologies (e.g. "Kafka", "Redis", "React", "AWS") --
+# these are exactly the kind of concrete detail rubric 3.4 calls out under
+# "工具/方法名称" that a fixed Chinese/English word list can never fully
+# enumerate, since new tool names appear constantly. Deliberately excludes
+# common English sentence-starters/pronouns that would otherwise fire on
+# ordinary capitalization rather than a real proper noun.
+#
+# Uses lookaround on [A-Za-z] rather than \b: Python's \b treats any
+# Unicode word character as a boundary participant, and CJK ideographs
+# ARE \w in Unicode mode, so "用Kafka做" would have no \b between "用"
+# and "K" at all and silently never match -- exactly the common case here
+# (a tool name embedded directly in Chinese text with no surrounding
+# spaces). Confirmed by direct regex testing during development; caught
+# before it shipped as a not-actually-firing feature.
+_PROPER_NOUN_PATTERN = re.compile(r"(?<![A-Za-z])[A-Z][a-zA-Z]{1,}(?![A-Za-z])")
+_PROPER_NOUN_STOPWORDS = frozenset(
+    {"I", "The", "This", "That", "We", "It", "They", "He", "She", "You", "My", "Our", "In", "For", "So", "But", "And"}
+)
+
+
+def _count_proper_noun_markers(text: str) -> int:
+    """Count capitalized English tokens in `text` that look like a proper noun (tool/product
+    name) rather than ordinary sentence-initial capitalization or a common pronoun."""
+    return sum(1 for m in _PROPER_NOUN_PATTERN.finditer(text) if m.group(0) not in _PROPER_NOUN_STOPWORDS)
+
+
 # Marker density (matches per sentence) at which the marker signal saturates to 1.0.
+# Reasoned-but-unvalidated starting point for the widened marker list above --
+# scripts/calibrate_specificity.py grid-searches this alongside
+# _SPECIFICITY_MARKER_WEIGHT against the 150 human-reviewed records the same
+# way decision #29 grid-searched _KEYWORD_SIMILARITY_THRESHOLD; the values
+# below are placeholders pending that run (see decision #45).
 _EXPECTED_MARKER_DENSITY = 0.5
 
 _SPECIFICITY_MARKER_WEIGHT = 0.5
@@ -515,7 +570,8 @@ def _count_sentence_markers(sentence: str) -> int:
     digit_hits = len(_DIGIT_PATTERN.findall(sentence))
     lowered = sentence.lower()
     word_hits = sum(1 for w in _DETAIL_MARKER_WORDS if w in lowered)
-    return digit_hits + word_hits
+    proper_noun_hits = _count_proper_noun_markers(sentence)
+    return digit_hits + word_hits + proper_noun_hits
 
 
 def _score_specificity(
@@ -530,7 +586,8 @@ def _score_specificity(
     digit_hits = len(_DIGIT_PATTERN.findall(answer))
     lowered = answer.lower()
     word_hits = sum(1 for w in _DETAIL_MARKER_WORDS if w in lowered)
-    marker_count = digit_hits + word_hits
+    proper_noun_hits = _count_proper_noun_markers(answer)
+    marker_count = digit_hits + word_hits + proper_noun_hits
     marker_density = marker_count / len(sentences)
     marker_signal = min(marker_density / _EXPECTED_MARKER_DENSITY, 1.0)
 
@@ -558,7 +615,8 @@ def _score_specificity(
     ]
 
     explanation = (
-        f"具体细节标记 {marker_count} 处（数字 {digit_hits} 处，细节用词 {word_hits} 处），"
+        f"具体细节标记 {marker_count} 处（数字 {digit_hits} 处，细节用词 {word_hits} 处，"
+        f"工具/产品专名 {proper_noun_hits} 处），"
         f"与参考要点的语义相似度 {avg_ref_sim:.2f}，综合对应{band}分档。"
     )
     return DimensionScore(score=score, explanation=explanation, highlights=highlights)

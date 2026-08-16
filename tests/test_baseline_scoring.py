@@ -198,6 +198,31 @@ def test_empty_answer_has_no_highlights(questions):
         assert result[dim]["highlights"] == []
 
 
+def test_specificity_credits_tool_names_embedded_in_chinese_text(questions):
+    """Week 16 (decision #45): _count_proper_noun_markers() must fire on a capitalized tool/product
+    name even with no surrounding whitespace (e.g. "用Kafka做" with no space before/after "Kafka") --
+    this is the exact case a naive \\b-based regex silently fails on, since CJK characters count as
+    \\w in Python's default Unicode regex mode and so never produce a \\b next to Latin letters."""
+    question = questions["technical_01"]
+    answer_with_tool_names = "用Kafka做异步解耦，缓存用Redis，接口层用Nginx做限流。"
+    answer_without_markers = "做了一些消息处理和缓存和限流方面的优化工作。"
+
+    with_result = score_answer(answer_with_tool_names, question)
+    without_result = score_answer(answer_without_markers, question)
+
+    assert "工具/产品专名" in with_result["specificity"]["explanation"]
+    assert with_result["specificity"]["score"] >= without_result["specificity"]["score"]
+
+
+def test_specificity_credits_widened_time_span_and_metric_markers(questions):
+    """Week 16 (decision #45): the widened _DETAIL_MARKER_WORDS list should count spelled-out time
+    spans ("三个月") and product metrics ("转化率") as detail markers, not just bare digits."""
+    from backend.scoring.baseline import _count_sentence_markers
+
+    assert _count_sentence_markers("我们花了三个月把转化率提升了一大截") > 0
+    assert _count_sentence_markers("这个方案还不错") == 0
+
+
 def _split_sentences_for_test(text: str) -> list[str]:
     """Local re-import of baseline.py's own sentence splitter, so this test can validate
     sentence_index bounds without duplicating the splitting regex."""

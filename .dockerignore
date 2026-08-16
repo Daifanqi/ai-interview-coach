@@ -1,0 +1,29 @@
+.git
+.gitignore
+__pycache__
+**/__pycache__
+*.pyc
+.pytest_cache
+.venv
+venv
+env
+
+# Secrets -- never baked into the image; passed at `docker run` time instead.
+.env
+.streamlit/secrets.toml
+
+# Large/regenerable data this project's own .gitignore also excludes from
+# git -- see that file's comments for why each is safe to omit here too.
+data/piper_voices/
+data/chroma_question_bank/
+data/*.db
+
+# ml/ is the offline fine-tuning pipeline (training scripts, checkpoints,
+# notebook) -- not part of the running app, no reason to ship it in the
+# runtime image.
+ml/
+
+# Docs and misc project files the running app never reads.
+docs/
+results/
+.claude/
