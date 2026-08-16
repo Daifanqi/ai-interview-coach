@@ -1152,9 +1152,48 @@ API + 真实Chroma索引跑完整3话题面试，断言每个主问题的`questi
 `JOB_TYPES`完全一致，200题在7岗位×3题型的每个组合下都有9-10条，检索
 不会出现"某岗位某题型无题可用"的空档。
 
-**状态：** 已完成，等待本地真实环境跑`scripts/smoke_test_week12.py`和
-`pytest tests/test_session_adapter_rag.py`做最终确认。
+**状态：** 已完成并通过本地真实环境验证——`pytest
+tests/test_session_adapter_rag.py`6/6通过，`scripts/smoke_test_week12.py`
+真实Groq API全程跑通（3个主问题分别命中`tech_behavioral_03`/
+`tech_technical_04`/`tech_case_analysis_04`，5次追问`question_source_id`
+均为`None`，存库读库往返无丢失），已提交（commit 3afef74，`week12-wip`
+分支）。冒烟测试过程中发现的Groq限流问题另见决策#41。
 
 **归属：** 对话引擎、RAG检索、前端交互。
+
+## 41. 第12周冒烟测试暴露：Groq TPM速率限额偏紧，追问/反馈偶发限流降级
+
+**内容：** 跑`scripts/smoke_test_week12.py`真实冒烟测试全程遇到大量Groq
+429限流——`llama-3.3-70b-versatile`（主对话回复用）限额12000 TPM、
+`llama-3.1-8b-instant`（`scoring_judge.judge_answer()`打分+
+`realtime_feedback.generate_feedback()`即时反馈共用）限额6000 TPM，均被
+打满，触发多次重试退避；有几轮追问/反馈在3次重试后仍失败，走了各自模块
+已有的静默降级路径（追问回复退化为"抱歉，AI面试官暂时无法回应…"这类兜底
+文案，反馈生成失败则该轮`content_feedback`/`expression_suggestions`为
+`None`）——这是`llm_client.py`/`realtime_feedback.py`已有的容错设计在
+正常工作，不是新bug，冒烟测试的断言范围只覆盖`question_source_id`归属
+和存取库完整性，不校验回复语义，所以没有让测试失败。
+
+第12周本身也让每次system prompt变长了一些（新增的`interview_stage`情境
+提示每次都会拼进prompt，`next_question_hint`候选问题在多数追问轮次里也
+会拼进去），对本就紧张的TPM额度是一个真实的、但目前无法量化占比的加重
+因素——冒烟测试只跑了一次完整会话，样本太小，判断不了"限流频率相比第10-11
+周是否明显上升"。
+
+**决策：** 不阻塞第12周合并——限流触发的是已有的静默降级路径，不是功能性
+缺陷，且属于Groq账号配额这一外部约束，非代码逻辑问题。记入backlog，不
+排入当前第13-16周计划：
+
+- 后续如果要频繁做真实演示/真实用户测试，优先考虑升级Groq账号tier换取
+  更高TPM额度（对比"优化prompt长度"，这是更直接、风险更低的解法）
+- 如果要降prompt体积，`interview_stage`情境提示和few-shot示例都有压缩
+  空间，但会牺牲一些效果，不建议在没有实测对比前贸然做
+- 顺带记录一个非阻塞提示：冒烟测试过程中出现过一次HuggingFace未认证
+  请求的提示（建议设置`HF_TOKEN`），只影响`sentence-transformers`模型
+  下载速度，不影响功能，一并记入backlog，不单独排期
+
+**状态：** 已确认为已知限制，记入backlog。
+
+**归属：** 对话引擎、外部API依赖管理。
 
 **归属：** 跨模块（RAG检索、用户身份、对话引擎、前端交互、项目管理）。
