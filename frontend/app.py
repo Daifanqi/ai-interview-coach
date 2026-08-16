@@ -44,6 +44,7 @@ from backend.speech import tts
 from backend.speech.features import analyze_speech
 from backend.speech.transcribe import transcribe_audio
 from backend.storage.db import save_session
+from backend.storage.user_db import InvalidCredentialsError, UsernameTakenError, authenticate_user, create_user
 from frontend.strings import PERSONA_LABEL_KEYS, get_language, set_language, t
 from models.session_schema import InterviewSession
 
@@ -132,6 +133,89 @@ if "onboarding_stage" not in st.session_state:
 # ---------- Header (shown on every stage) ----------
 st.title(t("app_title"))
 st.caption(t("app_subtitle"))
+
+
+# ---------- Login / Register (Week 14, decision #43) ----------
+# Gates every stage below -- st.session_state["current_user"] holds a
+# models.user_schema.User once logged in, deliberately kept in
+# session_state only (not a cookie): a browser refresh logs the candidate
+# out again, per decision #43's scope choice to avoid adding a cookie-
+# management dependency for this project. Real user_id now flows into
+# InterviewSession (see _finalize_triage() below) instead of the "" that
+# every session carried before this week.
+
+# Reason code (backend/storage/user_db.py's InvalidCredentialsError.reason)
+# -> localized string key, so that backend module never has to hardcode
+# zh/en prose itself (see its own docstring).
+_VALIDATION_ERROR_STRING_KEYS = {
+    "username_too_short": "auth_error_username_too_short",
+    "username_too_long": "auth_error_username_too_long",
+    "password_too_short": "auth_error_password_too_short",
+}
+
+
+def _render_login_form() -> None:
+    with st.form("auth_login_form"):
+        username = st.text_input(t("auth_username_label"), key="auth_login_username")
+        password = st.text_input(t("auth_password_label"), type="password", key="auth_login_password")
+        submitted = st.form_submit_button(t("auth_login_button"), type="primary", use_container_width=True)
+
+    if not submitted:
+        return
+    user = authenticate_user(username, password)
+    if user is None:
+        st.error(t("auth_error_invalid_credentials"))
+        return
+    st.session_state["current_user"] = user
+    st.rerun()
+
+
+def _render_register_form() -> None:
+    with st.form("auth_register_form"):
+        username = st.text_input(t("auth_username_label"), key="auth_register_username")
+        password = st.text_input(t("auth_password_label"), type="password", key="auth_register_password")
+        confirm_password = st.text_input(
+            t("auth_confirm_password_label"), type="password", key="auth_register_confirm"
+        )
+        submitted = st.form_submit_button(t("auth_register_button"), type="primary", use_container_width=True)
+
+    if not submitted:
+        return
+    if password != confirm_password:
+        st.error(t("auth_error_password_mismatch"))
+        return
+    try:
+        user = create_user(username, password)
+    except InvalidCredentialsError as exc:
+        st.error(t(_VALIDATION_ERROR_STRING_KEYS.get(exc.reason, "auth_error_invalid_input")))
+        return
+    except UsernameTakenError:
+        st.error(t("auth_error_username_taken"))
+        return
+
+    st.session_state["current_user"] = user
+    st.success(t("auth_register_success"))
+    st.rerun()
+
+
+def render_login_page() -> None:
+    with st.container(key="auth_container"):
+        st.markdown(f"## {t('auth_page_title')}")
+        st.write(t("auth_page_body"))
+
+        mode = st.radio(
+            t("auth_mode_label"),
+            options=["login", "register"],
+            format_func=lambda v: t("auth_login_tab") if v == "login" else t("auth_register_tab"),
+            index=0,
+            key="auth_mode_radio",
+            horizontal=True,
+            label_visibility="collapsed",
+        )
+        if mode == "login":
+            _render_login_form()
+        else:
+            _render_register_form()
 
 
 def render_welcome_page() -> None:
@@ -230,7 +314,13 @@ def _finalize_triage() -> None:
     st.session_state["scenario"] = scenario
 
     if "session_id" not in st.session_state:
-        session = InterviewSession(config=to_session_config(scenario, language=get_language()))
+        # Week 14: real user_id, threaded from the login gate below --
+        # every session before this week was permanently user_id="" (see
+        # backend/storage/db.py's list_sessions_by_user() and decision #43).
+        session = InterviewSession(
+            config=to_session_config(scenario, language=get_language()),
+            user_id=st.session_state["current_user"].user_id,
+        )
         save_session(session)
         st.session_state["session_id"] = session.session_id
         # Kept in-memory (not just session_id) so the interview stage can
@@ -551,4 +641,16 @@ _STAGE_RENDERERS = {
     "interview": render_interview_page,
     "interview_ended": render_interview_ended_page,
 }
-_STAGE_RENDERERS[st.session_state["onboarding_stage"]]()
+
+# ---------- Auth gate (Week 14) ----------
+# Everything above this point (theme/font injection, language resolution,
+# header) is shared chrome shown on the login page too; everything the
+# onboarding-stage router renders is gated behind a real logged-in user.
+if "current_user" not in st.session_state:
+    render_login_page()
+else:
+    st.sidebar.caption(f"👤 {st.session_state['current_user'].username}")
+    if st.sidebar.button(t("auth_logout_button"), key="auth_logout_button"):
+        del st.session_state["current_user"]
+        st.rerun()
+    _STAGE_RENDERERS[st.session_state["onboarding_stage"]]()

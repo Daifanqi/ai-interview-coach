@@ -101,6 +101,31 @@ STRINGS: dict[str, dict[str, str]] = {
         "realtime_feedback_title": "💬 本轮反馈（可点击收起）",
         "realtime_feedback_content_label": "内容反馈",
         "realtime_feedback_expression_label": "表达建议",
+        # ---------- Login / Register (Week 14) ----------
+        # Gates every other page (decision #43) -- session-only, no
+        # cross-refresh persistence; see backend/storage/user_db.py for the
+        # username/password rules these error messages describe.
+        "auth_page_title": "登录 / 注册",
+        "auth_page_body": "登录后就能看到你的历史面试记录和分数趋势。",
+        "auth_mode_label": "登录还是注册",
+        "auth_login_tab": "登录",
+        "auth_register_tab": "注册",
+        "auth_username_label": "用户名",
+        "auth_password_label": "密码",
+        "auth_confirm_password_label": "确认密码",
+        "auth_login_button": "登录",
+        "auth_register_button": "注册",
+        "auth_register_success": "注册成功，已自动登录",
+        "auth_logout_button": "退出登录",
+        "auth_error_invalid_credentials": "用户名或密码错误",
+        "auth_error_username_taken": "该用户名已被注册，换一个试试",
+        "auth_error_password_mismatch": "两次输入的密码不一致",
+        # Numbers below must match backend/storage/user_db.py's
+        # MIN_USERNAME_LENGTH/MAX_USERNAME_LENGTH/MIN_PASSWORD_LENGTH.
+        "auth_error_username_too_short": "用户名至少需要3个字符",
+        "auth_error_username_too_long": "用户名最多30个字符",
+        "auth_error_password_too_short": "密码至少需要6位",
+        "auth_error_invalid_input": "输入不合法，请检查后重试",
         # ---------- Interviewer personas (persona_tag_html label param) ----------
         "persona_friendly": "亲和型",
         "persona_technical": "技术挖掘型",
@@ -186,6 +211,26 @@ STRINGS: dict[str, dict[str, str]] = {
         "realtime_feedback_title": "💬 Feedback on this round (click to collapse)",
         "realtime_feedback_content_label": "Content feedback",
         "realtime_feedback_expression_label": "Expression suggestions",
+        # ---------- Login / Register (Week 14) ----------
+        "auth_page_title": "Log In / Sign Up",
+        "auth_page_body": "Log in to see your past interviews and score trends.",
+        "auth_mode_label": "Log in or sign up",
+        "auth_login_tab": "Log In",
+        "auth_register_tab": "Sign Up",
+        "auth_username_label": "Username",
+        "auth_password_label": "Password",
+        "auth_confirm_password_label": "Confirm Password",
+        "auth_login_button": "Log In",
+        "auth_register_button": "Sign Up",
+        "auth_register_success": "Account created -- you're logged in",
+        "auth_logout_button": "Log Out",
+        "auth_error_invalid_credentials": "Incorrect username or password",
+        "auth_error_username_taken": "That username is already taken -- try another",
+        "auth_error_password_mismatch": "Passwords don't match",
+        "auth_error_username_too_short": "Username must be at least 3 characters",
+        "auth_error_username_too_long": "Username must be at most 30 characters",
+        "auth_error_password_too_short": "Password must be at least 6 characters",
+        "auth_error_invalid_input": "Invalid input -- please check and try again",
         # ---------- Interviewer personas (persona_tag_html label param) ----------
         "persona_friendly": "Friendly",
         "persona_technical": "Technical Prober",

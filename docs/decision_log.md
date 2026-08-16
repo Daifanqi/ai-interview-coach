@@ -1280,7 +1280,70 @@ turn_id/JSON解析失败走正则兜底/调用异常兜底/空`detailed_scores`�
 `smoke_test_week13.py`还需要真实Groq API）留给有完整依赖的本地环境执行
 确认。
 
-**状态：** 已实现，等待本地真实环境跑`pytest`和`smoke_test_week13.py`
-确认。
+**状态：** 已完成并通过本地真实环境验证——`pytest
+tests/test_baseline_scoring.py tests/test_highlight_picker.py
+tests/test_report_generator.py`28/28通过，`scripts/smoke_test_week13.py`
+真实Groq API全程跑通（逐句高亮非空、`save_session()`/`load_session()`
+往返后`detailed_scores`含高亮不丢、第二个session正确出现在第一个session
+的`history_trend`里），已提交并fast-forward合并进`main`（commit
+baa108d，`week13-wip`分支）并推送到GitHub。
 
 **归属：** 打分引擎、存储层、报告生成（新模块）、项目管理。
+
+## 43. 第14周用户登录体系上线：用户名/密码 + 会话内登录态
+
+**内容：** 按决策#39第14周的安排（"新建用户表、注册登录页面，把现有
+session创建代码改为传入真实`user_id`"——原本只有这一句路线图描述，没有
+任何设计细节），补齐了完整的用户名/密码登录体系。范围确认时的关键设计
+点是"登录状态要不要跨浏览器刷新保持"，选择了**当前会话内有效**（不引入
+额外的cookie管理依赖，刷新页面需要重新登录）。
+
+**新增`models/user_schema.py`**：`User`数据类（`user_id`/`username`/
+`password_hash`/`created_at`），刻意不建模用户名密码之外的任何字段——没有
+邮箱、没有OAuth身份、没有"记住我"令牌，这是一个练习项目的登录闸门，不是
+生产级账号系统。
+
+**新增`backend/storage/user_db.py`**：在`db.py`已经使用的同一个
+`sessions.db`文件里新建独立的`users`表（对同一SQLite文件执行第二个
+`CREATE TABLE IF NOT EXISTS`是安全、幂等的，沿用`db.py`自己"每个存储模块
+负责建自己的表"的既有模式，没有必要为此单独开一个数据库文件）。密码哈希
+用标准库`hashlib`的PBKDF2-HMAC-SHA256（20万次迭代）+ `secrets.token_bytes`
+随机加盐，存成`"盐值hex$哈希hex"`，不引入bcrypt/passlib——一个没有不可信
+外部用户的练习项目登录系统，没必要为此新增依赖。`create_user()`/
+`authenticate_user()`基本合法性校验（用户名3-30字符、密码至少6位）用
+`InvalidCredentialsError`携带机器可读的`reason`码（不是拼好的中/英文
+提示文本），前端自己把`reason`映射到`frontend/strings.py`的本地化字符串
+——延续了这个项目"后端模块不硬编码UI文案"的一贯做法（对比
+`scoring_judge.py`等模块的输出是LLM按语言生成的对话内容，性质不同）。
+`authenticate_user()`对"用户名不存在"和"密码错误"统一返回`None`而不是
+分别抛不同异常，避免调用方能借此枚举出哪些用户名已注册。
+
+**前端接入（`frontend/app.py`）**：新增`render_login_page()`（登录/注册
+两个tab，用`st.radio`切换），插在原有`onboarding_stage`路由**之前**作为
+一个整体闸门——`st.session_state["current_user"]`不存在时只渲染登录页，
+存在时才走原来的`welcome→triage→result→interview→interview_ended`路由，
+并在侧边栏加一行当前用户名+退出登录按钮。`_finalize_triage()`创建
+`InterviewSession`时，`user_id`改为传入`st.session_state["current_user"]
+.user_id`，这是本周唯一需要改动下游行为的地方——`db.py`/
+`backend/report/generator.py`已经在正确消费`user_id`（决策#42就是为了
+这天，`list_sessions_by_user()`的跨会话趋势现在才第一次能真正按人分桶）。
+新增`frontend/strings.py`条目全部走既有的`t()`机制，中英文各新增20条，
+零硬编码文案。
+
+**验证：** `backend/storage/user_db.py`纯标准库（`sqlite3`/`hashlib`/
+`secrets`），不依赖Groq/embedding模型，这次不用等本地环境——直接在沙盒里
+跑通：新增`tests/test_user_db.py`（15个用例，覆盖创建/查重/用户名密码
+校验的三种reason码/登录成功失败的各种场景/去空格/同密码不同哈希/哈希
+不包含明文密码），并额外手写了一遍等价的手动验证脚本在沙盒里实际执行
+确认全部通过（沙盒没有pytest，装不了，改用等价断言脚本代替）。
+`python -m py_compile`覆盖本周全部改动文件（含`frontend/app.py`）。
+`frontend/strings.py`用AST解析确认中英文各84个key、无重复。**`app.py`/
+`strings.py`的Streamlit运行时行为（登录/注册表单实际渲染、侧边栏退出
+登录按钮、触发`_finalize_triage()`后`user_id`确实落库）没有真实Streamlit
+环境跑不出来，需要本地`streamlit run frontend/app.py`手动走一遍登录
+注册流程确认。**
+
+**状态：** 已实现，`user_db.py`后端逻辑已在沙盒里验证通过，前端UI流程
+待本地真实环境手动验证确认。
+
+**归属：** 用户身份、存储层、前端交互。

@@ -131,10 +131,13 @@ def list_sessions_by_user(
     job (see generator.py's history-trend builder), since not every
     list_sessions_by_user caller necessarily wants that filter.
 
-    Note (decision #39): `user_id` is "" for every session until week 14's
-    login system lands, so calling this with user_id="" currently buckets
-    together every session ever recorded, not one person's history -- that
-    is expected pre-week-14 behavior, not a bug in this function.
+    Note (decision #39/#43): week 14 landed the login system (see
+    backend/storage/user_db.py, frontend/app.py's auth gate) and every new
+    session now carries a real user_id. Any session saved *before* week 14
+    still has user_id="" persisted from back then -- calling this with
+    user_id="" still buckets together every one of those old rows, not one
+    person's history, since there was never a real "" user. That's expected
+    for pre-week-14 data, not a bug in this function.
     """
     query = "SELECT data FROM sessions WHERE user_id = ?"
     params: list = [user_id]
