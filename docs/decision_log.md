@@ -1563,9 +1563,50 @@ transformers`/`faster-whisper`/`groq`/`pytest`）才能真正跑通验证，我
 符合预期（包括发现并修复了`\b`在CJK文本里失效的那个坑）；`README.md`/
 `docs/deployment.md`的Markdown/Mermaid语法本身检查过没有明显错误。
 
-**状态：** 代码已完成，等待用户本地验证：(a)
-`pytest tests/`确认新增两个测试文件+`test_baseline_scoring.py`新增
-用例全部通过；(b) 依次跑`scripts/calibrate_specificity.py`→手动更新
+**6. 真实`pytest`跑出的两个bug，已修复：** 用户在本地跑了
+`pytest tests/`（91个用例，先出现3个失败），暴露了两处我在沙盒里
+manual推演时没有发现的真实缺陷：
+
+1. **`_DETAIL_MARKER_WORDS`新加的"复盘"和现有防刷分机制冲突**——
+   `test_specificity_floor_caps_overall_score`和
+   `test_keyword_stuffing_warning_fires_on_high_coverage_low_specificity`
+   两个用例用的都是同一段对抗性测试文本"领导力。目标拆解。授权。
+   激励团队。跨部门协作。决策。复盘总结。结果达成。"（纯关键词堆砌、
+   零真实细节，专门用来验证决策#22的两个防护机制）。这段文本里的
+   "复盘总结"恰好命中了本周新加的"复盘"这个具体性标记词，导致
+   `marker_count`从0变成>0，绕开了`_ZERO_MARKER_SIGNAL_CAP`这个"零
+   标记词强制封顶"的关键防线，具体性分数从应有的<3分（0-2档，触发
+   防护机制）变成了5.5分（5-6档，防护机制完全没触发）——本质上是
+   给"关键词刷分"防护开了个后门：一个纯靠堆砌关键词、毫无具体细节的
+   回答，只要堆的关键词里恰好包含"复盘"这种词，就能同时骗过关键词
+   覆盖率维度和具体性维度。根因是"复盘"本身是个偏抽象的流程/方法论
+   词汇，不像数字、时间跨度、工具专名那样天然要求真实内容支撑——
+   "做了复盘"和"有复盘意识"一样可以是空话。修复：从
+   `_DETAIL_MARKER_WORDS`里删掉"复盘"，代码里留了详细注释说明教训
+   （一个同时也是某道题关键词簇canonical/synonym词条的词，不该被
+   当作具体性标记词，因为这等于让防刷分检测器免费送分）。
+2. **新增的`tests/test_speech_features.py`里一处浮点数边界测试本身
+   有问题**——`test_compute_pause_features_detects_gaps_above_
+   threshold_only`原本想构造一个"正好等于阈值、不应被计入"的边界
+   用例，用`0.5 + PAUSE_THRESHOLD_SECONDS`算出第二个词的起始时间，
+   代数上等于阈值，但二进制浮点数减法（`compute_pause_features()`
+   内部算`nxt.start - prev.end`）实际算出来比0.3略大一点点，导致
+   本该不计入的边界间隙被判定为"大于阈值"而计入，用例断言的
+   `count==1`实际跑出`count==2`。这是我这条测试用例本身对浮点数
+   边界处理不够严谨，不是`compute_pause_features()`的问题。修复：
+   把边界间隙从"代数上等于阈值"改成"明确小于阈值"（0.25秒 vs 0.3秒
+   阈值），不再依赖浮点数精确相等，同时在代码注释里记录了这个教训。
+
+这次的经验：手工在沙盒里逐行推演测试逻辑（没有真实依赖时唯一能做的
+验证方式）能发现明显的逻辑错误，但发现不了"两个独立设计的模块在某个
+具体输入上意外冲突"这类问题（第1个bug）和浮点数精度这类运行时才会
+暴露的细节（第2个bug）——这也是为什么这个项目从第9周开始就一直坚持
+"沙盒里的手工验证不能替代用户本地真实`pytest`"这条原则，这次是它
+真正生效、抓到真实bug的一次例子，不是走过场。
+
+**状态：** 代码已完成并修复了真实`pytest`跑出的上述2个bug，等待用户
+本地重新验证：(a) `pytest tests/`确认91个用例全部通过（不再是
+88通过/3失败）；(b) 依次跑`scripts/calibrate_specificity.py`→手动更新
 `baseline.py`两个常量→`scripts/evaluate_baseline.py`确认具体性维度
 准确率提升，更新`results/baseline_accuracy.md`；(c)
 `docker build -t ai-interview-coach .`确认镜像能构建成功（可选，本地

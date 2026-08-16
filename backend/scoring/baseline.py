@@ -503,8 +503,20 @@ _DETAIL_MARKER_WORDS = (
     # Quantifiers that convey scale without a literal digit.
     "多个", "几个", "若干", "一半", "三分之一", "四分之一", "翻了一倍", "成倍",
     # Scale / growth / product metrics common in technical and case-analysis answers.
+    # NOTE: "复盘" was in this list in an earlier draft and was removed after
+    # the real pytest run (week 16) caught it colliding with
+    # tests/test_baseline_scoring.py's adversarial keyword-stuffing probe
+    # ("领导力。目标拆解。...复盘总结。结果达成。") -- "复盘" is also a
+    # canonical/synonym term in some question's keyword_clusters, so
+    # counting it as a *specificity* marker too let a bare keyword-stuffed
+    # answer buy its way past the zero-marker cap, defeating the exact
+    # protection (decision 22 mechanism 1/2) this dimension exists to
+    # provide. Lesson: a word that doubles as a generic keyword-cluster
+    # term is a bad specificity marker regardless of how "concrete" it
+    # sounds in isolation, since it costs the stuffing-detector nothing to
+    # include. Left out rather than re-added with a workaround.
     "用户量", "日活", "月活", "转化率", "留存率", "点击率", "版本", "迭代",
-    "上线", "灰度", "复盘",
+    "上线", "灰度",
     "specifically", "for example", "e.g.", "data", "metric", "percent",
     "weeks", "months", "version", "users", "conversion", "iteration",
 )

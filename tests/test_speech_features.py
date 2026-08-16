@@ -104,11 +104,17 @@ def test_compute_pause_features_no_gaps_returns_zeroed_result():
 
 
 def test_compute_pause_features_detects_gaps_above_threshold_only():
-    # Gap 1: 0.5 -> 1.0 is exactly at threshold (not counted, strictly-greater-than check).
+    # Gap 1: 0.5 -> 0.75 is a 0.25s gap, clearly below the 0.3s threshold (not counted).
+    # Real pytest run (week 16) caught an earlier version of this test that computed the
+    # "boundary" word's start as `0.5 + PAUSE_THRESHOLD_SECONDS` (i.e. exactly at the
+    # threshold algebraically) -- binary floating-point subtraction of that sum landed a hair
+    # above 0.3 rather than exactly at it, so the strictly-greater-than check in
+    # compute_pause_features() counted it after all. Using a gap unambiguously below the
+    # threshold (0.25s, not 0.3s) avoids relying on exact float equality at a boundary.
     # Gap 2: 1.5 -> 2.5 is a real 1.0s pause (counted).
     words = [
         _word("a", 0.0, 0.5),
-        _word("b", 0.5 + PAUSE_THRESHOLD_SECONDS, 1.5),
+        _word("b", 0.75, 1.5),
         _word("c", 2.5, 3.0),
     ]
     result = compute_pause_features(words)
