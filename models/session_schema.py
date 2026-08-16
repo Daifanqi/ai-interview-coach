@@ -85,9 +85,59 @@ class SessionConfig:
 
 
 @dataclass
+class SpeechRateFeatures:
+    """Mirrors backend/speech/features.py's SpeechRateResult field-for-field (decision #39/week 11)."""
+
+    chinese_char_count: int
+    english_word_count: int
+    duration_seconds: float  # word[-1].end - word[0].start, includes internal pauses
+    primary_metric: Optional[Literal["cpm", "wpm"]]  # None only when there are no countable chars/words
+    primary_value: float  # value in primary_metric's unit; 0.0 when primary_metric is None
+    syllables_per_minute: float  # cross-language SRI -- internal thresholding use only, not for display
+
+
+@dataclass
+class PauseFeatures:
+    """Mirrors backend/speech/features.py's PauseFeatures field-for-field (decision #39/week 11)."""
+
+    count: int
+    total_seconds: float
+    longest_seconds: float
+    average_seconds: float
+
+
+@dataclass
+class FillerFeatures:
+    """Mirrors backend/speech/features.py's FillerFeatures field-for-field (decision #39/week 11)."""
+
+    counts: dict[str, int] = field(default_factory=dict)  # phrase -> count, e.g. {"um": 5, "like": 3}
+    strong_count: int = 0  # involuntary fillers (嗯/啊/um/uh/...), counted on every occurrence
+    weak_count: int = 0  # context-dependent fillers (这个/然后/like/actually/...), counted only when isolated
+
+
+@dataclass
+class VolumeFeatures:
+    """Mirrors backend/speech/features.py's VolumeFeatures field-for-field (decision #39/week 11)."""
+
+    volume_std_dbfs: float  # overall loudness instability
+    baseline_dbfs: float  # mean dBFS of the first few seconds
+    relative_deviation_dbfs: float  # mean(whole answer) - baseline; negative = quieter than the opening baseline
+
+
+@dataclass
 class AudioFeatures:
     """
-    Voice features for a single answer turn.
+    Voice features for a single answer turn -- a lossless, persistable
+    repackaging of backend/speech/features.py's SpeechAnalysis (decision #39's
+    week-11 finding: the previous 5-flat-field AudioFeatures didn't have room
+    for most of what features.py actually computes, e.g. the bilingual
+    cpm/wpm split, longest/average pause, strong/weak filler counts, or the
+    volume baseline -- all of which decision #20's week-16 speech-rate/pause
+    calibration work needs). Deliberately not the same class as
+    backend.speech.features.SpeechAnalysis itself: models/session_schema.py
+    stays free of any backend import (see module docstring), so the nested
+    dataclasses here are independent twins, converted from a real
+    SpeechAnalysis by backend/conversation/session_adapter.py.
 
     This field is Optional on QAItem as a whole -- voice analysis can fail
     (poor audio quality / recognition error), or the user may have chosen a
@@ -96,11 +146,10 @@ class AudioFeatures:
     "no voice data captured this time" instead of the field being force-filled.
     """
 
-    speech_rate_wpm: float  # speech rate, words per minute
-    pause_count: int  # number of pauses
-    pause_total_seconds: float  # total pause duration (seconds)
-    filler_word_freq: dict[str, int]  # filler word frequency, e.g. {"um": 5, "like": 3}
-    volume_variance: float  # volume variance, used to gauge tone fluctuation / confidence
+    speech_rate: Optional[SpeechRateFeatures]  # None when the answer has no timed speech data
+    pauses: PauseFeatures
+    fillers: FillerFeatures
+    volume: Optional[VolumeFeatures]  # None when the raw audio file couldn't be read
 
 
 # ---------------------------------------------------------------------------

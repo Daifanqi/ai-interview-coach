@@ -23,14 +23,18 @@ from typing import Optional
 from models.session_schema import (
     AudioFeatures,
     ExperienceLevel,
+    FillerFeatures,
     InterviewSession,
     InterviewStage,
+    PauseFeatures,
     QAItem,
     ReviewReport,
     ScoreDimensions,
     SessionConfig,
+    SpeechRateFeatures,
     TrendPoint,
     TurnAction,
+    VolumeFeatures,
 )
 
 DEFAULT_DB_PATH = Path(__file__).resolve().parent.parent.parent / "data" / "sessions.db"
@@ -112,9 +116,22 @@ def _parse_datetime(value: Optional[str]) -> Optional[datetime]:
 
 
 def _deserialize_audio_features(data: Optional[dict]) -> Optional[AudioFeatures]:
+    """
+    Nested dataclass tree, mirroring AudioFeatures' four sub-structures
+    (decision #39/week 11) -- can't use a flat AudioFeatures(**data) here
+    the way the old 5-flat-field version could, since speech_rate/pauses/
+    fillers/volume are themselves dataclasses, not JSON-native values.
+    """
     if data is None:
         return None
-    return AudioFeatures(**data)
+    speech_rate_data = data.get("speech_rate")
+    volume_data = data.get("volume")
+    return AudioFeatures(
+        speech_rate=SpeechRateFeatures(**speech_rate_data) if speech_rate_data is not None else None,
+        pauses=PauseFeatures(**data["pauses"]),
+        fillers=FillerFeatures(**data["fillers"]),
+        volume=VolumeFeatures(**volume_data) if volume_data is not None else None,
+    )
 
 
 def _deserialize_qa_item(data: dict) -> QAItem:

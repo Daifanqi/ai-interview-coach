@@ -79,6 +79,9 @@ STRINGS: dict[str, dict[str, str]] = {
         "interview_answer_placeholder": "输入你的回答……",
         "interview_ended_heading": "面试已结束",
         "interview_ended_message": "本轮问答记录已保存",
+        # ---------- Voice input/output (Week 11) ----------
+        "interview_audio_label": "或者，录音回答",
+        "interview_voice_asr_error": "语音识别失败，可以直接打字回答。",
         # ---------- Realtime feedback (Week 10) ----------
         "realtime_feedback_title": "💬 本轮反馈（可点击收起）",
         "realtime_feedback_content_label": "内容反馈",
@@ -150,6 +153,9 @@ STRINGS: dict[str, dict[str, str]] = {
         "interview_answer_placeholder": "Type your answer...",
         "interview_ended_heading": "Interview Ended",
         "interview_ended_message": "This session's Q&A record has been saved",
+        # ---------- Voice input/output (Week 11) ----------
+        "interview_audio_label": "Or, record your answer",
+        "interview_voice_asr_error": "Speech recognition failed -- feel free to just type your answer instead.",
         # ---------- Realtime feedback (Week 10) ----------
         "realtime_feedback_title": "💬 Feedback on this round (click to collapse)",
         "realtime_feedback_content_label": "Content feedback",

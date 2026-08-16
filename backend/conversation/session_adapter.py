@@ -44,13 +44,31 @@ from __future__ import annotations
 import uuid
 from dataclasses import dataclass
 from datetime import datetime
+from typing import TYPE_CHECKING, Optional
 
 from backend.conversation import engine
 from backend.conversation.engine import EngineSession, TurnResult
 from backend.conversation.prompts import Language, Persona
 from backend.conversation.realtime_feedback import FeedbackResult, generate_feedback
 from backend.storage.db import save_session
-from models.session_schema import InterviewSession, QAItem, TurnAction
+from models.session_schema import (
+    AudioFeatures,
+    FillerFeatures,
+    InterviewSession,
+    PauseFeatures,
+    QAItem,
+    SpeechRateFeatures,
+    TurnAction,
+    VolumeFeatures,
+)
+
+if TYPE_CHECKING:
+    # Only needed for the type hint below -- kept out of the real import list
+    # (backend.speech.features transitively pulls in faster-whisper/numpy/
+    # soundfile) so callers that never pass speech_analysis (e.g. the
+    # text-only scripts/test_conversation_live.py path) don't pay that
+    # import cost just for importing this module.
+    from backend.speech.features import SpeechAnalysis
 
 # Decision #3: fixed topic-count cap. Once this many topics have been asked,
 # submit_round() reports interview_should_end=True the moment the engine
@@ -85,6 +103,47 @@ _PRIMING_ACK: dict[Language, str] = {
 # follow-up-facing signal that already drives FollowUpState, just also
 # persisted onto the QAItem instead of staying engine-internal.
 _JUDGED_LEVEL_TO_SCORE: dict[str, float] = {"high": 1.0, "low": 0.0}
+
+
+def _speech_analysis_to_audio_features(analysis: "SpeechAnalysis") -> AudioFeatures:
+    """
+    Lossless repackaging of backend/speech/features.py's SpeechAnalysis into
+    the QAItem-persistable AudioFeatures shape (decision #39/week 11) -- see
+    models/session_schema.py's AudioFeatures docstring for why this is a
+    field-for-field twin rather than the same class reused directly.
+    """
+    speech_rate = None
+    if analysis.speech_rate is not None:
+        speech_rate = SpeechRateFeatures(
+            chinese_char_count=analysis.speech_rate.chinese_char_count,
+            english_word_count=analysis.speech_rate.english_word_count,
+            duration_seconds=analysis.speech_rate.duration_seconds,
+            primary_metric=analysis.speech_rate.primary_metric,
+            primary_value=analysis.speech_rate.primary_value,
+            syllables_per_minute=analysis.speech_rate.syllables_per_minute,
+        )
+    volume = None
+    if analysis.volume is not None:
+        volume = VolumeFeatures(
+            volume_std_dbfs=analysis.volume.volume_std_dbfs,
+            baseline_dbfs=analysis.volume.baseline_dbfs,
+            relative_deviation_dbfs=analysis.volume.relative_deviation_dbfs,
+        )
+    return AudioFeatures(
+        speech_rate=speech_rate,
+        pauses=PauseFeatures(
+            count=analysis.pauses.count,
+            total_seconds=analysis.pauses.total_seconds,
+            longest_seconds=analysis.pauses.longest_seconds,
+            average_seconds=analysis.pauses.average_seconds,
+        ),
+        fillers=FillerFeatures(
+            counts=dict(analysis.fillers.counts),
+            strong_count=analysis.fillers.strong_count,
+            weak_count=analysis.fillers.weak_count,
+        ),
+        volume=volume,
+    )
 
 
 def resolve_persona(interviewer_persona: str) -> Persona:
@@ -150,12 +209,21 @@ def submit_round(
     engine_session: EngineSession,
     progress: InterviewProgress,
     interview_session: InterviewSession,
+    speech_analysis: Optional["SpeechAnalysis"] = None,
 ) -> tuple[TurnResult, InterviewProgress, bool, FeedbackResult]:
     """
     Process one candidate answer: run it through the engine, generate this
     round's coach-aside feedback (week 10, decision #17 item 2), record
     both as one QAItem on interview_session, persist immediately, and
     figure out whether the interview should end now.
+
+    `speech_analysis`: pass backend/speech/features.py's analyze_speech()
+    result when `answer` came from a transcribed voice recording (week 11);
+    left as None for a typed answer. Converted to the persistable
+    AudioFeatures shape via _speech_analysis_to_audio_features() and
+    attached to the QAItem -- text-only rounds simply carry audio_features
+    =None rather than a fabricated one (same "never force-fill" rule
+    AudioFeatures' own docstring calls for).
 
     Returns (turn_result, updated_progress, interview_should_end, feedback).
     When interview_should_end is True, turn_result.reply must NOT be shown
@@ -178,6 +246,7 @@ def submit_round(
 
     result = engine.submit_answer(answer, engine_session)
     feedback = generate_feedback(question_text, answer, engine_session.language)
+    audio_features = _speech_analysis_to_audio_features(speech_analysis) if speech_analysis is not None else None
 
     qa_turn_id = topic_turn_id_for_this_answer if answered_main_question else str(uuid.uuid4())
     qa_parent_turn_id = None if answered_main_question else topic_turn_id_for_this_answer
@@ -191,6 +260,7 @@ def submit_round(
             content_feedback=feedback.content_feedback,
             expression_suggestions=feedback.expression_suggestions,
             action_taken=result.action,
+            audio_features=audio_features,
         )
     )
     save_session(interview_session)

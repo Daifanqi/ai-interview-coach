@@ -21,7 +21,10 @@ All user-facing text is routed through strings.t(key) -- see
 frontend/strings.py for the bilingual string table and language resolution
 order (manual override > browser Accept-Language detection > "zh" fallback).
 """
+import logging
+import os
 import sys
+import tempfile
 from pathlib import Path
 
 import streamlit as st
@@ -37,11 +40,31 @@ from backend.conversation import session_adapter
 from backend.diagnosis.difficulty import difficulty_badge_html, persona_tag_html
 from backend.diagnosis.matcher import ScenarioConfig, match_scenario, to_session_config
 from backend.diagnosis.questionnaire import QUESTIONNAIRE
+from backend.speech import tts
+from backend.speech.features import analyze_speech
+from backend.speech.transcribe import transcribe_audio
 from backend.storage.db import save_session
 from frontend.strings import PERSONA_LABEL_KEYS, get_language, set_language, t
 from models.session_schema import InterviewSession
 
+logger = logging.getLogger(__name__)
+
 st.set_page_config(page_title="AI Interview Coach", page_icon="🎯")
+
+
+@st.cache_resource
+def _warm_up_voices() -> None:
+    """
+    Pre-download/load every configured Piper voice once per server process
+    (decision #39/week 11) -- st.cache_resource makes the body run exactly
+    once no matter how many sessions or reruns hit this script, so a
+    candidate's first real interviewer reply mid-interview never pays the
+    download-on-first-use latency (see tts.warm_up_voices()'s docstring).
+    """
+    tts.warm_up_voices()
+
+
+_warm_up_voices()
 
 # ---------- Theme injection ----------
 # Usage per theme.css's own header comment: read the file once at the very
@@ -259,6 +282,21 @@ def render_result_page() -> None:
             st.rerun()
 
 
+def _synthesize_reply_audio(text: str, persona, language: str) -> bytes | None:
+    """
+    Best-effort TTS for one interviewer line (week 11/decision #39). Returns
+    None on any synthesis failure instead of raising -- a Piper hiccup
+    should degrade to text-only for that line, the same "never let an
+    optional enhancement take the session down" rule the project already
+    applies to realtime_feedback.py's Groq calls.
+    """
+    try:
+        return tts.synthesize_short_reply(text, persona, language)
+    except Exception:
+        logger.warning("TTS synthesis failed for an interviewer line; falling back to text-only.", exc_info=True)
+        return None
+
+
 def render_interview_page() -> None:
     scenario: ScenarioConfig | None = st.session_state.get("scenario")
     interview_session: InterviewSession | None = st.session_state.get("interview_session")
@@ -269,26 +307,91 @@ def render_interview_page() -> None:
         st.rerun()
         return
 
+    persona = session_adapter.resolve_persona(scenario.persona)
+    language = get_language()
+
     if "engine_session" not in st.session_state:
         # First entry into this stage: kick off the engine and immediately
         # run the priming exchange (decision #4) so the transcript already
         # contains the opening line *and* the first real question before
-        # the candidate has to type anything.
-        opening_line, first_question, engine_session, progress = session_adapter.start(
-            scenario.persona, get_language()
-        )
+        # the candidate has to type anything. Each assistant line's audio is
+        # synthesized once here and cached on the transcript entry itself,
+        # rather than re-synthesized on every rerun's render pass.
+        opening_line, first_question, engine_session, progress = session_adapter.start(scenario.persona, language)
         st.session_state["engine_session"] = engine_session
         st.session_state["interview_progress"] = progress
         st.session_state["interview_transcript"] = [
-            {"role": "assistant", "content": opening_line},
-            {"role": "assistant", "content": first_question},
+            {
+                "role": "assistant",
+                "content": opening_line,
+                "audio_bytes": _synthesize_reply_audio(opening_line, persona, language),
+            },
+            {
+                "role": "assistant",
+                "content": first_question,
+                "audio_bytes": _synthesize_reply_audio(first_question, persona, language),
+            },
         ]
+        st.session_state["audio_input_generation"] = 0
+
+    def _process_answer(answer_text: str, speech_analysis=None) -> None:
+        """
+        Shared submit_round() tail for both input paths (decision #39/week 11
+        design decision #1: typed and spoken answers converge here) -- the
+        only difference between them is whether speech_analysis is None.
+        """
+        result, new_progress, should_end, feedback = session_adapter.submit_round(
+            answer_text,
+            st.session_state["engine_session"],
+            st.session_state["interview_progress"],
+            interview_session,
+            speech_analysis=speech_analysis,
+        )
+        st.session_state["interview_progress"] = new_progress
+
+        user_turn = {"role": "user", "content": answer_text}
+        if feedback.content_feedback or feedback.expression_suggestions:
+            user_turn["content_feedback"] = feedback.content_feedback
+            user_turn["expression_suggestions"] = feedback.expression_suggestions
+        st.session_state["interview_transcript"].append(user_turn)
+
+        if should_end:
+            # result.reply bleeds into a topic we're not asking (see
+            # session_adapter.submit_round()'s docstring) -- discard it,
+            # go straight to the end screen.
+            session_adapter.end_interview(interview_session)
+            st.session_state["onboarding_stage"] = "interview_ended"
+        else:
+            st.session_state["interview_transcript"].append(
+                {
+                    "role": "assistant",
+                    "content": result.reply,
+                    "audio_bytes": _synthesize_reply_audio(result.reply, persona, language),
+                }
+            )
+        st.rerun()
 
     with st.container(key="interview_container"):
         st.markdown(f"### {t('interview_page_heading')}")
 
-        for turn in st.session_state["interview_transcript"]:
+        if st.session_state.get("voice_input_error"):
+            # Shown for exactly one rerun (the one right after the failed
+            # attempt) -- see the ASR try/except below for why this flag
+            # exists instead of an inline st.error() at the failure site.
+            st.error(t("interview_voice_asr_error"))
+            st.session_state["voice_input_error"] = False
+
+        transcript = st.session_state["interview_transcript"]
+        # Only the most recent interviewer line should autoplay -- st.audio's
+        # `controls` bar is always rendered regardless of autoplay (verified
+        # against Streamlit 1.45.1's frontend bundle), so every older line
+        # still has a visible, clickable play button; it just doesn't
+        # self-start when the transcript is re-rendered on every rerun.
+        last_assistant_idx = max((i for i, turn in enumerate(transcript) if turn["role"] == "assistant"), default=-1)
+        for i, turn in enumerate(transcript):
             st.chat_message(turn["role"]).write(turn["content"])
+            if turn["role"] == "assistant" and turn.get("audio_bytes"):
+                st.audio(turn["audio_bytes"], format="audio/wav", autoplay=(i == last_assistant_idx))
             # Week 10 coach aside (decision #17 item 2): rendered in its own
             # expander, visually separate from the chat bubbles above, since
             # this is feedback about the candidate's last answer, not part
@@ -309,31 +412,58 @@ def render_interview_page() -> None:
             st.session_state["onboarding_stage"] = "interview_ended"
             st.rerun()
 
+        # Voice input: always visible alongside typed input, never a forced
+        # either/or (decision #39/week 11 design decision #1). The widget's
+        # key carries a generation counter so it resets to empty right after
+        # each processed recording -- st.audio_input has no .clear() of its
+        # own, and would otherwise keep re-returning the same bytes on every
+        # later rerun and get reprocessed as a "new" answer.
+        audio_key = f"interview_audio_input_{st.session_state['audio_input_generation']}"
+        audio_value = st.audio_input(t("interview_audio_label"), key=audio_key)
+
+        if audio_value is not None:
+            st.session_state["audio_input_generation"] += 1
+            tmp_path = None
+            try:
+                with tempfile.NamedTemporaryFile(prefix="interview_answer_", suffix=".wav", delete=False) as tmp_file:
+                    tmp_file.write(audio_value.getvalue())
+                    tmp_path = tmp_file.name
+
+                # transcribe_audio() raises RuntimeError on failure (design
+                # decision #2/week 11) -- unlike this project's Groq call
+                # sites, it has no built-in fallback, so the UI layer is
+                # responsible for catching it and degrading gracefully
+                # instead of taking the whole session down with it.
+                try:
+                    transcription = transcribe_audio(tmp_path, language=language)
+                except RuntimeError:
+                    logger.warning("ASR failed for a voice answer; candidate can retry by typing.", exc_info=True)
+                    st.session_state["voice_input_error"] = True
+                    st.rerun()
+                    return
+
+                answer_text = transcription.text.strip()
+                if not answer_text:
+                    # Nothing recognizable (e.g. silence) -- same recovery
+                    # path as an outright ASR failure.
+                    st.session_state["voice_input_error"] = True
+                    st.rerun()
+                    return
+
+                speech_analysis = analyze_speech(transcription, tmp_path)
+            finally:
+                # Clean up the ASR temp file regardless of outcome (design
+                # decision #6/week 11) -- never let recording attempts
+                # accumulate on disk.
+                if tmp_path is not None:
+                    os.unlink(tmp_path)
+
+            _process_answer(answer_text, speech_analysis=speech_analysis)
+            return
+
         answer = st.chat_input(t("interview_answer_placeholder"))
         if answer:
-            result, new_progress, should_end, feedback = session_adapter.submit_round(
-                answer,
-                st.session_state["engine_session"],
-                st.session_state["interview_progress"],
-                interview_session,
-            )
-            st.session_state["interview_progress"] = new_progress
-
-            user_turn = {"role": "user", "content": answer}
-            if feedback.content_feedback or feedback.expression_suggestions:
-                user_turn["content_feedback"] = feedback.content_feedback
-                user_turn["expression_suggestions"] = feedback.expression_suggestions
-            st.session_state["interview_transcript"].append(user_turn)
-
-            if should_end:
-                # result.reply bleeds into a topic we're not asking (see
-                # session_adapter.submit_round()'s docstring) -- discard it,
-                # go straight to the end screen.
-                session_adapter.end_interview(interview_session)
-                st.session_state["onboarding_stage"] = "interview_ended"
-            else:
-                st.session_state["interview_transcript"].append({"role": "assistant", "content": result.reply})
-            st.rerun()
+            _process_answer(answer)
 
 
 def render_interview_ended_page() -> None:

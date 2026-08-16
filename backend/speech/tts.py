@@ -78,6 +78,20 @@ def _voice_profile(persona: Persona, language: Language) -> VoiceProfile:
     return _ZH_VOICE_PROFILES[persona] if language == "zh" else _EN_VOICE_PROFILES[persona]
 
 
+def warm_up_voices() -> None:
+    """
+    Pre-download and load every voice this module is configured to use.
+
+    The actual startup/ops warm-up step list_configured_voice_ids()'s own
+    docstring anticipates (week 11/decision #39): calling this once when the
+    app process starts means the first real synthesize_short_reply() call
+    mid-interview never pays the download-on-first-use cost, which would
+    otherwise surprise a candidate with several seconds of dead air.
+    """
+    for voice_id in list_configured_voice_ids():
+        _get_voice(voice_id)
+
+
 def list_configured_voice_ids() -> set[str]:
     """
     All distinct Piper voice ids this module is configured to use --
