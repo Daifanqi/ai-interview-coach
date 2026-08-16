@@ -44,7 +44,7 @@ from backend.diagnosis.questionnaire import QUESTIONNAIRE
 from backend.speech import tts
 from backend.speech.features import analyze_speech
 from backend.speech.transcribe import transcribe_audio
-from backend.storage.db import save_session
+from backend.storage.db import list_sessions_by_user, load_session, save_session
 from backend.storage.user_db import InvalidCredentialsError, UsernameTakenError, authenticate_user, create_user
 from frontend.strings import PERSONA_LABEL_KEYS, get_language, set_language, t
 from models.session_schema import DimensionScoreDetail, InterviewSession, ReviewReport
@@ -505,8 +505,10 @@ def render_interview_page() -> None:
         if should_end:
             # result.reply bleeds into a topic we're not asking (see
             # session_adapter.submit_round()'s docstring) -- discard it,
-            # go straight to the end screen.
-            session_adapter.end_interview(interview_session)
+            # go straight to the end screen. Report generation runs async
+            # (decision #47, post-roadmap) -- see render_interview_ended_page()
+            # for how the handle stashed here drives the "generating..." state.
+            st.session_state["report_generation_handle"] = session_adapter.end_interview_async(interview_session)
             st.session_state["onboarding_stage"] = "interview_ended"
         else:
             st.session_state["interview_transcript"].append(
@@ -555,7 +557,9 @@ def render_interview_page() -> None:
                             st.markdown(f"- {suggestion}")
 
         if st.button(t("interview_end_button"), key="interview_end_button"):
-            session_adapter.end_interview(interview_session)
+            # Same async report-generation path as the MAX_TOPICS auto-end
+            # branch in _process_answer() above (decision #47).
+            st.session_state["report_generation_handle"] = session_adapter.end_interview_async(interview_session)
             st.session_state["onboarding_stage"] = "interview_ended"
             st.rerun()
 
@@ -718,15 +722,44 @@ def _render_review_report(interview_session: InterviewSession, report: ReviewRep
         _render_trend_chart(report)
 
 
+# How long render_interview_ended_page() blocks per poll iteration while
+# waiting on a still-running report-generation handle (decision #47) before
+# re-running the script to check again. A few seconds keeps the "generating"
+# state feeling responsive without spinning the session's script-run thread
+# in a tight loop -- handle.done_event.wait() returns immediately (well
+# before this timeout) the moment the background worker actually finishes.
+REPORT_POLL_INTERVAL_SECONDS = 2.0
+
+
 def render_interview_ended_page() -> None:
     with st.container(key="interview_ended_container"):
         st.markdown(f"### {t('interview_ended_heading')}")
         st.success(f"{t('interview_ended_message')} ({t('session_id_label')}: {st.session_state.get('session_id', '')})")
 
     interview_session: InterviewSession | None = st.session_state.get("interview_session")
-    report = interview_session.report if interview_session is not None else None
-    if interview_session is None or report is None:
-        # Either report generation failed (session_adapter.end_interview()'s
+    if interview_session is None:
+        return
+
+    # Report generation runs on a background thread now (decision #47) --
+    # session_adapter.end_interview_async() stashed a handle in
+    # session_state right before switching to this stage. While it's still
+    # running, show a spinner and poll: wait up to REPORT_POLL_INTERVAL_
+    # SECONDS for the worker to finish (returns immediately if it already
+    # has), then rerun the script so this function runs again and re-checks.
+    # Once done_event is set, interview_session.report is safe to read (see
+    # ReportGenerationHandle's own docstring for why that ordering is safe
+    # without an explicit lock).
+    handle = st.session_state.get("report_generation_handle")
+    if handle is not None and not handle.done_event.is_set():
+        with st.container(key="report_generating_container"):
+            with st.spinner(t("report_generating_spinner_label")):
+                handle.done_event.wait(timeout=REPORT_POLL_INTERVAL_SECONDS)
+        st.rerun()
+        return
+
+    report = interview_session.report
+    if report is None:
+        # Either report generation failed (_generate_and_save_report()'s
         # try/except leaves interview_session.report as None on any
         # unexpected error) or this page was somehow reached in an odd
         # state -- fall back to just the confirmation above rather than
@@ -736,12 +769,90 @@ def render_interview_ended_page() -> None:
     _render_review_report(interview_session, report)
 
 
+def render_history_page() -> None:
+    """
+    Standalone browse page for a logged-in user's past interview reports
+    (post-roadmap, decision #47) -- reachable from the sidebar nav
+    (see the auth-gate section below) independent of the just-finished
+    interview flow, unlike render_interview_ended_page() above which only
+    ever shows the report for *this* browser session's current
+    interview_session.
+
+    Two sub-views toggled by whether "history_selected_session_id" is set:
+    a list of the user's past sessions (date / job type / score), or one
+    selected session's full report, reusing _render_review_report() --
+    the same rendering logic render_interview_ended_page() uses -- rather
+    than duplicating report layout here.
+    """
+    with st.container(key="history_container"):
+        st.markdown(f"### {t('history_page_heading')}")
+
+        selected_session_id = st.session_state.get("history_selected_session_id")
+        if st.button(t("history_back_button"), key="history_back_button"):
+            if selected_session_id is not None:
+                # Back out of a report detail view to the list first, rather
+                # than leaving the history page entirely on the first click.
+                st.session_state["history_selected_session_id"] = None
+            else:
+                st.session_state["onboarding_stage"] = st.session_state.get("history_return_stage", "welcome")
+            st.rerun()
+            return
+
+        if selected_session_id is not None:
+            selected_session = load_session(selected_session_id)
+            if selected_session is None or selected_session.report is None:
+                # A stale/removed session_id, or one that ended without a
+                # scoreable report (e.g. generation failed, or the session
+                # was abandoned before any main question was answered).
+                st.caption(t("history_report_unavailable_message"))
+            else:
+                _render_review_report(selected_session, selected_session.report)
+            return
+
+        user_id = st.session_state["current_user"].user_id
+        past_sessions = list_sessions_by_user(user_id)
+        # list_sessions_by_user() returns chronological (oldest-first, see
+        # its own docstring) -- reversed here so the most recent interview
+        # is the first thing this browse page shows.
+        past_sessions = list(reversed(past_sessions))
+
+        if not past_sessions:
+            st.caption(t("history_empty_message"))
+            return
+
+        for session in past_sessions:
+            _render_history_list_item(session)
+
+
+def _render_history_list_item(session: InterviewSession) -> None:
+    session_date = session.ended_at or session.created_at
+    date_label = session_date.strftime("%Y-%m-%d %H:%M") if session_date else "-"
+    job_type_label = session.config.job_type if session.config else "-"
+    if session.report is not None and session.report.detailed_scores:
+        score_label = f"{session.report.overall_score:.1f}/10"
+    else:
+        # Covers both "report generation never ran/failed for this session"
+        # and "ended with zero scoreable topics" -- same fallback copy
+        # _render_review_report() uses for the latter case on the detail view.
+        score_label = t("history_no_score_label")
+
+    with st.container(key=f"history_item_{session.session_id}"):
+        cols = st.columns([3, 3, 2, 2])
+        cols[0].write(date_label)
+        cols[1].write(job_type_label)
+        cols[2].write(score_label)
+        if cols[3].button(t("history_view_button"), key=f"history_view_{session.session_id}"):
+            st.session_state["history_selected_session_id"] = session.session_id
+            st.rerun()
+
+
 _STAGE_RENDERERS = {
     "welcome": render_welcome_page,
     "triage": render_triage_page,
     "result": render_result_page,
     "interview": render_interview_page,
     "interview_ended": render_interview_ended_page,
+    "history": render_history_page,
 }
 
 # ---------- Auth gate (Week 14) ----------
@@ -752,6 +863,21 @@ if "current_user" not in st.session_state:
     render_login_page()
 else:
     st.sidebar.caption(f"👤 {st.session_state['current_user'].username}")
+
+    # History page nav (post-roadmap, decision #47): hidden mid-interview
+    # so a sidebar click can't accidentally abandon a live interview
+    # (nothing here saves/warns before switching stages), and hidden while
+    # already on the history page itself so "back" (see render_history_page())
+    # is the only way out rather than this button re-arming its own return
+    # stage to "history".
+    _current_stage = st.session_state["onboarding_stage"]
+    if _current_stage not in ("interview", "history"):
+        if st.sidebar.button(t("history_nav_button"), key="history_nav_button"):
+            st.session_state["history_return_stage"] = _current_stage
+            st.session_state["history_selected_session_id"] = None
+            st.session_state["onboarding_stage"] = "history"
+            st.rerun()
+
     if st.sidebar.button(t("auth_logout_button"), key="auth_logout_button"):
         del st.session_state["current_user"]
         st.rerun()

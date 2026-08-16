@@ -1778,3 +1778,84 @@ slow_normal_fast()`因为是动态从`_RATE_BANDS`读边界值断言的，理论
 推送——同样是小追加改动，不单独算一"周"。
 
 **归属：** 语音分析、测试基础设施、项目管理。
+
+## 47. 路线图结束后的backlog：历史面试记录浏览页 + 报告生成异步化
+
+**背景：** 决策#44第15周做报告页面时，把两项东西明确记入backlog、
+没做：①独立的"查看历史所有面试记录"浏览页（不依赖刚结束的这次面试，
+随时可从欢迎页/侧边栏进入，能点开任意一条过去的报告）；②报告生成
+异步化（当时是面试结束时同步触发一次真实Groq调用+本地embedding打分，
+"结束面试"那一次点击有明显的等待感）。第16周（决策#45/#46）收尾整个
+8-16周路线图之后，用户确认这两项backlog现在继续做（AskUserQuestion
+选了"历史面试记录浏览页,报告生成异步化"两项，没选第三项"打分说明文字
+多语言化"）。这周不算路线图里的一周，是路线图结束后的追加迭代。
+
+**报告生成异步化：** `backend/conversation/session_adapter.py`新增
+`end_interview_async()`，和原有的同步`end_interview()`并存（后者
+保持不变，供`scripts/smoke_test_week12.py`和已有的
+`tests/test_session_adapter_report_wiring.py`继续使用）。两者共享同一段
+"打分+存库、失败时优雅降级为`report=None`"逻辑，抽成`_generate_and_save_
+report()`私有函数，避免重复决策#44那套`try/except`。`end_interview_
+async()`把`ended_at`的赋值留在调用线程上同步完成（调用方立刻就能拿到
+"已结束"状态），真正耗时的打分+`save_session()`丢到一个`daemon=True`的
+后台线程去跑，返回一个`ReportGenerationHandle`（包一个`threading.Event`
+和线程本身）。`frontend/app.py`的两处结束面试入口（第16轮答完自动结束、
+手动点"结束面试"按钮）都改成调用这个异步版本，把返回的handle存进
+`st.session_state["report_generation_handle"]`。`render_interview_ended_
+page()`检查这个handle：还没完成就展示`st.spinner`+等一小段时间
+（`REPORT_POLL_INTERVAL_SECONDS=2`秒，`Event.wait(timeout=...)`一等到
+线程完成就会提前返回，不会真的傻等满2秒)`st.rerun()`重新跑一次脚本再
+检查一次；完成了就正常渲染报告，和原来一样。这个"轮询+短暂阻塞+rerun"
+的写法是刻意选的最简方案，没有引入`streamlit-autorefresh`之类的额外
+依赖（沙盒里无法验证真实环境是否装了这类包，和决策#43/#44放弃额外
+依赖的取舍逻辑一致）——用户体验上，候选人点"结束面试"后立刻就能看到
+"面试已结束"的确认信息和一个生成中的转圈提示，不再是一整段没有任何
+反馈的等待。`interview_session`这个dataclass实例在后台线程和主线程之间
+共享是安全的：Streamlit的`session_state`（以及它引用的任何对象）在
+同一个浏览器会话的多次rerun之间持续存在，`report`字段只有一次简单赋值
+（GIL保证这个赋值本身是原子的），`done_event`只负责让"什么时候去读这个
+字段"这件事变得安全，不负责让赋值本身线程安全（赋值本身已经是安全的）。
+
+**历史面试记录浏览页：** `frontend/app.py`新增`render_history_page()`，
+接入`_STAGE_RENDERERS`路由表（新增`"history"`这个stage），侧边栏新增
+一个"📋 历史面试记录"导航按钮（在面试进行中`"interview"`和已经在历史页
+本身`"history"`这两个stage时隐藏——前者是为了不让一次误点打断正在进行
+的面试，后者是为了让"返回"按钮成为离开历史页的唯一路径，避免这个导航
+按钮把返回目标stage重复设成`"history"`自己）。页面本身分两个子视图：
+默认是列表视图，用第13周就有的`list_sessions_by_user()`拉出当前登录
+用户的全部历史session（该函数本身按时间正序返回，这里`reversed()`成
+倒序，最新的面试排最前面），每条显示日期/岗位类型/综合得分（还没打分
+成功的显示"未生成报告"而不是误导性的"0.0/10"）；点"查看"进入详情视图，
+用`load_session()`按session_id重新读一次完整记录，复用第15周就有的
+`_render_review_report()`渲染，不重复实现一遍报告布局。返回按钮分两级：
+详情视图先退回列表视图，列表视图再退回进入历史页之前所在的那个stage
+（存在`history_return_stage`里）。
+
+**已知的、这次不修的既有缺口：** 打分说明文字（`baseline.py`的
+`explanation`字段）依然是纯中文硬编码——这是决策#44就记录过的backlog，
+这次AskUserQuestion时用户明确没选这一项，继续留在backlog里。
+
+**验证：** `python -m py_compile`覆盖这次改动的全部文件（
+`backend/conversation/session_adapter.py`、`frontend/app.py`、
+`frontend/strings.py`、新增的`tests/test_session_adapter_async_
+report.py`），`ast.parse`额外确认三个核心文件语法完整。新增
+`tests/test_session_adapter_async_report.py`（5个用例：`ended_at`
+在worker线程真正跑起来之前就已经同步设好、成功时`report`正确挂载、
+`save_session`被正确调用、生成失败时优雅降级为`report=None`且仍然
+`save_session`、`done_event`在worker还没跑完时确实是未设置状态——最后
+这个用例用一个测试自己控制的`threading.Event`卡住mock掉的
+`generate_review_report`，确定性地在worker"跑到一半"这个窗口做断言，
+不依赖真实线程调度的运气），mock掉`generate_review_report`/
+`save_session`，同一套模式沿用自`tests/test_session_adapter_report_
+wiring.py`。和第15/16周一样，`backend.conversation.session_adapter`
+模块本身的真实导入链（`follow_up`等一系列依赖）在我的沙盒里跑不通，
+这个新测试文件需要用户本地真实`pytest`环境验证。历史浏览页和"生成中"
+转圈UI本身的实际观感、`st.rerun()`轮询节奏是否顺畅、后台线程报告生成
+完成后页面是否正确刷新出结果，都需要本地`streamlit run
+frontend/app.py`手动走一次完整流程（结束一次面试观察等待体验，
+再从侧边栏进历史页查看这次和更早的记录）确认。
+
+**状态：** 代码已完成，等待用户本地`pytest tests/`（含新测试文件）+
+`streamlit run frontend/app.py`手动验证后提交合并推送。
+
+**归属：** 对话引擎、报告生成、前端交互、测试基础设施、项目管理。

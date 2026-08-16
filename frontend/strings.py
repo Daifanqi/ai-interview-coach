@@ -95,6 +95,19 @@ STRINGS: dict[str, dict[str, str]] = {
         "report_text_corrections_title": "✏️ 表达纠正建议",
         "report_trend_title": "📈 进步趋势",
         "report_trend_empty_message": "这是你第一次留下面试记录，多来几次就能看到自己的进步曲线啦。",
+        # ---------- Async report generation (post-roadmap, decision #47) ----------
+        # Shown on the interview_ended page while end_interview_async()'s
+        # background worker is still running (see
+        # backend/conversation/session_adapter.py's ReportGenerationHandle).
+        "report_generating_spinner_label": "报告生成中，请稍候…",
+        # ---------- History / past reports page (post-roadmap, decision #47) ----------
+        "history_nav_button": "📋 历史面试记录",
+        "history_page_heading": "历史面试记录",
+        "history_back_button": "← 返回",
+        "history_empty_message": "还没有历史面试记录，去开始你的第一次模拟面试吧。",
+        "history_no_score_label": "未生成报告",
+        "history_view_button": "查看",
+        "history_report_unavailable_message": "这条记录暂时没有可查看的报告。",
         # ---------- Voice input/output (Week 11) ----------
         "interview_audio_label": "或者，录音回答",
         "interview_voice_asr_error": "语音识别失败，可以直接打字回答。",
@@ -227,6 +240,16 @@ STRINGS: dict[str, dict[str, str]] = {
         "report_trend_empty_message": (
             "This is your first recorded interview -- come back after a few more to see your progress trend."
         ),
+        # ---------- Async report generation (post-roadmap, decision #47) ----------
+        "report_generating_spinner_label": "Generating your report…",
+        # ---------- History / past reports page (post-roadmap, decision #47) ----------
+        "history_nav_button": "📋 Interview History",
+        "history_page_heading": "Interview History",
+        "history_back_button": "← Back",
+        "history_empty_message": "No interview history yet -- go start your first mock interview!",
+        "history_no_score_label": "No report",
+        "history_view_button": "View",
+        "history_report_unavailable_message": "No report is available for this session yet.",
         # ---------- Voice input/output (Week 11) ----------
         "interview_audio_label": "Or, record your answer",
         "interview_voice_asr_error": "Speech recognition failed -- feel free to just type your answer instead.",

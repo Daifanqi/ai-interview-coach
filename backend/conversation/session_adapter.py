@@ -43,6 +43,7 @@ from __future__ import annotations
 
 import logging
 import random
+import threading
 import uuid
 from dataclasses import dataclass
 from datetime import datetime
@@ -395,26 +396,19 @@ def submit_round(
     return result, new_progress, False, feedback
 
 
-def end_interview(interview_session: InterviewSession) -> None:
+def _generate_and_save_report(interview_session: InterviewSession) -> None:
     """
-    Mark the interview as ended, generate its review report, and persist
-    both. Both end triggers (decision #3's MAX_TOPICS cutoff and the
-    candidate's manual "end interview" button) funnel through this single
-    call.
-
-    Week 15 (decision #44): generate_review_report() (week 13, decision
-    #42) is wired in here -- decision #42 deliberately deferred that wiring
-    until there was a report page to consume it; frontend/app.py's
-    render_interview_ended_page() is that page now. Wrapped in try/except
-    so a scoring/highlight-pick failure degrades to interview_session.report
-    staying None (the interview itself still ends and saves correctly) --
-    the same "optional enhancement never takes down the core flow" rule
-    this project already applies to TTS/ASR/realtime feedback, extended
-    here even though report generation isn't really "optional" from the
+    Shared tail for end_interview() and end_interview_async() (decision
+    #47): score the session, attach the report, and persist -- wrapped in
+    try/except so a scoring/highlight-pick failure degrades to
+    interview_session.report staying None (the interview itself still ends
+    and saves correctly) rather than losing the session entirely. Same
+    "optional enhancement never takes down the core flow" rule this
+    project already applies to TTS/ASR/realtime feedback, extended here
+    even though report generation isn't really "optional" from the
     candidate's point of view, because by the time this runs the interview
     is already over and there is nothing left to protect except this save.
     """
-    interview_session.ended_at = datetime.utcnow()
     try:
         interview_session.report = generate_review_report(interview_session)
     except Exception:
@@ -424,3 +418,103 @@ def end_interview(interview_session: InterviewSession) -> None:
         )
         interview_session.report = None
     save_session(interview_session)
+
+
+def end_interview(interview_session: InterviewSession) -> None:
+    """
+    Mark the interview as ended, generate its review report, and persist
+    both -- synchronously, blocking the caller until scoring finishes. Both
+    end triggers (decision #3's MAX_TOPICS cutoff and the candidate's
+    manual "end interview" button) funnel through this single call.
+
+    Week 15 (decision #44): generate_review_report() (week 13, decision
+    #42) is wired in here -- decision #42 deliberately deferred that wiring
+    until there was a report page to consume it; frontend/app.py's
+    render_interview_ended_page() is that page now.
+
+    Post-roadmap (decision #47): frontend/app.py's own two call sites now
+    use end_interview_async() below instead, so the "结束面试" click
+    doesn't block on a real Groq call + embedding scoring. This sync
+    version is kept as-is (same signature and behavior as before) for
+    scripts/smoke_test_week12.py and tests/test_session_adapter_report_
+    wiring.py, and as the simpler building block a caller that genuinely
+    wants to block until the report is ready can still reach for.
+    """
+    interview_session.ended_at = datetime.utcnow()
+    _generate_and_save_report(interview_session)
+
+
+@dataclass
+class ReportGenerationHandle:
+    """
+    Returned by end_interview_async() so a caller can check/wait on
+    whether the background report-generation worker has finished, without
+    end_interview_async() itself blocking to find out (decision #47).
+
+    done_event is the primary contract: it starts unset, and is set (via a
+    `finally` in the worker) once interview_session.report has been
+    assigned -- successfully or as None on a degraded failure -- and
+    save_session() has run. A caller must not trust interview_session.report
+    until done_event.is_set() (or a .wait() on it returns True); reading it
+    earlier just means "still generating, not a real answer yet".
+
+    thread is kept mainly for tests/introspection (e.g. joining it
+    directly) -- everyday callers should prefer done_event, which composes
+    more naturally with Streamlit's rerun-and-poll model (see
+    frontend/app.py's render_interview_ended_page()) than a raw Thread.
+    """
+
+    done_event: threading.Event
+    thread: threading.Thread
+
+
+def end_interview_async(interview_session: InterviewSession) -> ReportGenerationHandle:
+    """
+    Non-blocking twin of end_interview() (decision #47, post-roadmap
+    "报告生成异步化" backlog item -- decision #44/#45 flagged the
+    synchronous report call as a known limitation: "面试结束的那一次点击
+    会有明显的等待感", since it does one real Groq call plus local
+    embedding scoring before the candidate sees anything).
+
+    Marks the interview ended *immediately*, on the calling thread -- so a
+    caller can leave the interview page right away -- then runs
+    _generate_and_save_report() (the scoring + save_session() work) on a
+    background daemon thread instead of blocking this call.
+
+    Streamlit reruns the whole script on every interaction, but
+    st.session_state (and anything reachable from it, like
+    interview_session itself) persists across reruns within one browser
+    session -- so the background thread mutating interview_session.report
+    in place is safely visible to a later rerun's script run once it
+    checks the returned handle's done_event, no extra plumbing needed. The
+    GIL makes the single `interview_session.report = ...` assignment in
+    the worker safe to read from the main thread without a lock; done_event
+    is what makes that read happen at the right *time* (only after the
+    assignment), not what makes the assignment itself thread-safe.
+
+    save_session() only touches this session's own SQLite row (see
+    backend/storage/db.py), so a slow report-generation call never blocks
+    the rest of the app for this or any other concurrent user/session.
+    """
+    interview_session.ended_at = datetime.utcnow()
+    done_event = threading.Event()
+
+    def _worker() -> None:
+        try:
+            _generate_and_save_report(interview_session)
+        finally:
+            # In a `finally` (not just at the end of the try body) so a
+            # truly unexpected exception inside _generate_and_save_report()
+            # itself (it already catches the scoring/highlight-pick case
+            # internally -- this covers anything outside that, e.g.
+            # save_session() raising) still unblocks any caller waiting on
+            # done_event, rather than leaving them waiting forever.
+            done_event.set()
+
+    thread = threading.Thread(
+        target=_worker,
+        daemon=True,
+        name=f"report-gen-{interview_session.session_id[:8]}",
+    )
+    thread.start()
+    return ReportGenerationHandle(done_event=done_event, thread=thread)
